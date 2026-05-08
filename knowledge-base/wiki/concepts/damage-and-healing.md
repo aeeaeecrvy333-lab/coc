@@ -119,11 +119,14 @@
 - 医学：至少1小时，回复1D3点HP；当天未治疗则需困难成功
 - 重伤恢复：每周体质检定，成功1D3，极限成功2D3并擦除重伤标记
 
+如果你想按玩家视角快速理解“打起来后怎么受伤、倒地、抢救和恢复”，详见 [[combat-and-injury-guide.md]]；想看桌边版速查，见 [[player-quick-reference.md]]。
+
 ---
 
 ## 相关概念
 
 - [[combat-system.md]]
+- [[combat-and-injury-guide.md]]
 - [[melee-combat.md]]
 - [[ranged-combat.md]]
 - [[poison.md]]

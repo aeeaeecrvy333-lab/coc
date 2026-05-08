@@ -90,12 +90,16 @@
 - 习惯恐惧机制：对同种怪物累计损失达到上限后暂时免疫，但幕间成长阶段上限减少 1 点。
 - 神话淬炼：克苏鲁神话技能超过理智值时，所有理智损失减半（永久）。
 
+如果你想按玩家视角把“理智值、理智检定、疯狂、恢复”串起来看，详见 [[sanity-and-recovery-guide.md]]；想先看桌边版速查，见 [[player-quick-reference.md]]。
+
 ---
 
 ## 相关概念
 
 - [[sanity-check.md]]
 - [[insanity.md]]
+- [[sanity-and-recovery-guide.md]]
+- [[player-quick-reference.md]]
 - [[phobia.md]]
 - [[mania.md]]
 - [[sanity-recovery.md]]

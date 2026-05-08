@@ -1,15 +1,43 @@
 # COC 知识库索引
 
-> 最后更新: 2026-04-14
-> 总页面数: 260
-> 来源数: 4
-> 状态: ✅ 全部内容已填充完成
+> 最后更新: 2026-05-08
+> Markdown页面数: 291
+> 来源数: 5
+> 状态: ⚠️ 已修正主要提取缺漏，仍有少量来源待考证条目
 
 ---
 
 ## 概览
 
-本知识库基于 Karpathy 的 LLM Wiki 模式构建，专注于 **克苏鲁的呼唤（Call of Cthulhu）第七版** TRPG 规则体系。来源为《克苏鲁的呼唤 40周年纪念版》规则书（470页）、《克苏鲁的呼唤第七版调查员手册》（162页）、《怪物之锤 第一卷：神话怪物》（210页）、《怪物之锤 第二卷：神话神祇》（258页）。
+本知识库基于 Karpathy 的 LLM Wiki 模式构建，专注于 **克苏鲁的呼唤（Call of Cthulhu）第七版** TRPG 规则体系。当前已摄入的主要来源包括《克苏鲁的呼唤 40周年纪念版》规则书（470页）、《克苏鲁的呼唤第七版调查员手册》（162页）、《怪物之锤 第一卷：神话怪物》（210页）、《怪物之锤 第二卷：神话神祇》（258页），以及《COC 入门套装第三卷：新手模组》（49页，且本地 PDF 为部分残缺版本）。
+
+---
+
+## 玩家入口
+
+> 面向第一次读 wiki 的玩家，建议先从这些导航页进入；最顺手的顺序通常是 建卡 -> 幸运 -> 理智 -> 战斗 -> 追逐
+
+| 页面 | 摘要 | 状态 |
+|------|------|------|
+| [investigator-start-guide](concepts/investigator-start-guide.md) | 调查员建卡与开局玩家指南 | ✅ |
+| [player-quick-reference](concepts/player-quick-reference.md) | 桌边速查：掷骰、幸运、理智、战斗、追逐 | ✅ |
+| [luck-and-spending-luck](concepts/luck-and-spending-luck.md) | 幸运检定与花费幸运值 | ✅ |
+| [sanity-and-recovery-guide](concepts/sanity-and-recovery-guide.md) | 理智、疯狂与恢复玩家指南 | ✅ |
+| [combat-and-injury-guide](concepts/combat-and-injury-guide.md) | 战斗、受伤与抢救玩家指南 | ✅ |
+| [chase-guide](concepts/chase-guide.md) | 追逐玩家指南 | ✅ |
+
+### 建卡辅助
+
+> 如果你正在填角色卡，这几页最常作为开局指南的补充
+
+| 页面 | 摘要 | 状态 |
+|------|------|------|
+| [attribute-system](concepts/attribute-system.md) | 八大属性系统 | ✅ |
+| [derived-attributes](concepts/derived-attributes.md) | HP / MP / SAN / MOV / 伤害加值 / 体格 | ✅ |
+| [occupation-system](concepts/occupation-system.md) | 职业、本职技能点与信用评级 | ✅ |
+| [skill-system](concepts/skill-system.md) | 技能列表、专攻与技能值手感 | ✅ |
+| [half-and-fifth-values](concepts/half-and-fifth-values.md) | 半值与五分之一值 | ✅ |
+| [experience-reward](concepts/experience-reward.md) | 成长标记与幕间成长 | ✅ |
 
 ---
 
@@ -28,17 +56,22 @@
 | 页面 | 摘要 | 状态 |
 |------|------|------|
 | [investigator-creation](concepts/investigator-creation.md) | 调查员创建流程 | ✅ |
+| [investigator-start-guide](concepts/investigator-start-guide.md) | 调查员建卡与开局玩家指南 | ✅ |
 | [attribute-system](concepts/attribute-system.md) | 八大属性系统 | ✅ |
 | [derived-attributes](concepts/derived-attributes.md) | 衍生属性（HP/MP/SAN/耐力） | ✅ |
 | [half-and-fifth-values](concepts/half-and-fifth-values.md) | 半值与五分之一值 | ✅ |
 | [occupation-system](concepts/occupation-system.md) | 职业系统 | ✅ |
 | [skill-system](concepts/skill-system.md) | 技能系统完整列表 | ✅ |
 | [experience-reward](concepts/experience-reward.md) | 经验奖励与成长 | ✅ |
+| [climb](concepts/climb.md) | 攀爬技能 | ✅ |
+| [computer-use](concepts/computer-use.md) | 计算机使用技能（现代） | ✅ |
 
 ### 🎯 游戏机制
 | 页面 | 摘要 | 状态 |
 |------|------|------|
 | [skill-check](concepts/skill-check.md) | 技能检定核心机制 | ✅ |
+| [player-quick-reference](concepts/player-quick-reference.md) | 玩家桌边速查 | ✅ |
+| [luck-and-spending-luck](concepts/luck-and-spending-luck.md) | 幸运检定与花费幸运值 | ✅ |
 | [bonus-penalty-dice](concepts/bonus-penalty-dice.md) | 奖励骰与惩罚骰 | ✅ |
 | [opposed-rolls](concepts/opposed-rolls.md) | 对抗检定 | ✅ |
 
@@ -46,6 +79,7 @@
 | 页面                                                   | 摘要        | 状态  |
 | ---------------------------------------------------- | --------- | --- |
 | [combat-system](concepts/combat-system.md)           | 战斗系统总览    | ✅   |
+| [combat-and-injury-guide](concepts/combat-and-injury-guide.md) | 战斗、受伤与抢救玩家指南 | ✅   |
 | [combat-round](concepts/combat-round.md)             | 战斗轮流程     | ✅   |
 | [melee-combat](concepts/melee-combat.md)             | 持械格斗      | ✅   |
 | [combat-maneuvers](concepts/combat-maneuvers.md)     | 战技（非武器格斗） | ✅   |
@@ -57,6 +91,7 @@
 ### 🏃 追逐
 | 页面 | 摘要 | 状态 |
 |------|------|------|
+| [chase-guide](concepts/chase-guide.md) | 追逐玩家指南 | ✅ |
 | [chase-rules](concepts/chase-rules.md) | 追逐规则 | ✅ |
 
 ### 🧠 理智
@@ -65,6 +100,7 @@
 | [sanity-system](concepts/sanity-system.md) | 理智系统总览 | ✅ |
 | [sanity-check](concepts/sanity-check.md) | 理智检定 | ✅ |
 | [insanity](concepts/insanity.md) | 疯狂（即时/长期） | ✅ |
+| [sanity-and-recovery-guide](concepts/sanity-and-recovery-guide.md) | 理智、疯狂与恢复玩家指南 | ✅ |
 | [phobia](concepts/phobia.md) | 恐惧症 | ✅ |
 | [mania](concepts/mania.md) | 躁狂症 | ✅ |
 | [sanity-recovery](concepts/sanity-recovery.md) | 疯狂的治疗与恢复 | ✅ |
@@ -82,8 +118,12 @@
 ### 🎭 守秘人
 | 页面 | 摘要 | 状态 |
 |------|------|------|
+| [keeper-start-guide](concepts/keeper-start-guide.md) | 守秘人开局与主持阅读导航 | ✅ |
 | [keeper-guide](concepts/keeper-guide.md) | 守秘人指南总览 | ✅ |
 | [npc](concepts/npc.md) | 非玩家角色 | ✅ |
+| [social-conflict](concepts/social-conflict.md) | 言语交锋与社交裁定 | ✅ |
+| [keeper-pacing](concepts/keeper-pacing.md) | 守秘人节奏控制 | ✅ |
+| [keeper-information-and-handouts](concepts/keeper-information-and-handouts.md) | 传达信息与展示材料 | ✅ |
 | [idea-check](concepts/idea-check.md) | 灵感检定 | ✅ |
 | [spot-hidden-check](concepts/spot-hidden-check.md) | 察觉检定 | ✅ |
 | [module-creation](concepts/module-creation.md) | 创作模组 | ✅ |
@@ -112,7 +152,10 @@
 | [version-conversion](concepts/version-conversion.md) | 转换到第七版规则 | ✅ |
 | [translation-glossary](concepts/translation-glossary.md) | 中英译名对照表 | ✅ |
 | [lovecraft-vocabulary](concepts/lovecraft-vocabulary.md) | 洛氏描写词汇表（400+词） | ✅ |
+| [mythos-pronunciation](concepts/mythos-pronunciation.md) | 神话怪物与神祇名称发音表 | ✅ |
+| [keeper-reference-cards](concepts/keeper-reference-cards.md) | 主持人用怪物卡与仆从卡说明 | ✅ |
 | [llm-wiki](concepts/llm-wiki.md) | LLM Wiki知识库模式 | ✅ |
+| [rules-summary](concepts/rules-summary.md) | 第十六章规则摘要速查 | ✅ |
 
 ---
 
@@ -203,6 +246,8 @@
 | [zathog](entities/zathog.md)                     | 旧日支配者 | ✅   |
 | [spawn-of-zathog](entities/spawn-of-zathog.md)   | 神话怪物  | ✅   |
 | [zhar-and-lloigor](entities/zhar-and-lloigor.md) | 旧日支配者 | ✅   |
+| [ghizguth](entities/ghizguth.md)                 | 旧日支配者 | ✅   |
+| [rlim-shaikorth](entities/rlim-shaikorth.md)     | 旧日支配者 | ✅   |
 
 ### 👾 神话种族
 | 页面 | 类型 | 状态 |
@@ -217,7 +262,6 @@
 | [yithian](entities/yithian.md) | 神话种族 | ✅ |
 | [loigar](entities/loigar.md) | 神话种族 | ✅ |
 | [yugg](entities/yugg.md) | 神话种族 | ✅ |
-| [yuggya](entities/yuggya.md) | 神话怪物 | ✅ |
 | [formless-spawn](entities/formless-spawn.md) | 神话种族 | ✅ |
 | [inhabitants-of-lgyhx](entities/inhabitants-of-lgyhx.md) | 神话种族 | ✅ |
 | [people-of-kn-yan](entities/people-of-kn-yan.md) | 神话种族 | ✅ |
@@ -225,7 +269,6 @@
 | [gofnn-hupadgh-shub-niggurath](entities/gofnn-hupadgh-shub-niggurath.md) | 神话种族 | ✅ |
 | [tcho-tcho](entities/tcho-tcho.md) | 神话种族 | ✅ |
 | [voormi](entities/voormi.md) | 神话种族 | ✅ |
-| [dhole-earth](entities/dhole-earth.md) | 神话种族 | ✅ |
 | [people-of-yaddith](entities/people-of-yaddith.md) | 神话种族 | ✅ |
 
 ### 🐛 神话怪物
@@ -239,7 +282,6 @@
 | [hounds-of-tindalos](entities/hounds-of-tindalos.md) | 神话怪物 | ✅ |
 | [star-vampire](entities/star-vampire.md) | 神话怪物 | ✅ |
 | [rat-thing](entities/rat-thing.md) | 神话怪物 | ✅ |
-| [bloodworm](entities/bloodworm.md) | 神话怪物 | ✅ |
 | [cthughan](entities/cthughan.md) | 神话怪物 | ✅ |
 | [dimensional-shambler](entities/dimensional-shambler.md) | 神话怪物 | ✅ |
 | [fire-vampire](entities/fire-vampire.md) | 神话怪物 | ✅ |
@@ -248,7 +290,6 @@
 | [hunting-horror](entities/hunting-horror.md) | 神话怪物 | ✅ |
 | [nightgaunt](entities/nightgaunt.md) | 神话怪物 | ✅ |
 | [star-intelligence](entities/star-intelligence.md) | 神话怪物 | ✅ |
-| [star-worm](entities/star-worm.md) | 神话怪物 | ✅ |
 | [nofer-kee](entities/nofer-kee.md) | 神话怪物 | ✅ |
 | [sand-dweller](entities/sand-dweller.md) | 神话怪物 | ✅ |
 | [shantak-bird](entities/shantak-bird.md) | 神话怪物 | ✅ |
@@ -290,14 +331,12 @@
 | [tindalosian-hybrid](entities/tindalosian-hybrid.md) | 神话怪物 | ✅ |
 | [tindalos-tyrant](entities/tindalos-tyrant.md) | 神话怪物 | ✅ |
 | [umr-at-tawil](entities/umr-at-tawil.md) | 神话怪物 | ✅ |
-| [star-spawn](entities/star-spawn.md) | 神话怪物 | ✅ |
 | [child-of-the-sphinx](entities/child-of-the-sphinx.md) | 神话怪物 | ✅ |
 | [spectre-hunter](entities/spectre-hunter.md) | 神话怪物 | ✅ |
 | [space-eater](entities/space-eater.md) | 神话怪物 | ✅ |
 | [shan-insect-from-shaggai](entities/shan-insect-from-shaggai.md) | 神话怪物 | ✅ |
 | [shaggai-hybrid](entities/shaggai-hybrid.md) | 神话怪物 | ✅ |
 | [slor-dwellers](entities/slor-dwellers.md) | 神话怪物 | ✅ |
-| [titus-terence](entities/titus-terence.md) | 神话怪物 | ✅ |
 | [reanimator](entities/reanimator.md) | 神话怪物 | ✅ |
 | [petsuchos](entities/petsuchos.md) | 神话怪物 | ✅ |
 | [servitor-of-the-outer-gods](entities/servitor-of-the-outer-gods.md) | 神话怪物 | ✅ |
@@ -305,15 +344,15 @@
 | [foster-child-of-the-old-gods](entities/foster-child-of-the-old-gods.md) | 神话怪物 | ✅ |
 | [spawn-of-nyogtha](entities/spawn-of-nyogtha.md) | 神话怪物 | ✅ |
 | [nython-ghuli](entities/nython-ghuli.md) | 神话怪物 | ✅ |
-| [nyth-kell](entities/nyth-kell.md) | 神话怪物 | ✅ |
+| [nyos-kegai](entities/nyos-kegai.md) | 神话怪物 | ✅ |
 | [bhole](entities/bhole.md) | 神话怪物 | ✅ |
-| [dhole](entities/dhole.md) | 神话怪物 | ✅ |
 | [brothers-of-chaugnar-faugn](entities/brothers-of-chaugnar-faugn.md) | 神话怪物 | ✅ |
 | [crawler](entities/crawler.md) | 神话怪物 | ✅ |
 | [chakota](entities/chakota.md) | 神话怪物 | ✅ |
 | [witherer](entities/witherer.md) | 神话怪物 | ✅ |
 | [daughter-of-atlach-nacha](entities/daughter-of-atlach-nacha.md) | 神话怪物 | ✅ |
 | [zu-che-quon](entities/zu-che-quon.md) | 神话怪物 | ✅ |
+| [serpent-people-degenerate](entities/serpent-people-degenerate.md) | 神话怪物 | ✅ |
 
 ### 👻 传统恐怖怪物
 | 页面 | 类型 | 状态 |
@@ -333,6 +372,7 @@
 | [golem](entities/golem.md) | 民俗怪物 | ✅ |
 | [jersey-devil](entities/jersey-devil.md) | 民俗怪物 | ✅ |
 | [man-eating-plant](entities/man-eating-plant.md) | 民俗怪物 | ✅ |
+| [invisible-horse](entities/invisible-horse.md) | 民俗怪物 | ✅ |
 
 ### 🦁 野兽
 | 页面 | 类型 | 状态 |
@@ -344,6 +384,7 @@
 | [bigfoot-sasquatch](entities/bigfoot-sasquatch.md) | 野兽 | ✅ |
 | [bird](entities/bird.md) | 野兽 | ✅ |
 | [camel](entities/camel.md) | 野兽 | ✅ |
+| [cat](entities/cat.md) | 野兽 | ✅ |
 | [dog](entities/dog.md) | 野兽 | ✅ |
 | [giant-octopus](entities/giant-octopus.md) | 野兽 | ✅ |
 | [gorilla](entities/gorilla.md) | 野兽 | ✅ |
@@ -370,6 +411,9 @@
 | [module-dark-woods](entities/module-dark-woods.md) | 入门模组 | ✅ |
 | [module-crimson-letters](entities/module-crimson-letters.md) | 模组 | ✅ |
 | [module-haunted](entities/module-haunted.md) | 模组 | ✅ |
+| [module-paper-chase](entities/module-paper-chase.md) | 入门模组 | ✅ |
+| [module-edge-of-darkness](entities/module-edge-of-darkness.md) | 入门模组 | ⚠️ |
+| [module-dead-man-stomp](entities/module-dead-man-stomp.md) | 入门模组 | ✅ |
 
 ---
 
@@ -381,6 +425,7 @@
 | [coc-investigator-handbook](sources/coc-investigator-handbook.md) | 规则补充 | 2026-04-14 |
 | [malleus-monstrorum-vol1](sources/malleus-monstrorum-vol1.md) | 规则扩展 | 2026-04-14 |
 | [malleus-monstrorum-vol2](sources/malleus-monstrorum-vol2.md) | 规则扩展 | 2026-04-14 |
+| [coc-starter-set-vol3](sources/coc-starter-set-vol3.md) | 模组集 / 入门扩展 | 2026-05-08 |
 
 ---
 
@@ -388,14 +433,21 @@
 
 | 页面 | 主题 | 更新日期 |
 |------|------|----------|
-| (暂无内容，目录已创建) | | |
+| [wiki-repair-tracker](synthesis/wiki-repair-tracker.md) | Wiki 修复问题清单、优先级与执行计划 | 2026-05-06 |
+| [yuggya](synthesis/yuggya.md) | 待核来源占位：Yuggya | 2026-05-06 |
+| [star-worm](synthesis/star-worm.md) | 待核来源占位：Star Worm | 2026-05-06 |
+| [titus-terence](synthesis/titus-terence.md) | 待核来源占位：Titus Terence | 2026-05-06 |
+| [star-spawn](synthesis/star-spawn.md) | 误植排查：重复的 Star-Spawn 条目 | 2026-05-07 |
+| [bloodworm](synthesis/bloodworm.md) | 误植排查：重复的巨噬蠕虫条目 | 2026-05-07 |
+| [dhole](synthesis/dhole.md) | 误植排查：Dhole / Chthonian / Bhole 命名冲突 | 2026-05-07 |
+| [umr-at-tawil](synthesis/umr-at-tawil.md) | 误植排查：Umr At-Tawil / 界外幽鬼 错配页 | 2026-05-07 |
 
 ---
 
 ## 统计
 
-- 概念页面: 53
-- 实体页面: 203
-- 来源摘要: 4
-- 综合分析: 0
-- **总计: 260 页面**
+- 概念页面: 68
+- 实体页面: 208
+- 来源摘要: 5
+- 综合分析: 8
+- **总计: 291 页面**

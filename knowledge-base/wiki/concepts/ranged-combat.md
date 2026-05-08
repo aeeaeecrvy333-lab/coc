@@ -164,6 +164,7 @@
 ## 相关概念
 
 - [[combat-system.md]]
+- [[combat-and-injury-guide.md]]
 - [[damage-and-healing.md]]
 
 ## 相关实体

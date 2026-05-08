@@ -9,6 +9,8 @@
 
 调查员的八大属性：力量、体质、体型、敏捷、灵巧、外貌、智力、意志。八项属性将为调查员创建奠定基础，每项属性都将反映调查员的某一方面。这些数值将决定调查员的相关能力，并为其在游戏中的行动和反应方式提供建议。
 
+如果你是第一次建卡，建议先看 [[investigator-start-guide.md]] 再回来看本页；如果你只是想快速确认 HP、MOV、SAN、伤害加值这些最终会怎么算，直接跳去 [[derived-attributes.md]] 会更快。
+
 ---
 
 ## 详细内容
@@ -187,8 +189,10 @@
 ## 相关概念
 
 - [[investigator-creation.md]]
+- [[investigator-start-guide.md]]
 - [[half-and-fifth-values.md]]
 - [[derived-attributes.md]]
+- [[player-quick-reference.md]]
 
 ## 相关实体
 

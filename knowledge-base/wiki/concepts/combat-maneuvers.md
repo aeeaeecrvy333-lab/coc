@@ -84,6 +84,7 @@
 ## 相关概念
 
 - [[melee-combat.md]]
+- [[combat-and-injury-guide.md]]
 - [[combat-system.md]]
 
 ## 相关实体

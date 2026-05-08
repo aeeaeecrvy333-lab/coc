@@ -9,6 +9,8 @@
 
 由基础属性推导出的 secondary attributes：生命值(HP)、魔法值(MP)、理智值(SAN)、耐力、伤害加值(DB)、体格、移动速度(MOV)和幸运。
 
+这页最适合在建卡快结束时看，用来把属性真正落到角色卡上；如果你是第一次建卡，先看 [[investigator-start-guide.md]]，再回来核对 HP、MOV、DB、SAN 会更顺。
+
 ---
 
 ## 详细内容
@@ -77,7 +79,7 @@
 ### 幸运
 
 - **计算方式：** 投掷 3D6 × 5
-- **说明：** 幸运值用于游戏中各种需要运气的场合。详见第五章：游戏系统。15-19 岁的调查员在决定幸运值时掷骰两次，取较高值。
+- **说明：** 幸运值用于游戏中各种需要运气的场合。详见第五章：游戏系统。15-19 岁的调查员在决定幸运值时掷骰两次，取较高值。关于幸运检定和花费幸运值，详见 [[luck-and-spending-luck.md]]。
 
 ---
 
@@ -95,9 +97,14 @@
 
 ## 相关概念
 
+- [[investigator-start-guide.md]]
+- [[player-quick-reference.md]]
 - [[attribute-system.md]]
 - [[sanity-system.md]]
 - [[damage-and-healing.md]]
+- [[luck-and-spending-luck.md]]
+- [[combat-and-injury-guide.md]]
+- [[chase-guide.md]]
 
 ## 相关实体
 

@@ -9,6 +9,8 @@
 
 第六章：战斗轮、先攻、持械格斗、远程攻击、伤害与治疗
 
+如果你是第一次打架，建议先看 [[combat-and-injury-guide.md]] 建立整体手感；如果上桌时只是临时忘了谁先动、能不能孤注一掷，再回来看本页会很快。
+
 ---
 
 ## 详细内容
@@ -61,6 +63,8 @@
 ## 相关概念
 
 - [[combat-round.md]]
+- [[combat-and-injury-guide.md]]
+- [[player-quick-reference.md]]
 - [[melee-combat.md]]
 - [[ranged-combat.md]]
 - [[damage-and-healing.md]]

@@ -160,6 +160,7 @@
 
 - [[sanity-system.md]]
 - [[sanity-check.md]]
+- [[sanity-and-recovery-guide.md]]
 - [[phobia.md]]
 - [[mania.md]]
 

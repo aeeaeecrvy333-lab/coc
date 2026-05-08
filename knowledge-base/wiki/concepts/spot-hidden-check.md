@@ -9,6 +9,8 @@
 
 发现隐藏线索和物品的检定。在《克苏鲁的呼唤》中，察觉技能主要包括侦查、聆听和心理学三项。如果玩家在察觉技能的检定中成功，他就能发现场景中的一些信息（这被称为线索）。
 
+这页主要面向守秘人如何布置线索；如果你是玩家，只想先知道“找线索该怎么掷、失败后怎么办”，可以先看 [[player-quick-reference.md]] 或 [[skill-check.md]]。
+
 ---
 
 ## 详细内容
@@ -110,7 +112,10 @@
 ## 相关概念
 
 - [[keeper-guide.md]]
+- [[keeper-start-guide.md]]
 - [[skill-check.md]]
+- [[idea-check.md]]
+- [[player-quick-reference.md]]
 
 ## 相关实体
 

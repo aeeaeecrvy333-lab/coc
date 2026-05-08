@@ -9,6 +9,8 @@
 
 1920年代和现代的装备列表、价格、效果。除非另有说明，所有价格均为平均价格，可能随稀缺程度和市场需求变化，守秘人可相应降低或提高价格。
 
+这页主要是查物资和价格，不是第一次上桌的必读规则；如果你是新玩家，先看 [[investigator-start-guide.md]] 和 [[player-quick-reference.md]]，需要具体买什么时再回来翻。
+
 ---
 
 ## 详细内容
@@ -670,6 +672,8 @@
 
 ## 相关概念
 
+- [[investigator-start-guide.md]]
+- [[player-quick-reference.md]]
 - [[weapons.md]]
 - [[combat-system.md]]
 

@@ -9,6 +9,8 @@
 
 范例毒剂的类型、效果和抵抗方式
 
+这页通常是遇到特定毒物时才需要翻；如果你只是想先理解受伤、濒死和治疗流程，建议先看 [[combat-and-injury-guide.md]]，桌边速查可看 [[player-quick-reference.md]]。
+
 ---
 
 ## 详细内容
@@ -73,6 +75,8 @@
 
 ## 相关概念
 
+- [[combat-and-injury-guide.md]]
+- [[player-quick-reference.md]]
 - [[damage-and-healing.md]]
 
 ## 相关实体

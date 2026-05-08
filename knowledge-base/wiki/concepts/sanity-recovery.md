@@ -103,6 +103,8 @@
 
 注意：当前理智值不能超过调查员的最大理智值（99 - 克苏鲁神话技能）。
 
+如果想从玩家角度快速理解“什么时候会疯、疯了之后会怎样、如何自救与恢复”，详见 [[sanity-and-recovery-guide.md]]。如果只是想先确认几条最常用的桌边判断，也可以先看 [[player-quick-reference.md]]。
+
 ---
 
 ### 移除恐惧症和躁狂症
@@ -133,6 +135,7 @@
 
 - [[sanity-system.md]]
 - [[insanity.md]]
+- [[sanity-and-recovery-guide.md]]
 
 ## 相关实体
 

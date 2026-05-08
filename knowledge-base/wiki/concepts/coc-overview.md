@@ -9,6 +9,8 @@
 
 《克苏鲁的呼唤》是一款充满谜团、神秘和恐怖的角色扮演游戏。玩家扮演坚定的调查员，奔波于陌生而危险的场所之间，揭开邪恶的阴谋，并直面来自暗夜的恐怖。本游戏根据霍华德·菲利普·洛夫克拉夫特的著作改编而成，初版发行于1981年，本书为第七版。
 
+如果你是第一次接触 CoC，这页适合拿来建立整体感觉；接下来最顺手的下一站通常是 [[investigator-start-guide.md]]，而上桌时临时卡规则则可以直接去 [[player-quick-reference.md]]。
+
 ---
 
 ## 详细内容
@@ -203,6 +205,8 @@
 ## 相关概念
 
 - [[investigator-creation.md]]
+- [[investigator-start-guide.md]]
+- [[player-quick-reference.md]]
 - [[skill-system.md]]
 - [[skill-check.md|技能检定]]
 - [[sanity-system.md]]

@@ -9,6 +9,8 @@
 
 护甲的防护机制和各类护甲列表
 
+这页适合在战斗里临时查“护甲到底怎么减伤、局部护甲怎么判”时看；如果你想先从玩家视角理解战斗全流程，建议先看 [[combat-and-injury-guide.md]]，桌边速查可看 [[player-quick-reference.md]]。
+
 ---
 
 ## 详细内容
@@ -87,6 +89,8 @@
 
 - [[combat-system.md]]
 - [[damage-and-healing.md]]
+- [[combat-and-injury-guide.md]]
+- [[player-quick-reference.md]]
 
 ## 相关实体
 

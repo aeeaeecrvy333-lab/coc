@@ -9,6 +9,8 @@
 
 第十六章附录中的游戏系统规则摘要，涵盖技能检定、近战、射击、战技等核心规则的快速参考。
 
+如果你只是想在上桌时快速确认“这次该怎么判”，可以先看 [[player-quick-reference.md]]；如果你想按玩家学习路径理解整套规则，可以从 [[investigator-start-guide.md]] 开始。
+
 ---
 
 ## 详细内容
@@ -198,12 +200,18 @@
 
 ## 相关概念
 
+- [[investigator-start-guide.md]]
+- [[player-quick-reference.md]]
 - [[skill-check.md]]
+- [[luck-and-spending-luck.md]]
 - [[bonus-penalty-dice.md]]
 - [[melee-combat.md]]
 - [[ranged-combat.md]]
 - [[combat-maneuvers.md]]
 - [[armor.md]]
+- [[sanity-and-recovery-guide.md]]
+- [[combat-and-injury-guide.md]]
+- [[chase-guide.md]]
 - [[experience-reward.md]]
 
 ## 相关实体

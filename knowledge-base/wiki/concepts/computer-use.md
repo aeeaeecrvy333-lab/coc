@@ -20,6 +20,8 @@ aliases:
 
 这项技能使调查员能够使用多种计算机语言进行编程；检索并分析晦涩的数据；入侵安全系统；探索复杂的网络；或者检测或进行入侵，发现或利用后门程序和病毒。对计算机系统的特殊操作可能需要进行计算机使用检定。
 
+这页是现代技能细项页；如果你是第一次上桌，先看 [[investigator-start-guide.md]]、[[skill-check.md]] 或 [[player-quick-reference.md]]，需要查现代电脑相关裁定时再回来会更顺。
+
 ---
 
 ## 详细内容
@@ -64,6 +66,8 @@ aliases:
 - [[skill-system.md]]
 - [[skill-check.md]]
 - [[bonus-penalty-dice.md]]
+- [[investigator-start-guide.md]]
+- [[player-quick-reference.md]]
 
 ## 相关来源
 

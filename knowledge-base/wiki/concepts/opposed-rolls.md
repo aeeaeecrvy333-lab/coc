@@ -9,6 +9,8 @@
 
 当两个角色或角色与NPC之间进行对抗时的检定方式，用于玩家间对抗及近战场景。
 
+这页适合在你已经知道基本检定怎么做之后再看；如果你只是第一次上桌卡在“我现在到底要掷什么”，建议先看 [[player-quick-reference.md]] 或 [[skill-check.md]]。
+
 ---
 
 ## 详细内容
@@ -102,8 +104,10 @@
 
 ## 相关概念
 
+- [[player-quick-reference.md]]
 - [[skill-check.md]]
 - [[bonus-penalty-dice.md]]
+- [[combat-and-injury-guide.md]]
 
 ## 相关实体
 

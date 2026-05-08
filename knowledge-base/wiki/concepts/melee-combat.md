@@ -124,6 +124,7 @@
 ## 相关概念
 
 - [[combat-system.md]]
+- [[combat-and-injury-guide.md]]
 - [[combat-maneuvers.md]]
 - [[damage-and-healing.md]]
 

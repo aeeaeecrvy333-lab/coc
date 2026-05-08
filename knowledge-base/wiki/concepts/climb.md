@@ -20,6 +20,8 @@ aliases:
 
 这项技能可以使角色借助或不借助绳索与攀爬工具的情况下，攀登树木、墙壁或其他垂直平面。同时该技能还可用于绳索垂降。
 
+如果你只是想知道攀爬时怎么掷，先看 [[skill-check.md]]；如果你是第一次上桌，建议先从 [[investigator-start-guide.md]] 或 [[player-quick-reference.md]] 进入，再回来查具体技能。
+
 ---
 
 ## 详细内容
@@ -64,6 +66,8 @@ aliases:
 - [[skill-system.md]]
 - [[skill-check.md]]
 - [[bonus-penalty-dice.md]]
+- [[investigator-start-guide.md]]
+- [[player-quick-reference.md]]
 
 ## 相关来源
 

@@ -9,6 +9,8 @@
 
 调查员的职业选择及其提供的技能点和信用评级。职业体现调查员如何谋生，同时反映调查员的专业领域，以此决定他会更擅长哪些技能。在游戏里，调查员职业的实际影响比较有限，它只用来决定调查员的起始技能，并帮助其完善背景。
 
+如果你是第一次建卡，可以先把这页当成“选方向”而不是“精读全表”。更省心的顺序通常是：先看 [[investigator-start-guide.md]] 明白建卡流程，再回来看本页挑职业，最后去 [[skill-system.md]] 查具体技能。
+
 ---
 
 ## 详细内容
@@ -221,7 +223,9 @@
 ## 相关概念
 
 - [[investigator-creation.md]]
+- [[investigator-start-guide.md]]
 - [[skill-system.md]]
+- [[player-quick-reference.md]]
 
 ## 相关实体
 

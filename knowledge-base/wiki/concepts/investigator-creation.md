@@ -386,6 +386,9 @@ KP提供了一些游戏背景，主要内容是一支来自密斯卡托尼克大
 - [[skill-system.md]]
 - [[occupation-system.md]]
 - [[half-and-fifth-values.md]]
+- [[investigator-start-guide.md]]
+- [[player-quick-reference.md]]
+- [[sanity-and-recovery-guide.md]]
 
 ## 相关实体
 

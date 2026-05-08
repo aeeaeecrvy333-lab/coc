@@ -9,6 +9,8 @@
 
 各类武器的详细数据：伤害、射程、攻击次数、malfunction 值。数据来源于《克苏鲁的呼唤》第十六章附录，表17：武器列表（印刷第401-406页）。
 
+这页更像战斗时的参数表；如果你是第一次上桌，建议先看 [[combat-and-injury-guide.md]] 理解战斗流程，再回来看这里查武器数据。
+
 ---
 
 ## 详细内容
@@ -243,6 +245,8 @@
 
 ## 相关概念
 
+- [[combat-and-injury-guide.md]]
+- [[player-quick-reference.md]]
 - [[combat-system.md]]
 - [[ranged-combat.md]]
 - [[melee-combat.md]]

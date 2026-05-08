@@ -9,6 +9,8 @@
 
 奖励骰和惩罚骰的机制和使用场景，主要用于对抗检定中，也可与难度等级配合使用。
 
+如果你是玩家，只想先知道“为什么这次多掷一颗十位骰、到底取高还是取低”，这页就够直接；如果你想从完整检定流程进入，先看 [[skill-check.md]] 会更顺。
+
 ---
 
 ## 详细内容
@@ -85,6 +87,9 @@
 
 - [[skill-check.md]]
 - [[opposed-rolls.md]]
+- [[investigator-start-guide.md]]
+- [[combat-and-injury-guide.md]]
+- [[chase-guide.md]]
 
 ## 相关实体
 

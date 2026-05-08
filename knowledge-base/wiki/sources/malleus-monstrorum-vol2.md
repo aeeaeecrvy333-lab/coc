@@ -15,7 +15,9 @@
 |------|------|-------------|
 | 第一章 | 不可认知：关于克苏鲁神话神祇 | [[../concepts/mythos-deity-guide.md]] |
 | 第二章 | 神话中的神祇（59个条目） | 见 entities/ 目录 |
-| 附录A | 神话名称的发音 | — |
+| 附录A | 神话名称的发音 | [[../concepts/mythos-pronunciation.md]] |
+| 附录B | 主持人用怪物卡 | [[../concepts/keeper-reference-cards.md]] |
+| 附录C | 主持人用仆从卡 | [[../concepts/keeper-reference-cards.md]] |
 
 ## 核心内容
 
@@ -30,6 +32,10 @@
 - 按字母顺序排列的59个神祇条目
 - 每个条目包含：引文、别名、主条目（起源/关联/居所/意旨）、教团、可能的赐福、遭遇、氛围、主要概述（理智损失/法术/能力/典型物理显现）
 - 覆盖了阿撒托斯、克苏鲁、奈亚拉托提普等经典神祇，以及大量扩展神祇
+
+### 附录内容
+- 神话名称发音表：收录神祇与独特存在的名称读法
+- 主持人用怪物卡 / 仆从卡：可复印的空白速查模板，供跑团桌面快速记录神祇和仆从数据
 
 ## 关键数据
 
@@ -50,3 +56,5 @@
 - [[../concepts/cthulhu-mythos.md|克苏鲁神话]] - 神话体系总览
 - [[../concepts/sanity-system.md|理智系统]] - 神祇SAN损失
 - [[../concepts/spells-and-magic.md|魔法系统]] - 神祇法术能力
+- [[../concepts/mythos-pronunciation.md|神话名称发音]] - 神祇名称发音附录
+- [[../concepts/keeper-reference-cards.md|主持人参考卡]] - 神祇与仆从速查卡模板

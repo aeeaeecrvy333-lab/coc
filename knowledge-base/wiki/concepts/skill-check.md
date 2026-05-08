@@ -9,6 +9,8 @@
 
 第五章：技能检定的核心机制，包括成功等级（常规成功、困难成功、极难成功、大成功/大失败）
 
+如果你是第一次从 wiki 进入规则，建议先看 [[investigator-start-guide.md]]；如果上桌时只是卡在“这次到底怎么掷”，再回来看本页会更顺手。
+
 ---
 
 ## 详细内容
@@ -166,6 +168,8 @@
 
 如果守秘人要求进行团体幸运检定，应由该场景内幸运值最低的调查员进行幸运检定。如果不幸的事件即将降临在团队中的某一成员身上，守秘人可以直接询问在场哪位调查员的幸运值最低，让那位调查员遭遇不幸事件。
 
+关于幸运检定、花费幸运值以及战斗中维持清醒的可选规则，详见 [[luck-and-spending-luck.md]]。
+
 ---
 
 ## 核心规则/要点
@@ -183,9 +187,13 @@
 
 ## 相关概念
 
+- [[investigator-start-guide.md]]
 - [[skill-system.md]]
 - [[bonus-penalty-dice.md]]
 - [[opposed-rolls.md]]
+- [[luck-and-spending-luck.md]]
+- [[combat-and-injury-guide.md]]
+- [[chase-guide.md]]
 
 ## 相关实体
 

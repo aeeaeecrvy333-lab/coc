@@ -9,6 +9,8 @@
 
 第四章：技能的完整列表、分类、使用方式和成长机制。技能表示某一确切时代的知识，技能百分比不是设想中所能掌握的知识的比例。一项 50% 的技能便足以使角色从中谋生。游戏中发生的特殊情况会要求守秘人对如何使用技能规则做出判断。
 
+这页适合在你已经知道“技能点怎么分、检定怎么掷”之后再查具体技能；如果你是第一次上桌，建议先看 [[investigator-start-guide.md]]、[[skill-check.md]]，再回来查这里的细项。
+
 ---
 
 ## 详细内容
@@ -161,6 +163,8 @@
 
 - [[skill-check.md]]
 - [[investigator-creation.md]]
+- [[investigator-start-guide.md]]
+- [[player-quick-reference.md]]
 - [[experience-reward.md]]
 - [[climb.md]]
 - [[computer-use.md]]
