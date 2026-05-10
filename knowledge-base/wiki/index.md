@@ -1,15 +1,15 @@
 # COC 知识库索引
 
-> 最后更新: 2026-05-08
-> Markdown页面数: 291
-> 来源数: 5
+> 最后更新: 2026-05-09
+> Markdown页面数: 296
+> 来源数: 6
 > 状态: ⚠️ 已修正主要提取缺漏，仍有少量来源待考证条目
 
 ---
 
 ## 概览
 
-本知识库基于 Karpathy 的 LLM Wiki 模式构建，专注于 **克苏鲁的呼唤（Call of Cthulhu）第七版** TRPG 规则体系。当前已摄入的主要来源包括《克苏鲁的呼唤 40周年纪念版》规则书（470页）、《克苏鲁的呼唤第七版调查员手册》（162页）、《怪物之锤 第一卷：神话怪物》（210页）、《怪物之锤 第二卷：神话神祇》（258页），以及《COC 入门套装第三卷：新手模组》（49页，且本地 PDF 为部分残缺版本）。
+本知识库基于 Karpathy 的 LLM Wiki 模式构建，专注于 **克苏鲁的呼唤（Call of Cthulhu）第七版** TRPG 规则体系。当前已摄入的主要来源包括《克苏鲁的呼唤 40周年纪念版》规则书（470页）、《克苏鲁的呼唤第七版调查员手册》（162页）、《怪物之锤 第一卷：神话怪物》（210页）、《怪物之锤 第二卷：神话神祇》（258页）、《COC 入门套装第一卷：向火独行》（53页），以及《COC 入门套装第三卷：新手模组》（49页，且本地 PDF 为部分残缺版本）。
 
 ---
 
@@ -19,6 +19,7 @@
 
 | 页面 | 摘要 | 状态 |
 |------|------|------|
+| [alone-against-the-flames-player-guide](concepts/alone-against-the-flames-player-guide.md) | 《向火独行》零剧透玩家入口 | ✅ |
 | [investigator-start-guide](concepts/investigator-start-guide.md) | 调查员建卡与开局玩家指南 | ✅ |
 | [player-quick-reference](concepts/player-quick-reference.md) | 桌边速查：掷骰、幸运、理智、战斗、追逐 | ✅ |
 | [luck-and-spending-luck](concepts/luck-and-spending-luck.md) | 幸运检定与花费幸运值 | ✅ |
@@ -55,6 +56,7 @@
 ### 👤 调查员
 | 页面 | 摘要 | 状态 |
 |------|------|------|
+| [alone-against-the-flames-player-guide](concepts/alone-against-the-flames-player-guide.md) | 《向火独行》零剧透玩家入口 | ✅ |
 | [investigator-creation](concepts/investigator-creation.md) | 调查员创建流程 | ✅ |
 | [investigator-start-guide](concepts/investigator-start-guide.md) | 调查员建卡与开局玩家指南 | ✅ |
 | [attribute-system](concepts/attribute-system.md) | 八大属性系统 | ✅ |
@@ -411,6 +413,8 @@
 | [module-dark-woods](entities/module-dark-woods.md) | 入门模组 | ✅ |
 | [module-crimson-letters](entities/module-crimson-letters.md) | 模组 | ✅ |
 | [module-haunted](entities/module-haunted.md) | 模组 | ✅ |
+| [module-alone-against-the-flames](entities/module-alone-against-the-flames.md) | 单人模组 | ✅ |
+| [module-alone-against-the-flames-fulltext](entities/module-alone-against-the-flames-fulltext.md) | 单人模组正文 | ✅ |
 | [module-paper-chase](entities/module-paper-chase.md) | 入门模组 | ✅ |
 | [module-edge-of-darkness](entities/module-edge-of-darkness.md) | 入门模组 | ⚠️ |
 | [module-dead-man-stomp](entities/module-dead-man-stomp.md) | 入门模组 | ✅ |
@@ -425,6 +429,7 @@
 | [coc-investigator-handbook](sources/coc-investigator-handbook.md) | 规则补充 | 2026-04-14 |
 | [malleus-monstrorum-vol1](sources/malleus-monstrorum-vol1.md) | 规则扩展 | 2026-04-14 |
 | [malleus-monstrorum-vol2](sources/malleus-monstrorum-vol2.md) | 规则扩展 | 2026-04-14 |
+| [coc-starter-set-vol1](sources/coc-starter-set-vol1.md) | 单人模组 / 入门引导 | 2026-05-09 |
 | [coc-starter-set-vol3](sources/coc-starter-set-vol3.md) | 模组集 / 入门扩展 | 2026-05-08 |
 
 ---
@@ -447,7 +452,7 @@
 ## 统计
 
 - 概念页面: 68
-- 实体页面: 208
+- 实体页面: 209
 - 来源摘要: 5
 - 综合分析: 8
 - **总计: 291 页面**

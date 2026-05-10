@@ -1401,6 +1401,51 @@
 
 ---
 
+## [2026-05-09] update | 第一卷全文抽出为可点击游玩文本
+
+**操作类型**: update
+**描述**: 用户明确要求不要再依赖 PDF，而是把《向火独行》里实际可玩的文本完整抽出，放进单独文件，并提供能快速定位对应条目的站内链接。因此新增完整正文页，将开场说明与 1-270 条条目全部抽出，统一转成 Markdown，并把所有 `前往[编号]` 处理为可点击的内部跳转；同时把玩家入口、模组页、来源页与索引都改接到这一版正文。
+**影响的文件**:
+- wiki/entities/module-alone-against-the-flames-fulltext.md
+- wiki/concepts/alone-against-the-flames-player-guide.md
+- wiki/entities/module-alone-against-the-flames.md
+- wiki/sources/coc-starter-set-vol1.md
+- wiki/index.md
+- wiki/log.md
+
+**备注**:
+- 这次新增的是“可直接游玩版正文”，不是摘要页
+- 为了方便单人游玩，正文中的所有 `前往[条目号]` 都已改成站内锚点链接
+
+## [2026-05-09] update | 第一卷补成可直接并排使用的玩家入口版
+
+**操作类型**: update
+**描述**: 用户指出仅有来源摘要与模组分析页还不够“能玩”，因此继续把《向火独行》整理成更接近实际游玩体验的 wiki 版。本轮新增零剧透的玩家入口页，专门服务“左边开 PDF、右边开 wiki、边读边记”的使用方式，补入开始前检查、逐条玩法、记录区、阶段目标、规则查阅入口与常见翻车点；同时在模组页与来源页中把这一入口链接接上。
+**影响的文件**:
+- wiki/concepts/alone-against-the-flames-player-guide.md
+- wiki/entities/module-alone-against-the-flames.md
+- wiki/sources/coc-starter-set-vol1.md
+- wiki/index.md
+- wiki/log.md
+
+**备注**:
+- 这一轮仍未重排或重写原始条目正文，实际剧情文本依旧以原 PDF 为准
+- 目标不是替代版权正文，而是让玩家在不被剧透的前提下，更像在用一份“官方游玩面板”来跑这篇单人模组
+
+## [2026-05-09] ingest | 第一卷：向火独行
+
+**操作类型**: ingest
+**描述**: 摄入 `raw/第一卷：向火独行.pdf`。由于这份来源不是传统 KP 用模组，而是单人段落式教学冒险，因此未套用常规模组页写法，而是分别建立来源摘要页与“单人游玩版”模组页：前者说明第一卷在入门套装中的定位，后者按玩家独自游玩需求整理准备方式、条目机制、角色选择、关键地点、隐性跳转、剧透真相与结局类型。
+**影响的文件**:
+- wiki/sources/coc-starter-set-vol1.md
+- wiki/entities/module-alone-against-the-flames.md
+- wiki/index.md
+- wiki/log.md
+
+**备注**:
+- 本轮严格依据本地 PDF 实际内容整理，没有用外部版本补写额外段落或不存在的展示材料
+- 因《向火独行》是单人模组，页面结构有意偏向“玩家自助游玩导航 + 全剧透复盘”，而不是 KP 主持提纲
+
 ## [2026-05-08] fix | 再拉四张概念型高位页，继续压实第二卷主体（iod / tru-nembra / nug-and-yeb / hastalyk）
 
 **操作类型**: 内容修复 + 二次原文对页 + 概念页补厚
@@ -1611,3 +1656,335 @@
 **备注**:
 - 这一批进一步压实了主神派生页最有用的一层：它们在团里到底怎么出现、什么时候最危险、应该放在什么环境里
 - 仍然没有外扩设定，全部内容都来自本地 PDF/OCR 的二次对页
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第五批（foster-child-of-the-old-gods / miri-nigri / spectre-hunter / zu-che-quon）
+
+**操作类型**: 内容修复 + 二次原文对页 + 高价值长尾页补厚
+**描述**: 继续按第二阶段收口清单推进第 5 批 4 页。`foster-child-of-the-old-gods.md` 按第一卷 OCR 补回完全转化后仍残留人形痕迹的躯体描写、神话污染跨代累积的边界，以及寄养儿会梦见祖先接触神祇时刻与神祇意识残响的设定，并明确大多数成年个体通常拥有 `1-2` 项仍会继续增长的特殊能力；`miri-nigri.md` 补回其不只是在主人身边劳作，也会被派往地球绑架祭品、或被创造在特定地点执行邪恶契约任务的定位，并压实“无声、心电感应、成群劳作”的气质；`spectre-hunter.md` 补回其在某些文化里属于荣耀性死后守卫、特殊透镜显形后隐形优势会被抹除，以及“驱逐之吟 + 束缚容器”才是永久消灭路径的线索；`zu-che-quon.md` 则补回南美“王国之子”诅咒传说、其作为文明脚下黑暗倒影的地下城市气味，以及通过掳走孩童持续扩张同类的威胁定位。
+**修复的页面**:
+- entities/foster-child-of-the-old-gods.md（补回转化外观、跨代污染、梦境记忆与能力成长边界）
+- entities/miri-nigri.md（补回掳掠/契约任务定位与群体气质）
+- entities/spectre-hunter.md（补回荣耀性守卫背景、显形裁定与永久驱逐路径）
+- entities/zu-che-quon.md（补回“王国之子”传说、城市地下感与扩张型威胁定位）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第五批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十一批修复记录）
+
+**备注**:
+- 这批不是在修坏页，而是在把 4 张“还停留在旧摘要稿厚度”的高价值长尾页压到和前四批同一完成度
+- 处理完后，剩余高价值清单里最老的一批 `2026-05-06` 高收益候选又往前清掉了一截
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第六批（child-of-ubbo-sathla / brood-of-eihort / star-spawn-of-cthulhu / servants-of-ygolonac）
+
+**操作类型**: 内容修复 + 二次原文对页 + 主神延伸/眷族页补厚
+**描述**: 继续按第二阶段收口清单推进第 6 批 4 页。`child-of-ubbo-sathla.md` 按第一卷 OCR 补回这些子嗣会像鸟在大象身上觅食那样从父体表面捕食寄生虫、乌波-萨斯拉洞窟里每轮可能继续诞下 `1D10` 个后代，以及“有些仅凭饥饿猎食、有些仍受父体精神驱动”的边界；`brood-of-eihort.md` 补回它与“艾霍特的交易”宿主化之间的肉身重塑关系、原文给出的 `APP` 线索，以及集群心智维持伪人形态时几乎所有技能检定都承受惩罚骰的裁定；`star-spawn-of-cthulhu.md` 则基于第一卷与 40 周年 OCR，补回其作为征服地球而来的战争生物定位，以及“五大观测者”这条分布全球、等待拉莱耶崛起的休眠观测网线索；`servants-of-ygolonac.md` 则补回其围绕神祇经历吞噬与重生循环、释放时会有子嗣逃散筑巢的扩散逻辑，并压实“这些仆从其实是伊戈罗纳克言语在人间孔窍”的定位。
+**修复的页面**:
+- entities/child-of-ubbo-sathla.md（补回寄生虫觅食意象、持续诞生尺度与父体精神驱动边界）
+- entities/brood-of-eihort.md（补回宿主化来源感、`APP` 线索与集群思维惩罚裁定）
+- entities/star-spawn-of-cthulhu.md（补回战争生物定位与“五大观测者”全球线索）
+- entities/servants-of-ygolonac.md（补回吞噬/重生循环、逃散筑巢扩散逻辑与“言语孔窍”定位）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第六批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十二批修复记录）
+
+**备注**:
+- 这批同样不是修坏页，而是把 4 张已经成型但仍偏“旧摘要稿”的主神延伸页压到和近期批次一致的完成度
+- 处理完后，高优先级 A 组里原先剩下的 `2026-05-07` 候选已全部清完，后续更适合转向 B 组的高价值主线种族页
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第七批（colour-out-of-space / flying-polyp / elder-things / yithian）
+
+**操作类型**: 内容修复 + 二次原文对页 + 主线种族页补厚
+**描述**: 继续按第二阶段收口清单推进第 7 批 4 页。`colour-out-of-space.md` 按第一卷与 40 周年 OCR 补回其并非单点污染，而像另一套宇宙法则缓慢接管生态的感觉，并补入“地球也许被它当作产卵育房”与米-戈可能主动研究星之彩的两条延伸判断；`flying-polyp.md` 补回其曾在火星、海王星与金星等地建城的边界、留在地球的未知目的，以及把隐形、控风、定身与风暴组合成地点级杀伤系统的遭遇定位；`elder-things.md` 则补回古老者文明的衰亡并非单次崩塌，而是漫长退化、异星战争与修格斯叛乱叠加的过程，并压实“它们带着整套失落科学体系出场”的定位；`yithian.md` 则补回伊斯人本质上是跨宿主延续的文明心智、典型精神交换常持续五年、人类亲友可察觉异常这一调查视角，并补全其物理学与多种人类语言技能侧面。
+**修复的页面**:
+- entities/colour-out-of-space.md（补回生态接管感、“地球育房”判断与米-戈研究线）
+- entities/flying-polyp.md（补回异星建城边界、留地未知目的与地点级杀伤系统定位）
+- entities/elder-things.md（补回漫长衰亡过程与失落科学体系定位）
+- entities/yithian.md（补回跨宿主文明心智、五年交换尺度与人类异常视角）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第七批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十三批修复记录）
+
+**备注**:
+- 这一批不是在修错，而是在把 4 张主线文明/种族页补到“历史纵深、调查钩子、遭遇余波”都更完整的层级
+- 处理完后，B 组里最值得优先推进的四张主线页已经补厚，后续可以更集中转到 `mi-go`、`deep-ones`、`serpent-people`、`people-of-kn-yan`
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第八批（mi-go / deep-ones / serpent-people / people-of-kn-yan）
+
+**操作类型**: 内容修复 + 二次原文对页 + 强联动种族页补厚
+**描述**: 继续按第二阶段收口清单推进第 8 批 4 页。`mi-go.md` 按第一卷与 40 周年 OCR 补回其将地球当作长期经营、持续开采与实验的前哨站感，压实其对人类与离体大脑的工具化视角，并将催眠、光隙与空运抓捕的组合明确为“异星科研抓捕队”式用法；`deep-ones.md` 补回深潜者那种冰冷、傲慢、近乎永生的海底统治者气质、海底都市只言片语式线索，以及它们如何用一开始确实有效的馈赠慢慢收编绝望滨海社群；`serpent-people.md` 则补回蛇人不是单一遗迹怪，而是经历两次文明兴衰后残存下来的整条阴影谱系，并压实其“巫术 + 科技 + 生命操纵”三位一体的文明特征；`people-of-kn-yan.md` 则补回昆扬并非简单衰落，而是在过度发达与无聊中逐渐腐坏的气质，以及其心灵感应、虚体化与裂解射线枪共同组成的病态超文明感。
+**修复的页面**:
+- entities/mi-go.md（补回地球前哨站感、工具化人类视角与抓捕队定位）
+- entities/deep-ones.md（补回海底统治者气质、都市线索与“有效馈赠”收编逻辑）
+- entities/serpent-people.md（补回双重文明兴衰后的阴影谱系与巫术/科技双轨特征）
+- entities/people-of-kn-yan.md（补回“过度发达后腐坏”的气质与病态超文明感）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第八批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十四批修复记录）
+
+**备注**:
+- 这一批的重点不是补数值，而是把“这些文明或种族怎样长期运作、怎样对人类施压”补得更像原文
+- 处理完后，B 组最核心的一批强联动主线种族页基本已经补齐，后续可以转到次一级生态链或地底文明相关页
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第九批（voormi / martense-clan / ghoul / shoggoth）
+
+**操作类型**: 内容修复 + 二次原文对页 + 高价值怪物/种族页补厚
+**描述**: 继续按第二阶段收口清单推进第 9 批 4 页。`voormi.md` 按第一卷 OCR 补回其不只是雪地怪物，而是会为了社群利益协同狩猎、与希帕波利亚寒地废墟紧密相连的史前遗族定位；`martense-clan.md` 补回它作为整支退化家族巢群的危险感、受季节与环境刺激成群外出的特征，以及其作为“曾为人者”地方分支可延伸到现代暗渠传说的用法；`ghoul.md` 补回食尸鬼与人类文明之间那种伴生而腐败的关系，包括灾殃时期的聚食逻辑、地下共同体与食尸鬼教团对社会表层的渗透；`shoggoth.md` 则补回修格斯作为古老者劳工与叛奴的历史位阶、其越来越聪明与越来越会模仿的趋势，以及它更适合作为地点级灾难而非普通战斗遭遇的原文气质。
+**修复的页面**:
+- entities/voormi.md（补回寒地群猎、希帕波利亚遗族感与遗迹遭遇定位）
+- entities/martense-clan.md（补回退化巢群、成群外出逻辑与“曾为人者”谱系延展）
+- entities/ghoul.md（补回地下共同体、社会渗透与灾殃觅食逻辑）
+- entities/shoggoth.md（补回叛奴历史位阶、模仿进化趋势与地点级灾难定位）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第九批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十五批修复记录）
+
+**备注**:
+- 这一批的重点仍然不是补规则数字，而是把怪物在原文里“如何长期存在、怎样出场、为什么不该被当成普通战斗对象”补得更完整
+- 处理完后，前面计划中的第九批四页已经清完，剩余高价值清单继续进入更明显的长尾阶段
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第十批（hunting-horror / cthughan / green-abyss-spawn / dark-crawler）
+
+**操作类型**: 内容修复 + 二次原文对页 + 中优先级长尾页补厚
+**描述**: 继续按第二阶段收口清单推进第 10 批 4 页。`hunting-horror.md` 按第一卷与 40 周年 OCR 补回其不仅是飞行猎食者，更是奈亚拉托提普命令的远距执行者、梦境恐吓者与失控召唤的反噬者；`cthughan.md` 补回蠕行者本质上是在替死去巫师继续未竟的工作，使其更像某场旧仪式延续下来的行动体，而不是随机虫群怪；`green-abyss-spawn.md` 则补回其作为异星深海社会一部分的感觉、特殊星象下的仪式性出场方式，以及催眠之歌让受害者主动走向深海的危险；`dark-crawler.md` 则补回它作为全球地下迁徙巨兽的前兆感、噩梦与记忆抹除式侵扰，以及“房屋先塌、人再失踪”的地下恐怖定位。
+**修复的页面**:
+- entities/hunting-horror.md（补回奈亚使者、梦境追猎与单体高压迫感定位）
+- entities/cthughan.md（补回死巫师意志延续与旧仪式继续执行的定位）
+- entities/green-abyss-spawn.md（补回深海社会、星象仪式与歌声诱导逻辑）
+- entities/dark-crawler.md（补回地下迁徙、前兆式侵扰与记忆抹除恐怖）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第十批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十六批修复记录）
+
+**备注**:
+- 这批的收益点主要在“它们怎么逼近人类、怎么把环境变成威胁”，而不是继续堆战斗说明
+- 处理完后，中优先级里最像主线神话生态延伸页的一小批又清掉了一截
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第十一批（cold-ones / fishers-from-outside / dream-crystal-guardian / child-of-the-sphinx）
+
+**操作类型**: 内容修复 + 二次原文对页 + 中优先级长尾页补厚
+**描述**: 继续按第二阶段收口清单推进第 11 批 4 页。`cold-ones.md` 按第一卷 OCR 补回其作为风雪灾兆、哭嚎先声与寒季据点渗入者的用法，使其不只像冰系幽灵，而更像严寒本身在追猎；`fishers-from-outside.md` 补回空鱼每次显现都要借用并毁坏人脑这一代价，以及它更适合作为需先追查显现路径与宿主来源的维度渗漏，而非普通战斗怪；`dream-crystal-guardian.md` 则补回其作为“越使用梦境结晶器越会被追上”的追索机制，以及受害者被拖走后可能在肉体归来、魂魄未醒的状态下留下后续剧情；`child-of-the-sphinx.md` 则补回斯芬克斯之子作为黑法老守军与秘道警备力量的感觉，以及其被发掘后运往异地、在博物馆或私人收藏中苏醒的延展用法。
+**修复的页面**:
+- entities/cold-ones.md（补回风雪灾兆感、据点渗入与严寒围猎用法）
+- entities/fishers-from-outside.md（补回显现代价、宿主破坏与维度渗漏定位）
+- entities/dream-crystal-guardian.md（补回结晶器追索机制与“失魂归体”后续）
+- entities/child-of-the-sphinx.md（补回黑法老守军逻辑、异地苏醒用法并校正 `STR` 均值）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第十一批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十七批修复记录）
+
+**备注**:
+- 这一批更偏“征兆、代价与余波”，不是补更多打斗层
+- 处理完后，中优先级里与幻梦境、异维入侵、黑法老遗迹强相关的旧摘要页又收掉了一段
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第十二批（dust-dweller / nython-ghuli / nofer-kee / sand-dweller）
+
+**操作类型**: 内容修复 + 二次原文对页 + 中优先级长尾页补厚
+**描述**: 继续按第二阶段收口清单推进第 12 批 4 页。`dust-dweller.md` 按第一卷 OCR 补回其更像被遗忘命令仍在持续执行的失控造物，以及附身之尘带来的梦游、代行与居所污染感；`nython-ghuli.md` 补回尼洪·古力更像潜伏在时空门边的超维寄生者，会被各种跨界行动吸引，也会“搭载”其他跨界存在进入现实；`nofer-kee.md` 则依据 40 周年 OCR 补回它并非稳定显现的类神存在，而是把整片寒地变成猎场的冰原掠食者，用暴风雪与降温先压垮人，再现身逼近；`sand-dweller.md` 则补回潜沙怪作为地下巨巢种族的整体感，以及它们出现在地表往往意味着地质、采矿、法术或宗教活动短暂打开了通往下层世界的路径。
+**修复的页面**:
+- entities/dust-dweller.md（补回失控造物感、附身后续与居所污染感）
+- entities/nython-ghuli.md（补回时空门寄生者定位与跨界搭载逻辑）
+- entities/nofer-kee.md（补回冰原猎场感与气候先压制后逼近的用法）
+- entities/sand-dweller.md（补回地下巢群整体感与地表接通逻辑）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第十二批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十八批修复记录）
+
+**备注**:
+- 这批的重点是把“单只怪物页”重新拉回到它们背后那层环境、巢群或法术后果上
+- 处理完后，中优先级里最早一批 `2026-05-06` 的候选又清掉了一大截
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第十三批（dhol-retainers / bigfoot-sasquatch / nightgaunt / mummy）
+
+**操作类型**: 内容修复 + 二次原文对页 + 中低优先级长尾页补厚
+**描述**: 继续按第二阶段收口清单推进第 13 批 4 页。`dhol-retainers.md` 按第一卷 OCR 补回其真正可怕处在于大多数时候根本不处于人类可感知维度中，往往要先通过被操纵的人、油腻变稠的空气与隐约呻吟感知其逼近；`bigfoot-sasquatch.md` 则补回大脚怪/雪人的价值更多在于荒野边缘的反复目击、脚印、毛发与叫声构成的“永远差半步证实”感，而非正面久战；`nightgaunt.md` 补回夜魇与某些人一生反复纠缠的怪异联系，以及其更像押送、绑走与戏弄猎物的梦境爪牙，而非单纯杀戮怪；`mummy.md` 则补回木乃伊作为有纪律、有目的的神庙与教团守卫定位，并强调它们并不总是迟缓缠布怪，而更像迅速而执拗的不死执法者。
+**修复的页面**:
+- entities/dhol-retainers.md（补回多维潜伏感、傀儡先行与事后污染痕迹）
+- entities/bigfoot-sasquatch.md（补回“差半步证实”的荒野目击感）
+- entities/nightgaunt.md（补回终生纠缠联系与押送/绑走定位）
+- entities/mummy.md（补回守卫/执法者定位与“并不迟缓”的原文修正）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第十三批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第九十九批修复记录）
+
+**备注**:
+- 这一批更偏“该怪物在故事里扮演什么角色”，而不是再往战斗数字里加料
+- 处理完后，当前剩余清单里的 `dhol-retainers` 也正式收口，后续更明显进入长尾抛光段
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第十四批（dimensional-shambler / shantak-bird / chakota / hounds-of-tindalos）
+
+**操作类型**: 内容修复 + 二次原文对页 + 长尾高价值怪物页补厚
+**描述**: 继续按第二阶段收口清单推进第 14 批 4 页。`dimensional-shambler.md` 按第一卷与 40 周年 OCR 补回空鬼最有价值的用途不是单纯杀人，而是把人粗暴拖进别的维度、监牢、星球或空间夹缝，让“被带走之后去了哪”直接变成剧情入口；`shantak-bird.md` 补回夏塔克鸟作为坐骑本身就带着恶意与失控风险，以及它对夜魇的恐惧会让整段航程突然偏离计划；`chakota.md` 则补回它不只是多张脸一起咬人，而是会把每一名受害者都永久陈列在自己身上，因而特别适合作为活祭坛与累积献祭痕迹的守卫；`hounds-of-tindalos.md` 则补回廷达罗斯猎犬更像时间越界后的持续追索机制，一旦被其记住，任何尖角、拐角与房间都可能变成追猎入口。
+**修复的页面**:
+- entities/dimensional-shambler.md（补回异界去向用法与“带走后去哪”剧情价值）
+- entities/shantak-bird.md（补回危险坐骑感、航程失控与对夜魇的恐惧逻辑）
+- entities/chakota.md（补回活祭坛定位与受害者面孔累积展示感）
+- entities/hounds-of-tindalos.md（补回时间越界追猎机制与角落压迫感）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第十四批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第一百批修复记录）
+
+**备注**:
+- 这批的重点在“怪物如何改变故事结构”，尤其是绑走、偏航、追索和留下活证据这几种用法
+- 处理完后，当前这批长尾里最常被直接拿来跑团的四页又往前压实了一层
+
+---
+
+## [2026-05-09] fix | 按剩余高价值清单推进第十五批（ghast / cold-waste-ghoul-hound / rat-thing / ghoul-servant-of-ghlaaki）
+
+**操作类型**: 内容修复 + 二次原文对页 + 长尾怪物页补厚
+**描述**: 继续按第二阶段收口清单推进第 15 批 4 页。`ghast.md` 按第一卷与 40 周年 OCR 补回妖鬼并非普通食尸鬼替代品，而是更深地底、更猛兽化、对地下网络极熟悉的猎手分支；`cold-waste-ghoul-hound.md` 补回冷原食尸猎犬最可怕之处在于它会把盗掘、触犯墓地禁忌后的报复拖进接下来数夜里，让嚎叫、追踪与幻象跨场景延续；`rat-thing.md` 则补回人面鼠作为使魔、探子与屋内持续不安源的用法，比起正面战斗更适合承担偷钥匙、传话、窥视与半夜扑袭；`ghoul-servant-of-ghlaaki.md` 则补回格拉基之仆并非单只活尸，而更像格拉基延伸到人类社会中的长期不死外勤网络，兼具渗透、接应、转运与看守功能。
+**修复的页面**:
+- entities/ghast.md（补回更深地底猎手感与食尸谱系分支定位）
+- entities/cold-waste-ghoul-hound.md（补回墓饰触发的跨夜追索感与审判意味）
+- entities/rat-thing.md（补回使魔/探子定位与屋内持续不安感）
+- entities/ghoul-servant-of-ghlaaki.md（补回格拉基不死外勤网络感与双阶段渗透逻辑）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（把第十五批 4 页标记为已处理）
+- wiki/synthesis/wiki-repair-tracker.md（同步第一百零一批修复记录）
+
+**备注**:
+- 这一批主要是在压实“墓地、地下与教团边缘生态链”这一组怪物之间的分工感
+- 处理完后，这条和食尸/不死相关的长尾支线也更接近收口
+
+---
+
+## [2026-05-09] fix | 传统恐怖怪物页第二轮压实（ghost / zombie / skeleton / vampire）
+
+**操作类型**: 内容修复 + 二次原文对页 + 经典怪物页补厚
+**描述**: 继续补强一组经典传统恐怖怪物页。`ghost.md` 按第一卷 OCR 补回幽灵最适合承担的是围绕锚点、死因与执念逐步展开的调查型恐怖，而不是单次跳脸；`zombie.md` 补回僵尸作为低意志执行体的持续劳作、围堵与消耗定位，并把民俗克制手段重新放回追逐与延命场景里；`skeleton.md` 则补回骷髅与僵尸不同，更偏向秩序化、持械化的不死守卫，会像旧时代防线一样重复巡逻与把守；`vampire.md` 则补回吸血鬼真正危险之处在于它经营供血关系、安息之所与社会伪装，是长期夜行掠食者而非只会突然咬人的怪物。
+**修复的页面**:
+- entities/ghost.md（补回锚点式调查框架与“回应调查方式”的恐怖用法）
+- entities/zombie.md（补回低意志执行体定位与民俗克制在追逐场景中的价值）
+- entities/skeleton.md（补回秩序化守卫定位与遗迹防线感）
+- entities/vampire.md（补回供血网络、安息之所与长期社会伪装逻辑）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（追加第十六批完成记录）
+- wiki/synthesis/wiki-repair-tracker.md（补录第一百零一批并同步第一百零二批修复记录）
+
+**备注**:
+- 这批的重点是把经典怪物从“玩家一眼认识”推进到“守秘人能直接拿来组织场景压力”
+- 处理完后，一组最常见也最容易写得过于概述化的传统恐怖页又往前压实了一层
+
+---
+
+## [2026-05-09] chore | 建立 wiki 修复完成标准与停止规则
+
+**操作类型**: 规则收口 + 流程约束 + 台账同步
+**描述**: 用户明确要求先定义“什么算完成、什么时候该停”，因此本次不再继续批量补写实体页，而是新增 [wiki-completion-criteria.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-completion-criteria.md)，把后续 wiki 工作的判断标准固定下来。该文件明确区分了单页完成标准、不同页面类型的厚度上限、允许继续补写的条件、必须停止的条件、批次级停止标准，以及全库第二阶段的正式收口条件。核心目的不是阻止必要修复，而是避免在“还能再补一点”的惯性下进入无止境抛光。
+**修复的页面**:
+- wiki/synthesis/wiki-completion-criteria.md（新增正式完成标准、停止标准与执行规则）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（补入新规则文档引用，并声明触发停止标准后应停止批量推进）
+- wiki/synthesis/wiki-repair-tracker.md（在当前结论总览中挂接新规则，明确后续不再仅凭体感继续补写）
+
+**备注**:
+- 从这一条开始，后续是否继续修某页，要先过“单页完成标准 + 批次级停止标准”两道判断
+- 这样后面即使继续推进，也会有清晰收口点，而不是无限补厚
+
+---
+
+## [2026-05-09] chore | 第二阶段高价值补厚清单正式收口
+
+**操作类型**: 阶段复核 + 收口确认 + 台账同步
+**描述**: 按刚建立的 [wiki-completion-criteria.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-completion-criteria.md) 回头复核第二阶段清单，确认 [wiki-remaining-high-value-pages.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-remaining-high-value-pages.md) 中的 `高优先级` 与 `中优先级` 页面现已全部标记为已处理，剩余候选基本都落在普通动物、人物、书籍与模组辅助页，不再满足“默认继续第二轮压实”的条件。因此，本次不再额外开第十七批补写，而是正式把第二阶段批量补厚模式收口，后续默认只做定点错误修复、用户点名页复核，或等待新增来源后再开启新阶段。
+**修复的页面**:
+- wiki/synthesis/wiki-remaining-high-value-pages.md（状态改为“第二阶段已收口”，并写明不再继续按本清单批量推进）
+- wiki/synthesis/wiki-repair-tracker.md（同步当前默认结论，明确第二阶段批量补厚模式已结束）
+
+**备注**:
+- 这一步的意义不是“整个 wiki 全部完成”，而是“第二阶段这套高价值连续补厚工作已经到头”
+- 后面如果继续动，应当是定点修复，而不是再凭惯性往长尾页一批批推进
+
+---
+
+## [2026-05-09] chore | 低优先级长尾页处置状态明确化
+
+**操作类型**: 清单收束 + 状态显式化 + 台账同步
+**描述**: 在确认第二阶段高价值补厚主线已经收口后，继续把 [wiki-remaining-high-value-pages.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-remaining-high-value-pages.md) 的 `低优先级` 区从普通项目符号改成明确处置表，逐项标明这些页面为何不再进入连续补厚，以及其默认处置统一为“默认不继续”。这样后续再看到 `cat.md`、`camel.md`、`abdul-alhazred.md`、`module-haunted.md` 这类名字时，不会再把它们误当作下一批待施工页，而会优先理解为仅在定点修错、用户点名或新增来源出现时才重新开启。
+**修复的页面**:
+- wiki/synthesis/wiki-remaining-high-value-pages.md（将低优先级页改写为明确处置表，并补入“低优先级执行规则”）
+- wiki/synthesis/wiki-repair-tracker.md（同步“低优先级长尾页默认不继续”的当前结论）
+
+**备注**:
+- 这一步不是在否定这些页面以后永远不能动，而是在把默认状态从“悬而未决”改成“明确不推进”
+- 这样收口以后，后续 backlog 会干净很多，不会再因为列表上还挂着名字就产生继续批量推进的惯性
+
+---
+
+## [2026-05-09] fix | 低优先级定点复核（necronomicon / abdul-alhazred）
+
+**操作类型**: 定点复核 + 边界压实 + 长尾页小修
+**描述**: 在第二阶段主线已收口的前提下，不再重开新批次，而是按“用户继续”要求做两张低优先级高识别度页面的定点复核。`necronomicon.md` 虽然主体内容本来就相对完整，但容易被误读成“某一本固定内容的魔书”，因此按 40 周年 OCR 明确补回其本质更像一条由《阿齐夫》原本、希腊文译本、拉丁文译本、删节英文译本与残本构成的文本谱系，并强调剧情常围绕具体复本、缺页、误译与访问权限展开；`abdul-alhazred.md` 则补回现有来源对其生平本就非常集中，主要价值在于作为《阿齐夫》作者与危险知识源头人物，而非适合无限扩展的完整历史传记。
+**修复的页面**:
+- entities/necronomicon.md（补回“多版本文本谱系”边界与围绕具体复本展开剧情的使用方式）
+- entities/abdul-alhazred.md（补回人物页边界与“作为知识源头人物”的间接出场定位）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（同步将这两页标记为已做定点复核，默认仍不继续）
+
+**备注**:
+- 这次仍然没有重启批量补厚，只是在收口后的低优先级区做小而硬的定点修正
+- 两页修完后，后续再看这类人物/典籍页，会更容易判断“已经够用”，而不是被更新时间早这一点误导
+
+---
+
+## [2026-05-09] fix | 低优先级定点复核（module-haunted / module-dark-woods）
+
+**操作类型**: 定点复核 + 使用边界压实 + 模组辅助页小修
+**描述**: 继续沿收口后的“定点复核”模式处理两张低优先级模组辅助页，但不再追求把正文越写越长，而是补清它们各自的使用边界。`module-haunted.md` 已经是相当完整的 KP 实跑版，因此本次重点不是增加更多房间或资料细节，而是明确这页本质上是“查资料 -> 进屋 -> 下地下室”的节奏提纲，帮助守秘人在玩家发散时把压力重新压回地下室；`module-dark-woods.md` 则补清其本质更像森林搜救与层层逼近真相的节奏控制稿，而不是要求把整片森林跑成逐格探索，从而明确何时该把玩家收束回卡车、爆炸、挖掘现场与格拉基真相这条主线。
+**修复的页面**:
+- entities/module-haunted.md（补回“KP 实跑提纲而非全文复述稿”的使用边界）
+- entities/module-dark-woods.md（补回“森林搜救节奏提纲而非逐格探索稿”的使用边界）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（同步将这两页标记为已做定点复核，默认仍不继续）
+
+**备注**:
+- 这一轮的改法和前两次一样，都是小修边界，不重启低优先级批量施工
+- 这样后续再看到这些模组页时，更容易判断“该怎么拿来跑”，也更容易判断“已经够用了，不必继续膨胀”
+
+---
+
+## [2026-05-09] fix | 低优先级定点复核（module-crimson-letters / harvey-walters）
+
+**操作类型**: 定点复核 + 使用边界压实 + 模组/范例页小修
+**描述**: 继续沿收口后的低优先级定点复核模式推进两页。`module-crimson-letters.md` 本体已经很厚，但开放式调查模组最容易越查越散，因此本次补清它更适合作为“什么时候该开始收束”的 KP 控制提纲，而不是要求把所有嫌疑人、地点与副线全部跑满的全清单攻略；`harvey-walters.md` 则补清其首先是规则演示用范例调查员，用来展示角色创建、年龄修正、背景条目与数值落表方式，而不是一个应继续扩写生平与关系网的剧情人物页。
+**修复的页面**:
+- entities/module-crimson-letters.md（补回开放调查应何时收束、何时让局面转入高潮的使用边界）
+- entities/harvey-walters.md（补回“范例调查员页而非剧情人物页”的来源边界，并新增使用边界段）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（同步将这两页标记为已做定点复核，默认仍不继续）
+
+**备注**:
+- 这一轮继续证明，低优先级区后续最值得做的不是“再写长”，而是“把页面边界写清楚”
+- 这样后面即使再看见这些页更新时间早，也不容易误判成还应该重开一整轮大修
+
+---
+
+## [2026-05-09] fix | 低优先级定点复核（lovecraft）
+
+**操作类型**: 定点复核 + 使用边界压实 + 人物页小修
+**描述**: 继续清理低优先级人物页中最容易无限膨胀的一类。`lovecraft.md` 本身材料很多、外部可扩展空间也极大，因此最需要的不是再堆文学史细节，而是把它在本知识库里的用途钉死：这页首先服务于解释洛夫克拉夫特与《克苏鲁的呼唤》、克苏鲁神话传统以及后继作者网络之间的关系，是“与本库直接相关的背景总览页”，而不是一个应该无限扩展的独立研究条目。基于这一判断，本次补入来源边界与使用边界，使后续更容易在“已经够用”处停下。
+**修复的页面**:
+- entities/lovecraft.md（补回“本库相关背景总览页而非无限文学史条目”的来源边界与使用边界）
+- wiki/synthesis/wiki-remaining-high-value-pages.md（同步将 `lovecraft.md` 标记为已做定点复核，默认仍不继续）
+
+**备注**:
+- 这类人物页最容易因为外部资料极多而不断膨胀，因此越早把用途边界写清楚越好
+- 处理完后，低优先级人物/典籍/模组辅助这条线又少了一块会反复被误判为“还能继续大修”的区域
+
+---
+
+## [2026-05-09] fix | 《向火独行》全文页抽取插图并嵌回对应位置
+
+**操作类型**: 单人模组正文增强 + PDF 插图抽取 + Obsidian 嵌图整理
+**描述**: 用户希望《向火独行》不再依赖 PDF 才能顺畅游玩，因此在已抽出的完整正文页基础上，继续把 PDF 中与游玩相关的插图裁出，放入正文页旁边的专属资源目录 `wiki/entities/module-alone-against-the-flames-fulltext.assets/`，并在正文里按原版大致位置嵌入。处理时优先保留实际帮助游玩的图像，如开场整页插图、村落远景、灯塔、熊、隐藏通道、烬头村地图、阿博加斯特、咒文页、车票与野兽图，同时把原先残留在文本中的竖排题注（如“灯塔”“烬头村地图”“一群野兽”等）替换为真正的图片嵌入，保证 Obsidian 内直接浏览时既能跳转也能看图。
+**修复的页面**:
+- wiki/entities/module-alone-against-the-flames-fulltext.md（插入 Obsidian 图片嵌入并清理竖排题注残留）
+- wiki/entities/module-alone-against-the-flames-fulltext.assets/（新增《向火独行》正文专属插图目录）
+
+**备注**:
+- 图片没有放入全局 `wiki/images/`，而是放在正文页旁边的同名资源目录里，后续维护和迁移都更清楚
+- 嵌图路径使用 Obsidian 可直接识别的相对 wikilink 形式，避免再次回退到依赖 PDF 翻页定位

@@ -1,7 +1,7 @@
 # Wiki 修复追踪
 
 > 创建日期: 2026-05-06
-> 最后更新: 2026-05-08
+> 最后更新: 2026-05-09
 > 状态: 进行中
 > 维护方式: 仅追加或更新状态，不删除历史记录
 
@@ -52,7 +52,10 @@
 - `调查员手册` 的双栏串文大问题此前已处理过，目前优先级低于野兽组。
 - `yuggya`、`star-worm`、`titus-terence` 暂不应视为正式完成条目。
 - 首轮发现的索引漂移问题已在 2026-05-06 完成收口，`nyos-kegai` 命名漂移也已处理完成，当前主要剩余待考证条目与台账清洁问题。
-- 第二阶段收口已建立单独清单：[wiki-remaining-high-value-pages.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-remaining-high-value-pages.md)，后续优先按该表推进。
+- 第二阶段收口已建立单独清单：[wiki-remaining-high-value-pages.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-remaining-high-value-pages.md)，并已于 2026-05-09 完成清单内高/中优先级页处理。
+- 自 2026-05-09 起，页面是否继续补写与第二阶段何时停止，统一按 [wiki-completion-criteria.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-completion-criteria.md) 判定，不再仅凭“还能补一点”继续推进。
+- 当前默认结论：第二阶段批量补厚模式已收口，后续转为定点修复、用户点名复核或等待新增来源再开启。
+- 低优先级长尾页现已明确标注为“默认不继续”，避免后续再次被误识别为隐性 backlog。
 
 ---
 
@@ -1396,3 +1399,147 @@
 
 - 这一批不是抢救坏结构，而是给四张主神派生/眷族页补上原文里本来就有的行为逻辑、边界用途与过渡阶段危险性。
 - 处理完后，剩余高价值清单的前四批已经全部完成，后续基本进入更细的长尾压实阶段。
+
+### [2026-05-09] 第九十一批修复（按剩余高价值清单推进第五批）
+
+- 修复 [knowledge-base/wiki/entities/foster-child-of-the-old-gods.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/foster-child-of-the-old-gods.md)：按第一卷 OCR 补回其完全转化后仍残存人形痕迹的肉身描写、跨代污染与祖先/神祇记忆梦境，并明确成年寄养儿通常拥有 `1-2` 项持续增长的特殊能力。
+- 修复 [knowledge-base/wiki/entities/miri-nigri.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/miri-nigri.md)：按第一卷 OCR 补回其会被主人派往地球掳掠祭品、也可能被创造在特定地点执行契约任务的定位，并压实“无声、心电感应、成群劳作”的气质。
+- 修复 [knowledge-base/wiki/entities/spectre-hunter.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/spectre-hunter.md)：按第一卷 OCR 补回其作为死后守卫的荣耀性、透镜显形与隐形优势消失的裁定，以及“驱逐之吟 + 容器”这一真正永久消灭路径。
+- 修复 [knowledge-base/wiki/entities/zu-che-quon.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/zu-che-quon.md)：按第一卷 OCR 补回其南美“王国之子”诅咒传说、作为文明脚下黑暗倒影的城市地下感，以及掳走孩童并扩张同类的持续威胁定位。
+
+本轮说明：
+
+- 这四页原本都已可用，但明显还停留在较早的摘要稿厚度；本轮目标是把它们补到和前四批高价值页同一档次。
+- 依然没有外扩设定，补回的都是本地 PDF/OCR 里已经存在、但旧页尚未接住的那一层叙事语义与遭遇用法。
+
+### [2026-05-09] 第九十二批修复（按剩余高价值清单推进第六批）
+
+- 修复 [knowledge-base/wiki/entities/child-of-ubbo-sathla.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/child-of-ubbo-sathla.md)：按第一卷 OCR 补回其会像鸟在大象身上觅食那样从父体表面啄食寄生虫、乌波-萨斯拉洞窟每轮可诞下 `1D10` 个后代，以及“部分个体本能猎食、部分个体仍受父体精神驱动”的边界。
+- 修复 [knowledge-base/wiki/entities/brood-of-eihort.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/brood-of-eihort.md)：按第一卷 OCR 补回它与“艾霍特的交易”宿主化之间的肉身重塑关系、原文给出的 `APP` 线索，以及集群心智维持伪人形态时几乎所有技能检定都承受惩罚骰的裁定。
+- 修复 [knowledge-base/wiki/entities/star-spawn-of-cthulhu.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/star-spawn-of-cthulhu.md)：按第一卷与 40 周年 OCR 补回其作为征服地球而来的战争生物定位，以及“五大观测者”这条遍布全球、等待拉莱耶崛起的休眠观测网线索。
+- 修复 [knowledge-base/wiki/entities/servants-of-ygolonac.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/servants-of-ygolonac.md)：按第一卷 OCR 补回其围绕神祇经历吞噬与重生循环、释放时会有子嗣逃散筑巢的扩散逻辑，并压实“仆从其实是伊戈罗纳克言语在人间孔窍”的定位。
+
+本轮说明：
+
+- 这四页都不是结构错误，而是仍停留在“已经能用，但来源里的第二层气味还没压出来”的状态。
+- 处理完后，高优先级 A 组里原先剩下的 4 张 `2026-05-07` 候选已经全部收口，后面可以更集中转向 `colour-out-of-space`、`flying-polyp`、`elder-things` 这一档更偏主线种族的补厚。
+
+### [2026-05-09] 第九十三批修复（按剩余高价值清单推进第七批）
+
+- 修复 [knowledge-base/wiki/entities/colour-out-of-space.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/colour-out-of-space.md)：按第一卷与 40 周年 OCR 补回其并非单点污染、而像另一套宇宙法则缓慢接管生态的感觉，并补入“地球也许是其产卵育房”与米-戈可能主动研究星之彩的两条延伸判断。
+- 修复 [knowledge-base/wiki/entities/flying-polyp.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/flying-polyp.md)：按第一卷与 40 周年 OCR 补回其曾在其他行星建城的边界、留在地球的未知目的，以及把隐形、控风、定身与风暴组合成地点级杀伤系统的遭遇定位。
+- 修复 [knowledge-base/wiki/entities/elder-things.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/elder-things.md)：按第一卷与 40 周年 OCR 补回其文明衰亡是漫长退化、战争与修格斯叛乱叠加的过程，并压实“它们带着整套失落科学体系出场”的定位。
+- 修复 [knowledge-base/wiki/entities/yithian.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/yithian.md)：按第一卷与 40 周年 OCR 补回伊斯人本质上是跨宿主延续的文明心智、典型精神交换常持续五年、人类亲友可察觉异常的视角，以及补全其物理学/人类语言技能侧面。
+
+本轮说明：
+
+- 这一批的共同点是“页面本身已经正确，但还缺文明级怪物该有的历史纵深和调查余波”。
+- 处理完后，B 组里最值得先清的四张主线页已经补到位，后续可以继续推进 `mi-go`、`deep-ones`、`serpent-people`、`people-of-kn-yan` 这类强联动条目。
+
+### [2026-05-09] 第九十四批修复（按剩余高价值清单推进第八批）
+
+- 修复 [knowledge-base/wiki/entities/mi-go.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/mi-go.md)：按第一卷与 40 周年 OCR 补回其把地球当作长期经营前哨站的感觉、对人类与离体大脑的彻底工具化视角，以及其催眠/遮蔽/抓捕组合更像异星科研抓捕队而非正面战士的定位。
+- 修复 [knowledge-base/wiki/entities/deep-ones.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/deep-ones.md)：按第一卷与 40 周年 OCR 补回深潜者那种冰冷、傲慢、近乎永生的海底统治者气质，补强其海底都市只言片语式线索，并压实它们如何用“真的有效”的交换条件慢慢收编人类滨海社群。
+- 修复 [knowledge-base/wiki/entities/serpent-people.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/serpent-people.md)：按第一卷与 40 周年 OCR 补回蛇人并非单一遗迹怪，而是两次文明兴衰后残存的整条阴影谱系，并压实其“巫术 + 科技 + 生命操纵”三位一体的文明特征。
+- 修复 [knowledge-base/wiki/entities/people-of-kn-yan.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/people-of-kn-yan.md)：按第一卷 OCR 补回昆扬并非单纯衰败，而是在过度发达与无聊中逐步腐坏的气质，以及其心灵感应、虚体化与裂解射线枪组合出的病态超文明感。
+
+本轮说明：
+
+- 这四页的收益点都在“社会如何运作、文明怎样压迫或利用人类”，而不只是再补几条设定。
+- 处理完后，B 组最核心的强联动种族页已经基本压完，后续如果继续顺着这条线走，更适合转向 `voormi`、`martense-clan`、`ghoul`、`shoggoth` 这种次一层但仍高价值的生态链条页。
+
+### [2026-05-09] 第九十五批修复（按剩余高价值清单推进第九批）
+
+- 修复 [knowledge-base/wiki/entities/voormi.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/voormi.md)：按第一卷 OCR 补回其不只是雪地怪物，而是会为了社群利益协同狩猎、与希帕波利亚寒地废墟紧密相连的史前遗族定位。
+- 修复 [knowledge-base/wiki/entities/martense-clan.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/martense-clan.md)：按第一卷 OCR 补回它作为整支退化家族巢群的危险感、受季节与环境刺激成群外出的特征，以及其作为“曾为人者”地方分支可延伸到现代暗渠传说的用法。
+- 修复 [knowledge-base/wiki/entities/ghoul.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/ghoul.md)：按第一卷与 40 周年 OCR 补回食尸鬼与人类文明之间那种伴生而腐败的关系，包括灾殃时期的聚食逻辑、地下共同体与食尸鬼教团对社会表层的渗透。
+- 修复 [knowledge-base/wiki/entities/shoggoth.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/shoggoth.md)：按第一卷与 40 周年 OCR 补回修格斯作为古老者劳工与叛奴的历史位阶、其越来越聪明与越来越会模仿的趋势，以及它更适合作为地点级灾难而非普通战斗遭遇的原文气质。
+
+本轮说明：
+
+- 这一批的重点仍然不是补规则数字，而是把怪物在原文里“如何长期存在、怎样出场、为什么不该被当成普通战斗对象”补得更完整。
+- 处理完后，前面计划中的第九批四页已经清完，剩余高价值清单继续进入更明显的长尾阶段。
+
+### [2026-05-09] 第九十六批修复（按剩余高价值清单推进第十批）
+
+- 修复 [knowledge-base/wiki/entities/hunting-horror.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/hunting-horror.md)：按第一卷与 40 周年 OCR 补回其不仅是飞行猎食者，更是奈亚拉托提普命令的远距执行者、梦境恐吓者与失控召唤的反噬者。
+- 修复 [knowledge-base/wiki/entities/cthughan.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/cthughan.md)：按第一卷 OCR 补回蠕行者并非随机虫群怪，而是在继续死去巫师的实验、崇拜与未完成仪式。
+- 修复 [knowledge-base/wiki/entities/green-abyss-spawn.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/green-abyss-spawn.md)：按第一卷 OCR 补回其作为异星深海社会一部分的感觉、特殊星象下的仪式性出场方式，以及催眠之歌让受害者主动走向深海的危险。
+- 修复 [knowledge-base/wiki/entities/dark-crawler.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/dark-crawler.md)：按第一卷 OCR 补回它作为全球地下迁徙巨兽的前兆感、噩梦与记忆抹除式侵扰，以及“房屋先塌、人再失踪”的地下恐怖定位。
+
+本轮说明：
+
+- 这四页的补厚重点都在“如何逼近人类、如何让环境本身变得危险”，而不是再重复已有的规则块。
+- 处理完后，中优先级里最像主线神话生态链延伸的一批页又向前清掉了一段。
+
+### [2026-05-09] 第九十七批修复（按剩余高价值清单推进第十一批）
+
+- 修复 [knowledge-base/wiki/entities/cold-ones.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/cold-ones.md)：按第一卷 OCR 补回其作为风雪灾兆、哭嚎先声与寒季据点渗入者的用法，使其更像严寒本身在追猎。
+- 修复 [knowledge-base/wiki/entities/fishers-from-outside.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/fishers-from-outside.md)：按第一卷 OCR 补回空鱼每次显现都要借用并毁坏人脑这一代价，以及它更适合作为需先追查显现路径与宿主来源的维度渗漏。
+- 修复 [knowledge-base/wiki/entities/dream-crystal-guardian.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/dream-crystal-guardian.md)：按第一卷 OCR 补回其作为“越使用梦境结晶器越会被追上”的追索机制，以及受害者被拖走后可能在肉体归来、魂魄未醒的状态下留下的后续剧情。
+- 修复 [knowledge-base/wiki/entities/child-of-the-sphinx.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/child-of-the-sphinx.md)：按第一卷 OCR 补回斯芬克斯之子作为黑法老守军与秘道警备力量的感觉、被发掘后异地苏醒的延展用法，并校正 `STR` 均值为 `70`。
+
+本轮说明：
+
+- 这四页的增益点主要在“征兆、代价与余波”，不是简单再加一层战斗描写。
+- 处理完后，中优先级里与幻梦境、异维入侵、黑法老遗迹强相关的一小批旧摘要页已经进一步收口。
+
+### [2026-05-09] 第九十八批修复（按剩余高价值清单推进第十二批）
+
+- 修复 [knowledge-base/wiki/entities/dust-dweller.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/dust-dweller.md)：按第一卷 OCR 补回其更像被遗忘命令仍在持续执行的失控造物，以及附身之尘带来的梦游、代行与居所污染感。
+- 修复 [knowledge-base/wiki/entities/nython-ghuli.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/nython-ghuli.md)：按第一卷 OCR 补回尼洪·古力更像潜伏在时空门边的超维寄生者，会被各种跨界行动吸引，也会“搭载”其他跨界存在进入现实。
+- 修复 [knowledge-base/wiki/entities/nofer-kee.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/nofer-kee.md)：依据 40 周年 OCR 补回它并非稳定显现的类神存在，而是把整片寒地变成猎场的冰原掠食者，用暴风雪与降温先压垮人，再现身逼近。
+- 修复 [knowledge-base/wiki/entities/sand-dweller.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/sand-dweller.md)：按第一卷与 40 周年 OCR 补回潜沙怪作为地下巨巢种族的整体感，以及它们出现在地表往往意味着地质、采矿、法术或宗教活动短暂打开了通往下层世界的路径。
+
+本轮说明：
+
+- 这四页的补厚重点是把“单只怪物”重新放回它们背后的环境、巢群与法术后果里。
+- 处理完后，中优先级里最早一批 `2026-05-06` 候选又向前清掉了一大截。
+
+### [2026-05-09] 第九十九批修复（按剩余高价值清单推进第十三批）
+
+- 修复 [knowledge-base/wiki/entities/dhol-retainers.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/dhol-retainers.md)：按第一卷 OCR 补回其真正可怕处在于大多数时候根本不处于人类可感知维度中，往往要先通过被操纵的人、油腻变稠的空气与隐约呻吟感知其逼近。
+- 修复 [knowledge-base/wiki/entities/bigfoot-sasquatch.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/bigfoot-sasquatch.md)：按第一卷 OCR 补回大脚怪/雪人的价值更多在于荒野边缘的反复目击、脚印、毛发与叫声构成的“永远差半步证实”感，而非正面久战。
+- 修复 [knowledge-base/wiki/entities/nightgaunt.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/nightgaunt.md)：按第一卷与 40 周年 OCR 补回夜魇与某些人一生反复纠缠的怪异联系，以及其更像押送、绑走与戏弄猎物的梦境爪牙，而非单纯杀戮怪。
+- 修复 [knowledge-base/wiki/entities/mummy.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/mummy.md)：按第一卷与 40 周年 OCR 补回木乃伊作为有纪律、有目的的神庙与教团守卫定位，并强调它们并不总是迟缓缠布怪，而更像迅速而执拗的不死执法者。
+
+本轮说明：
+
+- 这四页的补厚重点更偏“它们在故事里扮演什么角色”，而不是再往战斗数字里继续加料。
+- 处理完后，当前剩余清单里的 `dhol-retainers` 也正式收口，后续更明显进入长尾抛光阶段。
+
+### [2026-05-09] 第一百批修复（按剩余高价值清单推进第十四批）
+
+- 修复 [knowledge-base/wiki/entities/dimensional-shambler.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/dimensional-shambler.md)：按第一卷与 40 周年 OCR 补回空鬼最有价值的用途不是单纯杀人，而是把人粗暴拖进别的维度、监牢、星球或空间夹缝，让“被带走之后去了哪”直接变成剧情入口。
+- 修复 [knowledge-base/wiki/entities/shantak-bird.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/shantak-bird.md)：按第一卷 OCR 补回夏塔克鸟作为坐骑本身就带着恶意与失控风险，以及它对夜魇的恐惧会让整段航程突然偏离计划。
+- 修复 [knowledge-base/wiki/entities/chakota.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/chakota.md)：按第一卷 OCR 补回查寇塔不只是多张脸一起咬人，而是会把每一名受害者都永久陈列在自己身上，因而特别适合作为活祭坛与累积献祭痕迹的守卫。
+- 修复 [knowledge-base/wiki/entities/hounds-of-tindalos.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/hounds-of-tindalos.md)：按第一卷与 40 周年 OCR 补回廷达罗斯猎犬更像时间越界后的持续追索机制，一旦被其记住，任何尖角、拐角与房间都可能变成追猎入口。
+
+本轮说明：
+
+- 这四页的补厚重点在“怪物如何改变故事结构”，尤其是绑走、偏航、追索和留下活证据这几种用法。
+- 处理完后，这一批长尾里最常被直接拿来跑团的四页又往前压实了一层。
+
+### [2026-05-09] 第一百零一批修复（按剩余高价值清单推进第十五批）
+
+- 修复 [knowledge-base/wiki/entities/ghast.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/ghast.md)：按第一卷与 40 周年 OCR 补回妖鬼并非普通食尸鬼替代品，而是更深地底、更猛兽化、对地下网络极熟悉的猎手分支。
+- 修复 [knowledge-base/wiki/entities/cold-waste-ghoul-hound.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/cold-waste-ghoul-hound.md)：按第一卷 OCR 补回冷原食尸猎犬最可怕之处在于它会把盗掘、触犯墓地禁忌后的报复拖进接下来数夜里，让嚎叫、追踪与幻象跨场景延续。
+- 修复 [knowledge-base/wiki/entities/rat-thing.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/rat-thing.md)：按第一卷与 40 周年 OCR 补回人面鼠作为使魔、探子与屋内持续不安源的用法，比起正面战斗更适合承担偷钥匙、传话、窥视与半夜扑袭。
+- 修复 [knowledge-base/wiki/entities/ghoul-servant-of-ghlaaki.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/ghoul-servant-of-ghlaaki.md)：按第一卷与 40 周年 OCR 补回格拉基之仆并非单只活尸，而更像格拉基延伸到人类社会中的长期不死外勤网络，兼具渗透、接应、转运与看守功能。
+
+本轮说明：
+
+- 这一批主要是在压实“墓地、地下与教团边缘生态链”这一组怪物之间的分工感。
+- 处理完后，这条和食尸、不死相关的长尾支线也更接近收口。
+
+### [2026-05-09] 第一百零二批修复（传统恐怖怪物页第二轮压实）
+
+- 修复 [knowledge-base/wiki/entities/ghost.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/ghost.md)：按第一卷 OCR 补回幽灵更适合作为逐步解锁死因、执念与锚点的超自然调查框架，而非单次跳脸怪。
+- 修复 [knowledge-base/wiki/entities/zombie.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/zombie.md)：按第一卷 OCR 补回僵尸作为低意志执行体的持续劳作、围堵与消耗定位，以及民俗克制手段在追逐场景中的价值。
+- 修复 [knowledge-base/wiki/entities/skeleton.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/skeleton.md)：按第一卷与 40 周年 OCR 补回骷髅比僵尸更偏向秩序化守卫，会持械巡逻、守住通道并昭示遗迹仍在按旧命令运转。
+- 修复 [knowledge-base/wiki/entities/vampire.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/entities/vampire.md)：按第一卷与 40 周年 OCR 补回吸血鬼真正危险之处在于它经营供血关系、安息之所与社会伪装，是长期夜行掠食者而非单纯咬人怪。
+
+本轮说明：
+
+- 这四页的补厚重点是把经典怪物从“通用模板”推进到“具体如何组织场景与压力”的层面。
+- 处理完后，一组常见但容易写得过于概述化的传统恐怖页也更接近可直接拿来跑团引用的状态。

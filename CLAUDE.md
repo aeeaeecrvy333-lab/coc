@@ -1,17 +1,18 @@
 # CLAUDE.md - CoC-kb 项目总览
 
 > 本文件是 AI 助手理解本项目的入口指引。
-> 最后更新: 2026-05-08
+> 最后更新: 2026-05-10
 
 ---
 
 ## 项目简介
 
-**CoC-kb** 是一个围绕《克苏鲁的呼唤（Call of Cthulhu）第七版》TRPG 的综合项目，包含三大部分：
+**CoC-kb** 是一个围绕《克苏鲁的呼唤（Call of Cthulhu）第七版》TRPG 的综合项目，包含四大部分：
 
-1. **知识库** — 从官方规则书系统提取的 CoC 7e 规则 wiki（281+ 页面）
+1. **知识库** — 从官方规则书系统提取的 CoC 7e 规则 wiki（286+ 页面）
 2. **角色卡创建器** — 8 步引导式调查员角色创建工具
 3. **角色卡追踪器** — 模拟纸质角色卡的调查员数据追踪工具
+4. **向火独行** — 单人模组《向火独行》电子陪跑原型
 
 ---
 
@@ -26,14 +27,17 @@ CoC-kb/
 │   ├── wiki/
 │   │   ├── index.md                   ← 内容索引（查找页面的入口）
 │   │   ├── log.md                     ← 操作日志（仅追加）
-│   │   ├── concepts/                  ← 概念页面（68个：规则、机制、系统）
-│   │   ├── entities/                  ← 实体页面（208个：生物、神祇、模组）
-│   │   ├── images/                    ← 实体配图（~194张，AI 生成）
-│   │   └── sources/                   ← 来源摘要（5个规则书）
+│   │   ├── concepts/                  ← 概念页面（69个：规则、机制、系统）
+│   │   ├── entities/                  ← 实体页面（211个：生物、神祇、模组）
+│   │   ├── synthesis/                 ← 合成分析（维护追踪、补全计划等）
+│   │   ├── images/                    ← 实体配图（~190张，AI 生成）
+│   │   └── sources/                   ← 来源摘要（6个规则书）
 │   └── raw/                           ← 原始 PDF（只读，不可修改）
 ├── apps/
 │   ├── coc_character_sheet/           ← 角色卡创建器（多文件 SPA）
-│   └── character-tracker/             ← 角色卡追踪器（多文件架构）
+│   ├── character-tracker/             ← 角色卡追踪器（多文件架构）
+│   └── alone-against-the-flames-app/  ← 向火独行电子陪跑（原型阶段）
+├── docs/                              ← 设计文档
 └── .obsidian/                         ← Obsidian 配置
 ```
 
@@ -44,8 +48,8 @@ CoC-kb/
 ### 1. knowledge-base/ — 规则知识库
 
 - **主题**: 克苏鲁的呼唤第七版 TRPG 规则体系
-- **规模**: 68 个概念页面 + 208 个实体页面 + 5 个来源摘要
-- **来源书籍**: 40周年纪念版(470页)、调查员手册(162页)、怪物之锤两卷(468页)、入门套件第三卷
+- **规模**: 69 个概念页面 + 211 个实体页面 + 6 个来源摘要
+- **来源书籍**: 40周年纪念版(470页)、调查员手册(162页)、怪物之锤两卷(468页)、入门套件第一卷与第三卷
 - **维护规范**: 详见 `knowledge-base/CLAUDE.md`
 - **架构模式**: 基于 Karpathy 的 LLM Wiki 模式，分为三层：
   1. `raw/` — 原始 PDF 规则书（只读，不可修改，不纳入版本控制）
@@ -102,7 +106,7 @@ CoC-kb/
   - 调查员同伴环形图（8 节点）
   - 3D 骰子检定系统（D4/D6/D8/D10/D12/D20/D100，支持骰子表达式）
 - **数据存储**: localStorage 持久化，支持 .coc7 文件导入
-- **测试**: Playwright E2E 测试（`e2e/tracker.spec.js`，覆盖 12 个测试组约 30+ 用例）+ Python 备选测试脚本（`e2e/test_runner.py`）
+- **测试**: 已移除（原有 Playwright E2E 测试和 Python 备选测试脚本已删除）
 - **第三方依赖**: 集成 [dice-box](https://github.com/3dice/Dice-Box) 3D 骰子库（含 WebAssembly），支持 D4/D6/D8/D10/D12/D20/D100 骰子，附带 10 种视觉主题（含 CoC 专属主题 `coc/`）
 - **文件结构**:
   ```
@@ -128,16 +132,46 @@ CoC-kb/
     dice-module.js        ← 3D 骰子模块（ES Module）
   assets/                 ← 背景图 + 4 个角落装饰 SVG
   dice-box/               ← 3D 骰子引擎库 + 10 种主题资源
-  e2e/                    ← E2E 测试
-    tracker.spec.js       ← Playwright 测试（12 组约 30+ 用例）
-    test_runner.py        ← Python 备选测试脚本
-  playwright.config.js    ← Playwright 配置（Chromium，单 worker，30s 超时）
-  package.json            ← 最小化配置（仅用于测试脚本声明）
   ```
 
-### 4. 视觉设计体系
+### 4. apps/alone-against-the-flames-app/ — 向火独行电子陪跑
 
-两个 app 共享一致的暗色金色视觉主题，修改 UI 时应保持风格统一：
+- **定位**: 单人模组《向火独行（Alone Against the Flames）》的电子陪跑原型
+- **技术栈**: 多文件 HTML/CSS/JS（ES Module），计划复用 character-tracker 渲染模块和 DiceBox
+- **当前状态**: 原型阶段，界面优先，验证「剧情优先」的主舞台布局
+- **架构**: engine/adapters/data/ui 四层代码边界
+- **核心功能**（已实现）:
+  - 三栏体验布局（左侧快速入口+进度、中央剧情主舞台、右侧角色状态+线索）
+  - 模组引擎（module-engine.js）驱动节点式剧情流转
+  - .coc7 角色卡导入（复用 character-adapter.js）
+  - DiceBox 骰子面板（dice-adapter.js）
+  - 路径时间线、线索线程、剧情记录面板
+- **待实现**:
+  - 真实接入 character-tracker render 模块
+  - 完整《向火独行》正文结构化
+  - 结局复盘页
+- **文件结构**:
+  ```
+  index.html              ← HTML 结构（~229 行）
+  css/
+    app.css               ← 全部样式
+  js/
+    app.js                ← 主入口（ES Module）
+    engine/
+      module-engine.js    ← 模组引擎（节点流转、状态管理）
+    adapters/
+      character-adapter.js ← 角色卡适配器（.coc7 导入）
+      dice-adapter.js     ← 骰子适配器（DiceBox 接口）
+    data/
+      module-stub.js      ← 模组数据桩（demo 切片）
+    ui/
+      render.js           ← UI 渲染函数
+  assets/                 ← 资源（暂空）
+  ```
+
+### 5. 视觉设计体系
+
+三个 app 共享一致的暗色金色视觉主题，修改 UI 时应保持风格统一：
 
 - **主色调**: 深蓝黑底色（`#0A0E14`）+ 金色强调（`#C9A84C`）
 - **辅助色**: 绿色（`#3D8B6E`，正面状态）、红色（`#A63D40`，负面/危险状态）
@@ -152,11 +186,16 @@ CoC-kb/
 ```
 knowledge-base/wiki/concepts/  ──规则来源──→  apps/coc_character_sheet/js/data/
 knowledge-base/wiki/entities/  ──实体数据──→  apps/character-tracker/（预设角色数据）
+knowledge-base/wiki/entities/  ──模组正文──→  apps/alone-against-the-flames-app/js/data/
+apps/coc_character_sheet/      ──.coc7导出──→  apps/character-tracker/（导入角色）
+apps/coc_character_sheet/      ──.coc7导出──→  apps/alone-against-the-flames-app/（导入角色）
+apps/character-tracker/        ──渲染模块──→  apps/alone-against-the-flames-app/（计划复用）
 ```
 
 - 角色卡创建器的游戏数据（技能、职业、装备、武器、表格）来源于知识库中的规则提取
 - 角色卡追踪器的技能列表、武器数据、规则参考与知识库保持一致
-- 修改知识库中的规则时，应同步检查两个 app 的数据是否需要更新
+- 向火独行 app 通过 .coc7 文件导入角色，计划复用 character-tracker 的渲染模块和 DiceBox
+- 修改知识库中的规则时，应同步检查三个 app 的数据是否需要更新
 
 ---
 
@@ -175,12 +214,12 @@ knowledge-base/wiki/entities/  ──实体数据──→  apps/character-track
 
 ### 代码风格
 
-- 两个 app 均为纯前端项目，无构建工具、无框架、无包管理器
-- JavaScript 使用全局函数式架构（非模块化），通过 `<script>` 标签按依赖顺序加载
+- 三个 app 均为纯前端项目，无构建工具、无框架、无包管理器
+- JavaScript 使用全局函数式架构（非模块化），通过 `<script>` 标签按依赖顺序加载；向火独行 app 使用 ES Module
 - CSS 使用自定义属性（CSS Variables）管理主题色
 - 中文注释，英文变量名
-- **第三方依赖**: 仅 character-tracker 使用了外部库 [dice-box](https://github.com/3dice/Dice-Box)（3D 骰子引擎），角色卡创建器的骰子系统为自研实现（CSS 3D Transform）
-- **测试**: character-tracker 配有 Playwright E2E 测试（`e2e/tracker.spec.js`）和 Python 备选测试脚本（`e2e/test_runner.py`），coc_character_sheet 暂无测试
+- **第三方依赖**: character-tracker 和 alone-against-the-flames-app 使用了外部库 [dice-box](https://github.com/3dice/Dice-Box)（3D 骰子引擎），角色卡创建器的骰子系统为自研实现（CSS 3D Transform）
+- **测试**: 暂无（character-tracker 原有的 Playwright E2E 测试已移除）
 
 ### 工具链与环境
 

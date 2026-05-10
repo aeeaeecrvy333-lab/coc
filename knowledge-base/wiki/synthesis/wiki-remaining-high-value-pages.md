@@ -1,9 +1,11 @@
 # Wiki 剩余高价值待补页清单
 
 > 创建日期: 2026-05-08
-> 最后更新: 2026-05-08
-> 状态: 进行中
+> 最后更新: 2026-05-09
+> 状态: 第二阶段已收口
 > 用途: 作为第二阶段收口清单，优先处理“还能从本地 PDF/OCR 明确再压出一层信息”的页面
+
+> 判定规则：自 `2026-05-09` 起，是否继续推进某页，统一受 [wiki-completion-criteria.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-completion-criteria.md) 约束。
 
 ## 当前判断
 
@@ -17,24 +19,45 @@
 
 简化结论：
 
-- 核心神祇主体页：大体已收口。
-- 神话生态链条页：还有一批值得继续做。
-- 全库彻底见底：还没有，但已经进入长尾阶段。
+- 核心神祇主体页：已收口。
+- 神话生态链条页：本轮清单内的高/中优先级页已全部处理完毕。
+- 当前剩余：主要只剩低优先级长尾，不再适合继续批量补厚。
 
 ---
 
 ## 建议推进策略
 
-后续不再平均撒网，统一采用以下顺序：
+本文件原本用于指导第二阶段的批量推进顺序。到 `2026-05-09` 为止：
 
-1. 先清 `高优先级` 中“更新时间老 + 页长偏短 + 明显属于神话主线”的页面。
-2. 再做 `中优先级` 中与已修主神直接相关的眷族、子嗣、教团页。
-3. 最后再决定是否回头处理普通动物、人物、模组杂项页。
+1. `高优先级` 已全部处理完毕。
+2. `中优先级` 已全部处理完毕。
+3. 剩余条目主要落在 `低优先级`，按完成标准默认不再进入连续补厚序列。
 
-建议每批处理 `4-6` 页，始终同步更新：
+因此，后续不再按这份清单继续批量撒网，而改为：
+
+1. 仅处理新发现的明确错误页。
+2. 仅处理用户点名要求复核或补写的页。
+3. 若未来新增来源材料，再重新开启下一阶段。
+
+若未来重新开启下一阶段，仍建议每批处理 `4-6` 页，始终同步更新：
 
 - `knowledge-base/wiki/synthesis/wiki-repair-tracker.md`
 - `knowledge-base/wiki/log.md`
+
+本清单已于 `2026-05-09` 触发 [wiki-completion-criteria.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-completion-criteria.md) 中的阶段收口条件，因此当前默认动作是停止批量推进。
+
+---
+
+## 当前状态说明
+
+按 [wiki-completion-criteria.md](/Users/alanliu/Projects/CoC-KB/knowledge-base/wiki/synthesis/wiki-completion-criteria.md) 判定，本清单当前已经达到收口条件：
+
+1. `高优先级` 页已全部处理完毕。
+2. `中优先级` 页已全部处理完毕。
+3. 剩余候选主要为普通动物、人物、书籍与模组辅助页，不再满足“默认继续补厚”的条件。
+4. 若继续推进，新批次大概率只会落入轻微润色或边际抛光。
+
+因此，这份文件现在更像“第二阶段已完成记录”，而不是继续向下排批的施工清单。
 
 ---
 
@@ -54,12 +77,12 @@
 | `spawn-of-nyogtha.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 | `spawn-of-yog-sothoth.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 | `hasturs-spawn.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
-| `foster-child-of-the-old-gods.md` | 2026-05-06 | 仍偏模板化，后续可压实来源语义 | 优先补 |
-| `child-of-ubbo-sathla.md` | 2026-05-07 | 可用，但仍可能缺遭遇/氛围层 | 次优先 |
-| `brood-of-eihort.md` | 2026-05-07 | 与 `eihort.md` 联动，可能还有补厚空间 | 次优先 |
-| `star-spawn-of-cthulhu.md` | 2026-05-07 | 与 `cthulhu.md` 主线强相关 | 次优先 |
+| `foster-child-of-the-old-gods.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `child-of-ubbo-sathla.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `brood-of-eihort.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `star-spawn-of-cthulhu.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 | `servants-of-cthulhu.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
-| `servants-of-ygolonac.md` | 2026-05-07 | 已修结构，但仍可能再压 | 次优先 |
+| `servants-of-ygolonac.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 
 ### B 组：与主神直接相关的种族/怪物页
 
@@ -69,16 +92,16 @@
 | `loigar.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 | `rlim-shaikorth.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 | `space-eater.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
-| `miri-nigri.md` | 2026-05-06 | 仍短，可能还有设定层空间 | 次优先 |
-| `spectre-hunter.md` | 2026-05-06 | 仍像规则摘要稿 | 次优先 |
-| `zu-che-quon.md` | 2026-05-06 | 页短且更新时间老 | 次优先 |
-| `colour-out-of-space.md` | 2026-05-07 | 高价值经典实体，但当前页长一般 | 次优先 |
-| `flying-polyp.md` | 2026-05-07 | 强主线种族，值得做第二轮 | 次优先 |
-| `elder-things.md` | 2026-05-07 | 核心史前种族，若仍偏摘要则值得补 | 次优先 |
-| `yithian.md` | 2026-05-07 | 重要文明页，可能还缺叙事层 | 次优先 |
-| `mi-go.md` | 2026-05-07 | 当前可用，但很可能还能更厚 | 次优先 |
-| `deep-ones.md` | 2026-05-07 | 与 `dagon`/`hydra`/`cthulhu` 系强联动 | 次优先 |
-| `serpent-people.md` | 2026-05-07 | 与 `ig`/`tsathoggua`/地下世界线联动 | 次优先 |
+| `miri-nigri.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `spectre-hunter.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `zu-che-quon.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `colour-out-of-space.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `flying-polyp.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `elder-things.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `yithian.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `mi-go.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `deep-ones.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `serpent-people.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 
 ### C 组：文明/教团/地底世界补强页
 
@@ -87,9 +110,9 @@
 | `people-of-yaddith.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 | `hyperborean.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
 | `tcho-tcho.md` | 2026-05-08 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
-| `people-of-kn-yan.md` | 2026-05-07 | 与地底世界多页联动，值得补 | 次优先 |
-| `voormi.md` | 2026-05-07 | 与许珀耳玻瑞亚/寒地线强相关 | 次优先 |
-| `martense-clan.md` | 2026-05-07 | 若只保留基本梗概，可以后补 | 次优先 |
+| `people-of-kn-yan.md` | 2026-05-09 | 已完成第二轮压实，后续仅需必要复核 | 已处理 |
+| `voormi.md` | 2026-05-09 | 已完成第二轮压实，补回寒地遗族感与希帕波利亚历史感 | 已处理 |
+| `martense-clan.md` | 2026-05-09 | 已完成第二轮压实，补回巢群化退化家族与都市传说延展性 | 已处理 |
 
 ---
 
@@ -99,56 +122,78 @@
 
 | 页面 | 最后更新 | 当前判断 |
 |------|----------|----------|
-| `dust-dweller.md` | 2026-05-06 | 偏短，可视情况补 |
-| `nython-ghuli.md` | 2026-05-06 | 可再核 |
-| `nofer-kee.md` | 2026-05-06 | 可再核 |
-| `sand-dweller.md` | 2026-05-06 | 可再核 |
-| `child-of-the-sphinx.md` | 2026-05-07 | 可再核 |
-| `fishers-from-outside.md` | 2026-05-07 | 可再核 |
-| `cold-ones.md` | 2026-05-07 | 可再核 |
-| `dream-crystal-guardian.md` | 2026-05-07 | 可再核 |
-| `dark-crawler.md` | 2026-05-07 | 可再核 |
-| `green-abyss-spawn.md` | 2026-05-07 | 可再核 |
-| `cthughan.md` | 2026-05-07 | 与 `cthugha.md` 联动，适合补 |
-| `dhol-retainers.md` | 2026-05-07 | 可再核 |
-| `hunting-horror.md` | 2026-05-07 | 常见高价值怪物，可再核 |
-| `shoggoth.md` | 2026-05-07 | 若当前偏规则化，可补氛围/遭遇 |
-| `ghoul.md` | 2026-05-07 | 若当前偏摘要，可补社会性与遭遇 |
+| `dust-dweller.md` | 2026-05-09 | 已完成第二轮压实，补回失控造物与附身型后续恐怖 | 已处理 |
+| `nython-ghuli.md` | 2026-05-09 | 已完成第二轮压实，补回“门边寄生者”与跨界搭载逻辑 | 已处理 |
+| `nofer-kee.md` | 2026-05-09 | 已完成第二轮压实，补回冰原猎场感与气候压迫用法 | 已处理 |
+| `sand-dweller.md` | 2026-05-09 | 已完成第二轮压实，补回地下巢群社会与地表短暂接通逻辑 | 已处理 |
+| `child-of-the-sphinx.md` | 2026-05-09 | 已完成第二轮压实，补回黑法老守军逻辑与异地苏醒用法 | 已处理 |
+| `fishers-from-outside.md` | 2026-05-09 | 已完成第二轮压实，补回显现代价与维度入侵逻辑 | 已处理 |
+| `cold-ones.md` | 2026-05-09 | 已完成第二轮压实，补回风雪灾兆感与据点渗入用法 | 已处理 |
+| `dream-crystal-guardian.md` | 2026-05-09 | 已完成第二轮压实，补回追索机制与“失魂归体”后续恐怖 | 已处理 |
+| `dark-crawler.md` | 2026-05-09 | 已完成第二轮压实，补回地下迁徙、记忆抹除与前兆式恐怖 | 已处理 |
+| `green-abyss-spawn.md` | 2026-05-09 | 已完成第二轮压实，补回深海社会、异星仪式感与歌声控制逻辑 | 已处理 |
+| `cthughan.md` | 2026-05-09 | 已完成第二轮压实，补回“死巫师工作延续”与仪式继承定位 | 已处理 |
+| `dhol-retainers.md` | 2026-05-09 | 已完成第二轮压实，补回多维潜伏感与傀儡先行的用法 | 已处理 |
+| `hunting-horror.md` | 2026-05-09 | 已完成第二轮压实，补回奈亚使者/追猎工具定位与单体高压迫感 | 已处理 |
+| `shoggoth.md` | 2026-05-09 | 已完成第二轮压实，补回奴仆反叛历史位阶与地点级灾难用法 | 已处理 |
+| `ghoul.md` | 2026-05-09 | 已完成第二轮压实，补回社会关系、地下共同体与灾殃觅食逻辑 | 已处理 |
+| `dimensional-shambler.md` | 2026-05-09 | 已完成第二轮压实，补回“把人带走”后的异界去向用法 | 已处理 |
+| `shantak-bird.md` | 2026-05-09 | 已完成第二轮压实，补回危险坐骑感与航程失控逻辑 | 已处理 |
+| `chakota.md` | 2026-05-09 | 已完成第二轮压实，补回祭坛/守卫定位与累积受害者展示感 | 已处理 |
+| `hounds-of-tindalos.md` | 2026-05-09 | 已完成第二轮压实，补回时间越界追猎与角落压迫感 | 已处理 |
+| `ghast.md` | 2026-05-09 | 已完成第二轮压实，补回更深地底猎手感与食尸谱系分支定位 | 已处理 |
+| `cold-waste-ghoul-hound.md` | 2026-05-09 | 已完成第二轮压实，补回墓饰触发的跨夜追索感 | 已处理 |
+| `rat-thing.md` | 2026-05-09 | 已完成第二轮压实，补回使魔/探子定位与屋内持续不安感 | 已处理 |
+| `ghoul-servant-of-ghlaaki.md` | 2026-05-09 | 已完成第二轮压实，补回格拉基不死外勤网络感 | 已处理 |
 
 ---
 
 ## 低优先级
 
-这些不是现在最值得花时间的地方，除非你想把全库完全抛光。
+这些不是现在最值得花时间的地方。按当前完成标准，它们默认不再进入下一轮批量补厚，除非出现明确错误、用户点名，或未来新增来源材料。
 
 ### 普通动物/接近普通怪物页
 
 这批很多行数短，但不等于“缺”；有些本来就不需要做成神话主体页那种厚度。
 
-- `cat.md`
-- `camel.md`
-- `orca.md`
-- `gorilla.md`
-- `rhinoceros.md`
-- `african-elephant.md`
-- `hippopotamus.md`
-- `megalodon.md`
-- `piranha.md`
-- `scorpion.md`
-- `giant-octopus.md`
-- `wild-boar.md`
+| 页面 | 当前判断 | 默认处置 |
+|------|----------|----------|
+| `cat.md` | 普通动物危险页，页长短不等于未完成 | 默认不继续 |
+| `camel.md` | 普通动物危险页，优先级低 | 默认不继续 |
+| `orca.md` | 普通动物危险页，优先级低 | 默认不继续 |
+| `gorilla.md` | 普通动物危险页，优先级低 | 默认不继续 |
+| `rhinoceros.md` | 普通动物危险页，优先级低 | 默认不继续 |
+| `african-elephant.md` | 普通动物危险页，优先级低 | 默认不继续 |
+| `hippopotamus.md` | 普通动物危险页，优先级低 | 默认不继续 |
+| `megalodon.md` | 接近传奇动物页，但当前不属于第二阶段主战场 | 默认不继续 |
+| `piranha.md` | 普通动物危险页，优先级低 | 默认不继续 |
+| `scorpion.md` | 普通动物危险页，优先级低 | 默认不继续 |
+| `giant-octopus.md` | 已完成必要修复，但不再继续追求高强度补厚 | 默认不继续 |
+| `wild-boar.md` | 已完成必要修复，但不再继续追求高强度补厚 | 默认不继续 |
 
 ### 人物/书籍/模组辅助页
 
 这批更多是知识库完整性问题，不是当前 PDF 主体修复主战场。
 
-- `abdul-alhazred.md`
-- `harvey-walters.md`
-- `lovecraft.md`
-- `necronomicon.md`
-- `module-haunted.md`
-- `module-dark-woods.md`
-- `module-crimson-letters.md`
+| 页面 | 当前判断 | 默认处置 |
+|------|----------|----------|
+| `abdul-alhazred.md` | 已做定点复核；人物页边界已足够清楚，不按怪物页厚度标准继续扩写 | 默认不继续 |
+| `harvey-walters.md` | 已做定点复核；已明确为范例调查员页，后续仅在点名时复核 | 默认不继续 |
+| `lovecraft.md` | 已做定点复核；已明确为与本库直接相关的洛氏背景总览页，后续仅在点名时复核 | 默认不继续 |
+| `necronomicon.md` | 已做定点复核；已明确为多版本文本谱系页，后续仅在点名或新来源出现时复核 | 默认不继续 |
+| `module-haunted.md` | 已做定点复核；已明确为 KP 实跑提纲页，后续只做定点错误修复 | 默认不继续 |
+| `module-dark-woods.md` | 已做定点复核；已明确为森林搜救节奏提纲页，后续只做定点错误修复 | 默认不继续 |
+| `module-crimson-letters.md` | 已做定点复核；已明确为开放调查收束提纲页，后续只做定点错误修复 | 默认不继续 |
+
+### 低优先级执行规则
+
+对本节页面，当前默认只允许三种后续动作：
+
+1. 发现明确错误时做定点修复。
+2. 用户明确点名要求复核或补写。
+3. 未来出现新来源材料后重新评估。
+
+除此之外，不再把这些页面纳入新的连续批次。
 
 ---
 
@@ -189,6 +234,114 @@
 - `servants-of-cthulhu.md`
 
 状态：已于 `2026-05-08` 完成。
+
+### 第 5 批
+
+- `foster-child-of-the-old-gods.md`
+- `miri-nigri.md`
+- `spectre-hunter.md`
+- `zu-che-quon.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 6 批
+
+- `child-of-ubbo-sathla.md`
+- `brood-of-eihort.md`
+- `star-spawn-of-cthulhu.md`
+- `servants-of-ygolonac.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 7 批
+
+- `colour-out-of-space.md`
+- `flying-polyp.md`
+- `elder-things.md`
+- `yithian.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 8 批
+
+- `mi-go.md`
+- `deep-ones.md`
+- `serpent-people.md`
+- `people-of-kn-yan.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 9 批
+
+- `voormi.md`
+- `martense-clan.md`
+- `ghoul.md`
+- `shoggoth.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 10 批
+
+- `hunting-horror.md`
+- `cthughan.md`
+- `green-abyss-spawn.md`
+- `dark-crawler.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 11 批
+
+- `cold-ones.md`
+- `fishers-from-outside.md`
+- `dream-crystal-guardian.md`
+- `child-of-the-sphinx.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 12 批
+
+- `dust-dweller.md`
+- `nython-ghuli.md`
+- `nofer-kee.md`
+- `sand-dweller.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 13 批
+
+- `dhol-retainers.md`
+- `bigfoot-sasquatch.md`
+- `nightgaunt.md`
+- `mummy.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 14 批
+
+- `dimensional-shambler.md`
+- `shantak-bird.md`
+- `chakota.md`
+- `hounds-of-tindalos.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 15 批
+
+- `ghast.md`
+- `cold-waste-ghoul-hound.md`
+- `rat-thing.md`
+- `ghoul-servant-of-ghlaaki.md`
+
+状态：已于 `2026-05-09` 完成。
+
+### 第 16 批
+
+- `ghost.md`
+- `zombie.md`
+- `skeleton.md`
+- `vampire.md`
+
+状态：已于 `2026-05-09` 完成。
 
 ---
 
