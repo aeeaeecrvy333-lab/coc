@@ -12,6 +12,7 @@ export function createInitialState(moduleData, seedCharacter) {
     history: [],
     echoes: [],
     unlockedEndings: [],
+    skillTicks: [],
     lastTransition: null
   };
 }
@@ -27,7 +28,8 @@ export function enterCurrentNode(moduleData, state) {
   }
 
   state.history.push(node.id);
-  applyEffects(state, node.onEnterEffects || []);
+  state.lastAppliedEffects = applyEffects(state, node.onEnterEffects || []);
+  state.thresholdResult = evaluateThresholdGate(node, state);
   if (node.endingId && !state.unlockedEndings.includes(node.endingId)) {
     state.unlockedEndings.push(node.endingId);
   }
@@ -55,62 +57,120 @@ export function jumpToNode(moduleData, state, nodeId) {
   return enterCurrentNode(moduleData, state);
 }
 
-function applyEffects(state, effects) {
+export function applyEffects(state, effects) {
+  const applied = [];
   for (const effect of effects) {
     switch (effect.type) {
       case "setFlag":
         state.flags[effect.key] = effect.value;
         break;
-      case "adjustLuck":
-        state.character.stats.luck = clampValue(state.character.stats.luck + effect.value, 0, 99);
+      case "adjustLuck": {
+        const value = resolveEffectValue(effect);
+        state.character.stats.luck = clampValue(state.character.stats.luck + value, 0, 99);
         state.character.luck = state.character.stats.luck;
-        pushEcho(state, `Luck ${formatDelta(effect.value)}`, effect.value < 0 ? "negative" : "positive");
+        applied.push({ type: "adjustLuck", value, label: `幸运 ${formatDelta(value)}` });
+        pushEcho(state, `Luck ${formatDelta(value)}`, value < 0 ? "negative" : "positive");
         break;
-      case "adjustHp":
+      }
+      case "adjustHp": {
+        const value = resolveEffectValue(effect);
         state.character.stats.hp.current = clampValue(
-          state.character.stats.hp.current + effect.value,
+          state.character.stats.hp.current + value,
           0,
           state.character.stats.hp.max
         );
         state.character.derived.HP_current = state.character.stats.hp.current;
-        pushEcho(state, `HP ${formatDelta(effect.value)}`, effect.value < 0 ? "negative" : "positive");
+        applied.push({ type: "adjustHp", value, label: `耐久 ${formatDelta(value)}` });
+        pushEcho(state, `HP ${formatDelta(value)}`, value < 0 ? "negative" : "positive");
         break;
-      case "adjustSan":
+      }
+      case "adjustSan": {
+        const value = resolveEffectValue(effect);
         state.character.stats.san.current = clampValue(
-          state.character.stats.san.current + effect.value,
+          state.character.stats.san.current + value,
           0,
           state.character.stats.san.max
         );
         state.character.derived.SAN = state.character.stats.san.current;
-        pushEcho(state, `SAN ${formatDelta(effect.value)}`, effect.value < 0 ? "negative" : "positive");
+        applied.push({ type: "adjustSan", value, label: `理智 ${formatDelta(value)}` });
+        pushEcho(state, `SAN ${formatDelta(value)}`, value < 0 ? "negative" : "positive");
         break;
-      case "adjustMp":
+      }
+      case "adjustMp": {
+        const value = resolveEffectValue(effect);
         state.character.stats.mp.current = clampValue(
-          state.character.stats.mp.current + effect.value,
+          state.character.stats.mp.current + value,
           0,
           state.character.stats.mp.max
         );
         state.character.derived.MP_current = state.character.stats.mp.current;
-        pushEcho(state, `MP ${formatDelta(effect.value)}`, effect.value < 0 ? "negative" : "positive");
+        applied.push({ type: "adjustMp", value, label: `魔法 ${formatDelta(value)}` });
+        pushEcho(state, `MP ${formatDelta(value)}`, value < 0 ? "negative" : "positive");
         break;
+      }
+      case "tickSkill":
+        if (!state.skillTicks) state.skillTicks = [];
+        if (!state.skillTicks.includes(effect.skill)) {
+          state.skillTicks.push(effect.skill);
+          applied.push({ type: "tickSkill", label: `${effect.skill} ✓` });
+        }
+        pushEcho(state, `技能成长：${effect.skill}`, "positive");
+        break;
+      case "adjustSkill": {
+        if (!state.character.skillPoints) state.character.skillPoints = {};
+        if (!state.character.skillPoints[effect.skill]) {
+          state.character.skillPoints[effect.skill] = { occ: 0, int: 0, adj: 0 };
+        }
+        state.character.skillPoints[effect.skill].adj =
+          (state.character.skillPoints[effect.skill].adj || 0) + effect.value;
+        applied.push({ type: "adjustSkill", label: `${effect.skill} +${effect.value}` });
+        pushEcho(state, `${effect.skill} 永久+${effect.value}`, "positive");
+        break;
+      }
       case "gainItem":
         state.inventory.push(effect.item);
         state.character.inventory = [...state.inventory];
+        applied.push({ type: "gainItem", label: `获得 ${effect.item}` });
         pushEcho(state, `获得物品：${effect.item}`, "positive");
         break;
       case "loseItem":
         state.inventory = state.inventory.filter((item) => item !== effect.item);
         state.character.inventory = [...state.inventory];
+        applied.push({ type: "loseItem", label: `失去 ${effect.item}` });
         pushEcho(state, `失去物品：${effect.item}`, "negative");
         break;
       case "logEntry":
         pushEcho(state, effect.text, "neutral");
+        break;
+      case "startCombat":
+        state.pendingCombat = effect.scriptId;
+        applied.push({ type: "startCombat", label: "进入战斗" });
+        pushEcho(state, "进入战斗", "negative");
         break;
       default:
         pushEcho(state, `未实现 effect: ${effect.type}`, "neutral");
         break;
     }
   }
+  return applied;
+}
+
+function resolveEffectValue(effect) {
+  if (effect.diceExpr) {
+    return rollDiceExpr(effect.diceExpr) * (effect.sign ?? 1);
+  }
+  return effect.value;
+}
+
+function rollDiceExpr(expr) {
+  const match = expr.match(/^(\d+)[Dd](\d+)([+-]\d+)?$/);
+  if (!match) return 0;
+  const [, count, sides, mod] = match;
+  let total = 0;
+  for (let i = 0; i < Number(count); i++) {
+    total += Math.floor(Math.random() * Number(sides)) + 1;
+  }
+  return total + (Number(mod) || 0);
 }
 
 function pushEcho(state, text, tone) {
@@ -128,4 +188,31 @@ function formatDelta(value) {
 
 function clampValue(value, min, max) {
   return Math.max(min, Math.min(max, value));
+}
+
+function evaluateThresholdGate(node, state) {
+  const gate = node.thresholdGate;
+  if (!gate) return null;
+
+  const lastHpEffect = (state.lastAppliedEffects || [])
+    .filter(e => e.type === "adjustHp")
+    .pop();
+  if (!lastHpEffect) return null;
+
+  const absDamage = Math.abs(lastHpEffect.value);
+  const max = state.character.stats.hp.max;
+  const threshold = Math.floor(max * gate.fractionOfMax);
+  const met = gate.compare === ">=" ? absDamage >= threshold : absDamage > threshold;
+
+  pushEcho(state,
+    `伤害 ${absDamage} ${met ? "≥" : "<"} 最大HP一半(${threshold})：${met ? "重伤" : "轻伤"}`,
+    met ? "negative" : "neutral"
+  );
+
+  return {
+    met,
+    damage: absDamage,
+    threshold,
+    visibleActionIndex: met ? gate.actionIndexIfMet : gate.actionIndexIfNot
+  };
 }

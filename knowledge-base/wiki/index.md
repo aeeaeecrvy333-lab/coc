@@ -17,15 +17,15 @@
 
 > 面向第一次读 wiki 的玩家，建议先从这些导航页进入；最顺手的顺序通常是 建卡 -> 幸运 -> 理智 -> 战斗 -> 追逐
 
-| 页面 | 摘要 | 状态 |
-|------|------|------|
-| [alone-against-the-flames-player-guide](concepts/alone-against-the-flames-player-guide.md) | 《向火独行》零剧透玩家入口 | ✅ |
-| [investigator-start-guide](concepts/investigator-start-guide.md) | 调查员建卡与开局玩家指南 | ✅ |
-| [player-quick-reference](concepts/player-quick-reference.md) | 桌边速查：掷骰、幸运、理智、战斗、追逐 | ✅ |
-| [luck-and-spending-luck](concepts/luck-and-spending-luck.md) | 幸运检定与花费幸运值 | ✅ |
-| [sanity-and-recovery-guide](concepts/sanity-and-recovery-guide.md) | 理智、疯狂与恢复玩家指南 | ✅ |
-| [combat-and-injury-guide](concepts/combat-and-injury-guide.md) | 战斗、受伤与抢救玩家指南 | ✅ |
-| [chase-guide](concepts/chase-guide.md) | 追逐玩家指南 | ✅ |
+| 页面                                                                                         | 摘要                  | 状态  |
+| ------------------------------------------------------------------------------------------ | ------------------- | --- |
+| [alone-against-the-flames-player-guide](concepts/alone-against-the-flames-player-guide.md) | 《向火独行》零剧透玩家入口       | ✅   |
+| [investigator-start-guide](concepts/investigator-start-guide.md)                           | 调查员建卡与开局玩家指南        | ✅   |
+| [player-quick-reference](concepts/player-quick-reference.md)                               | 桌边速查：掷骰、幸运、理智、战斗、追逐 | ✅   |
+| [luck-and-spending-luck](concepts/luck-and-spending-luck.md)                               | 幸运检定与花费幸运值          | ✅   |
+| [sanity-and-recovery-guide](concepts/sanity-and-recovery-guide.md)                         | 理智、疯狂与恢复玩家指南        | ✅   |
+| [combat-and-injury-guide](concepts/combat-and-injury-guide.md)                             | 战斗、受伤与抢救玩家指南        | ✅   |
+| [chase-guide](concepts/chase-guide.md)                                                     | 追逐玩家指南              | ✅   |
 
 ### 建卡辅助
 

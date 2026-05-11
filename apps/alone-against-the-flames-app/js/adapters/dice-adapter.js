@@ -24,6 +24,7 @@ let isRolling = false;
 let rollCompleteListener = null;
 let pendingExternalNotations = null;
 let currentRollMeta = null;
+let inlineMode = false;
 
 let container;
 let selectorEl;
@@ -113,9 +114,18 @@ async function initDiceBox() {
       setTimeout(() => {
         diceBox.clear();
         const summary = displayResults(results);
-        if (rollCompleteListener) rollCompleteListener(summary);
+        if (inlineMode) {
+          setTimeout(() => {
+            hideResults();
+            closeDicePanel();
+            inlineMode = false;
+            if (rollCompleteListener) rollCompleteListener(summary);
+          }, 2000);
+        } else {
+          if (rollCompleteListener) rollCompleteListener(summary);
+        }
         isRolling = false;
-        rollBtn.disabled = false;
+        if (rollBtn) rollBtn.disabled = false;
       }, 600);
     };
 
@@ -132,12 +142,12 @@ function openDicePanel() {
   if (!diceBoxReady) {
     initDiceBox();
   } else {
-    setTimeout(() => diceBox.resize(), 120);
+    if (diceBox.resize) setTimeout(() => diceBox.resize(), 120);
   }
 }
 
 function closeDicePanel() {
-  container.classList.remove("open");
+  container.classList.remove("open", "inline-roll");
   hideResults();
 }
 
@@ -182,7 +192,7 @@ function rollDice() {
   if (!notations.length) return;
 
   isRolling = true;
-  rollBtn.disabled = true;
+  if (rollBtn) rollBtn.disabled = true;
   hideResults();
   diceBox.roll(notations);
 }
@@ -193,10 +203,15 @@ function rollNotation(notationOrConfig) {
       ? notationOrConfig
       : { notation: notationOrConfig };
   const notation = config.notation;
-  openDicePanel();
+  inlineMode = true;
+  container.classList.add("open", "inline-roll");
+  if (!diceBoxReady) {
+    initDiceBox();
+  } else {
+    if (diceBox.resize) setTimeout(() => diceBox.resize(), 120);
+  }
   pendingExternalNotations = Array.isArray(notation) ? notation : [notation];
   currentRollMeta = config.meta || null;
-  notationInput.value = Array.isArray(notation) ? notation.join(", ") : notation;
   if (!diceBoxReady) {
     const wait = setInterval(() => {
       if (!diceBoxReady) return;

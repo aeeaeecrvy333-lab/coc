@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>向火独行 · 电子陪跑</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai:wght@300;400;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/combat.css">
 </head>
 <body>
   <div class="ember-backdrop"></div>
@@ -32,45 +36,51 @@
 
     <section class="overview-band">
       <div class="overview-card">
-        <span class="overview-label">当前阶段</span>
-        <strong id="phaseLabel">开场</strong>
+        <span class="overview-label">当前节点</span>
+        <strong id="overviewNodeId">entry-1</strong>
       </div>
       <div class="overview-card">
         <span class="overview-label">已走节点</span>
-        <strong id="historyCount">0</strong>
-      </div>
-      <div class="overview-card">
-        <span class="overview-label">可试玩切片</span>
-        <strong id="sliceCount">0</strong>
+        <strong id="overviewSteps">0</strong>
       </div>
       <div class="overview-card">
         <span class="overview-label">已触发标记</span>
-        <strong id="flagCount">0</strong>
+        <strong id="overviewFlags">0</strong>
+      </div>
+      <div class="overview-card">
+        <span class="overview-label">已解锁结局</span>
+        <strong id="overviewEndings">0</strong>
       </div>
     </section>
 
     <main class="experience-grid">
       <aside class="rail rail-left">
         <section class="panel-card sticky-card">
-          <div class="panel-header">
-            <h2>快速入口</h2>
-            <span class="panel-note">demo 切片</span>
+          <div class="act-banner">
+            <div class="act-label" id="currentActLabel">第一幕</div>
+            <div class="act-title" id="currentActTitle">抵达</div>
+            <div class="act-description" id="currentActDescription">长途车与初到烬头村。</div>
           </div>
-          <div class="quickstart-list" id="quickStartList"></div>
+          <div class="journey-meta" id="journeyMeta">已走过 0 个节点</div>
+          <div class="debug-jump">
+            <input type="number" id="debugJumpInput" min="1" max="270" placeholder="条目 N" />
+            <button type="button" id="debugJumpButton">跳到条目</button>
+          </div>
         </section>
 
         <section class="panel-card">
           <div class="panel-header">
-            <h2>结构化进度</h2>
-            <span class="panel-note">当前 stub</span>
+            <h2>叙事脉络</h2>
+            <span class="panel-note">关键转折</span>
           </div>
-          <div class="progress-strip">
-            <div class="progress-track">
-              <div class="progress-fill" id="structureProgressFill"></div>
-            </div>
-            <div class="progress-meta" id="structureProgressMeta"></div>
+          <div class="milestone-timeline" id="milestoneTimeline"></div>
+        </section>
+
+        <section class="panel-card">
+          <div class="panel-header">
+            <h2>章节</h2>
           </div>
-          <ul class="chapter-list" id="chapterList"></ul>
+          <ul class="chapter-progress" id="chapterProgress"></ul>
         </section>
       </aside>
 
@@ -127,42 +137,7 @@
       </section>
 
       <aside class="rail rail-right">
-        <section class="panel-card">
-          <div class="panel-header">
-            <h2>角色状态</h2>
-            <span class="panel-note">待接 `character-tracker`</span>
-          </div>
-          <div class="identity-shell">
-            <div class="portrait-frame" id="portraitFrame">
-              <div class="portrait-placeholder" id="portraitPlaceholder">调查员</div>
-              <img id="portraitImage" alt="调查员头像" hidden>
-            </div>
-            <div class="identity-block">
-              <strong id="investigatorName">试运行调查员</strong>
-              <span id="investigatorRole">独行的外来者</span>
-              <div class="identity-meta" id="investigatorMeta"></div>
-            </div>
-          </div>
-
-          <div class="tracker-bars" id="trackerBars"></div>
-
-          <div class="detail-grid" id="detailGrid">
-            <div class="detail-card">
-              <span>出身</span>
-              <strong id="detailHometown">-</strong>
-            </div>
-            <div class="detail-card">
-              <span>居所</span>
-              <strong id="detailResidence">-</strong>
-            </div>
-          </div>
-
-          <div class="stat-grid" id="statGrid"></div>
-          <div class="inventory-block">
-            <h3>关键持有物</h3>
-            <ul id="inventoryList"></ul>
-          </div>
-        </section>
+        <section class="panel-card character-panel" id="characterPanel"></section>
 
         <section class="panel-card">
           <div class="panel-header">
@@ -202,6 +177,19 @@
         </section>
       </aside>
     </main>
+  </div>
+
+  <div id="combat-overlay" class="combat-overlay">
+    <div class="combat-backdrop"></div>
+    <div class="combat-panel">
+      <header class="combat-header">
+        <h2 id="combatTitle"></h2>
+        <p id="combatDescription"></p>
+      </header>
+      <div class="combat-status" id="combatStatus"></div>
+      <div class="combat-log" id="combatLog"></div>
+      <div class="combat-actions" id="combatActions"></div>
+    </div>
   </div>
 
   <div id="dice-box-container">

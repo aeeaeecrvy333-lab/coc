@@ -1,7 +1,7 @@
 # CLAUDE.md - CoC-kb 项目总览
 
 > 本文件是 AI 助手理解本项目的入口指引。
-> 最后更新: 2026-05-10
+> 最后更新: 2026-05-11
 
 ---
 
@@ -136,37 +136,57 @@ CoC-kb/
 
 ### 4. apps/alone-against-the-flames-app/ — 向火独行电子陪跑
 
-- **定位**: 单人模组《向火独行（Alone Against the Flames）》的电子陪跑原型
-- **技术栈**: 多文件 HTML/CSS/JS（ES Module），计划复用 character-tracker 渲染模块和 DiceBox
-- **当前状态**: 原型阶段，界面优先，验证「剧情优先」的主舞台布局
+- **定位**: 单人模组《向火独行（Alone Against the Flames）》的电子陪跑工具
+- **技术栈**: 多文件 HTML/CSS/JS（ES Module），复用 character-tracker 的 DiceBox 3D 骰子库
+- **当前状态**: 核心引擎基本完成，可完整游玩 270 条目模组
 - **架构**: engine/adapters/data/ui 四层代码边界
 - **核心功能**（已实现）:
   - 三栏体验布局（左侧快速入口+进度、中央剧情主舞台、右侧角色状态+线索）
   - 模组引擎（module-engine.js）驱动节点式剧情流转
   - .coc7 角色卡导入（复用 character-adapter.js）
-  - DiceBox 骰子面板（dice-adapter.js）
+  - DiceBox 3D 骰子面板（dice-adapter.js），支持百分骰/奖励骰/惩罚骰
+  - 技能/属性/派生值检定系统（自动识别检定难度和模式）
+  - 检定结果驱动路径分支（成功/失败/大失败门控）
+  - 对抗检定 & 多回合战斗系统（5 个战斗场景，弹出层 UI）
+  - 效果系统：HP/SAN/MP/Luck 调整、技能成长、物品获得/失去、战斗触发
+  - 检定门控效果：属性损失仅在检定失败后触发
+  - 伤害阈值自动分支（伤害 vs maxHP/2 决定路径）
+  - 效果通知 UI（effect pills）
+  - 结局复盘页面（18 个结局，含路径/状态/里程碑/技能成长）
+  - localStorage 游戏进度持久化
   - 路径时间线、线索线程、剧情记录面板
 - **待实现**:
-  - 真实接入 character-tracker render 模块
-  - 完整《向火独行》正文结构化
-  - 结局复盘页
+  - 孤注一掷（Pushed Roll）
+  - 幸运消耗（Spending Luck）
+  - 重伤/昏迷状态
+  - 叙事 flag 触发
 - **文件结构**:
   ```
-  index.html              ← HTML 结构（~229 行）
+  index.html              ← HTML 结构
   css/
-    app.css               ← 全部样式
+    app.css               ← 主样式
+    combat.css            ← 战斗弹出层样式
   js/
-    app.js                ← 主入口（ES Module）
+    app.js                ← 主入口（ES Module），状态管理，战斗集成
     engine/
-      module-engine.js    ← 模组引擎（节点流转、状态管理）
+      module-engine.js    ← 模组引擎（节点流转、效果执行、阈值门控）
+      opposed-roll.js     ← CoC 7e 对抗检定纯函数（成功等级比较）
+      combat-engine.js    ← 战斗状态机（回合驱动、骰子请求、伤害应用）
     adapters/
       character-adapter.js ← 角色卡适配器（.coc7 导入）
-      dice-adapter.js     ← 骰子适配器（DiceBox 接口）
+      dice-adapter.js     ← 骰子适配器（DiceBox 接口，百分骰/奖惩骰）
     data/
-      module-stub.js      ← 模组数据桩（demo 切片）
+      module.js           ← 数据适配层（parsed JSON → 引擎节点，ENTRY_SCRIPTS，THRESHOLD_GATES）
+      parsed-entries.json ← 解析后的 270 条目原始数据
+      combat-scripts.js   ← 5 个战斗场景的声明式配置
+      skills-data.js      ← 技能数据
     ui/
       render.js           ← UI 渲染函数
-  assets/                 ← 资源（暂空）
+      character-panel.js  ← 角色面板渲染
+      combat-overlay.js   ← 战斗弹出层 UI
+  assets/figures/         ← 模组插图（12 张）
+  scripts/
+    parse-fulltext.mjs    ← 全文解析脚本（生成 parsed-entries.json）
   ```
 
 ### 5. 视觉设计体系
@@ -189,12 +209,12 @@ knowledge-base/wiki/entities/  ──实体数据──→  apps/character-track
 knowledge-base/wiki/entities/  ──模组正文──→  apps/alone-against-the-flames-app/js/data/
 apps/coc_character_sheet/      ──.coc7导出──→  apps/character-tracker/（导入角色）
 apps/coc_character_sheet/      ──.coc7导出──→  apps/alone-against-the-flames-app/（导入角色）
-apps/character-tracker/        ──渲染模块──→  apps/alone-against-the-flames-app/（计划复用）
+apps/character-tracker/        ──DiceBox库──→  apps/alone-against-the-flames-app/（共享 3D 骰子引擎）
 ```
 
 - 角色卡创建器的游戏数据（技能、职业、装备、武器、表格）来源于知识库中的规则提取
 - 角色卡追踪器的技能列表、武器数据、规则参考与知识库保持一致
-- 向火独行 app 通过 .coc7 文件导入角色，计划复用 character-tracker 的渲染模块和 DiceBox
+- 向火独行 app 通过 .coc7 文件导入角色，直接引用 character-tracker 的 DiceBox 库
 - 修改知识库中的规则时，应同步检查三个 app 的数据是否需要更新
 
 ---

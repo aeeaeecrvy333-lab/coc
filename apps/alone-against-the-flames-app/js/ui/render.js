@@ -2,29 +2,22 @@ export function renderApp({
   moduleData,
   state,
   currentNode,
-  visibleStats,
-  trackerBars,
   adapterStatuses,
-  investigator,
-  quickStarts,
   chapterGroups,
-  structureStats,
-  activeQuickStartId,
-  activeChapterId,
+  milestones,
   currentCheckResolution,
-  currentCheckModes,
+  pendingCombat,
   onAction,
-  onAdvanceResolved,
   onReset,
   onJump,
   onBack,
   onOpenDice,
   onRollCheck,
-  onSetCheckMode
+  onStartCombat
 }) {
-  renderHeaderSummary(moduleData, state, structureStats, currentNode);
-  renderQuickStarts(quickStarts, activeQuickStartId, onJump);
-  renderChapters(chapterGroups, activeChapterId, onJump);
+  renderActBanner(currentNode, chapterGroups, state);
+  renderMilestoneTimeline(state.flags, milestones);
+  renderChapterProgress(state, chapterGroups, moduleData.nodes);
   renderStory(
     currentNode,
     state,
@@ -32,11 +25,9 @@ export function renderApp({
     onBack,
     onRollCheck,
     currentCheckResolution,
-    onAdvanceResolved,
-    currentCheckModes,
-    onSetCheckMode
+    pendingCombat,
+    onStartCombat
   );
-  renderStats(visibleStats, trackerBars, state.inventory, investigator);
   renderClueThreads(state.flags, currentNode.id, onJump);
   renderFlags(state.flags);
   renderAdapterStatuses(adapterStatuses);
@@ -50,57 +41,85 @@ export function renderApp({
   openDiceButton.onclick = onOpenDice;
 
   const ending = currentNode.endingId
-    ? moduleData.endings.find((item) => item.id === currentNode.endingId)
+    ? moduleData.endings?.find((item) => `ending-${item.num}` === currentNode.endingId)
     : null;
   const feedback = document.getElementById("actionFeedback");
   if (ending) {
-    const endingNote = document.createElement("div");
-    endingNote.className = "ending-note";
-    endingNote.textContent = `当前停在阶段性终点：${ending.label} - ${ending.summary}`;
-    feedback.appendChild(endingNote);
+    renderEndingRecap(ending, state, milestones, onReset);
   } else if (!feedback.childElementCount) {
     feedback.textContent = "";
   }
 }
 
-function renderHeaderSummary(moduleData, state, structureStats, currentNode) {
-  document.getElementById("phaseLabel").textContent = inferPhase(currentNode);
-  document.getElementById("historyCount").textContent = `${state.history.length}`;
-  document.getElementById("sliceCount").textContent = `${structureStats.playableCount}`;
-  document.getElementById("flagCount").textContent = `${Object.keys(state.flags).length}`;
+function renderActBanner(currentNode, chapterGroups, state) {
+  const chapter = chapterGroups.find((ch) => ch.id === currentNode.sliceId) || chapterGroups[0];
+  const actIndex = chapterGroups.indexOf(chapter) + 1;
 
-  document.getElementById("buildStatus").textContent = `${structureStats.structuredCount} 节点已接入`;
-  document.getElementById("structureProgressFill").style.width = `${structureStats.coveragePercent}%`;
-  document.getElementById(
-    "structureProgressMeta"
-  ).textContent = `已结构化 ${structureStats.structuredCount} / ${structureStats.totalCount} 个节点，当前原型覆盖 ${structureStats.coveragePercent}%`;
+  document.getElementById("currentActLabel").textContent = `第${toChineseNum(actIndex)}幕`;
+  document.getElementById("currentActTitle").textContent = chapter.label.replace(/^第.幕 · /, "");
+  document.getElementById("currentActDescription").textContent = chapter.description;
+  document.getElementById("journeyMeta").textContent = `已走过 ${state.history.length} 个节点`;
+
+  document.getElementById("overviewNodeId").textContent = currentNode.id;
+  document.getElementById("overviewSteps").textContent = `${state.history.length}`;
+  document.getElementById("overviewFlags").textContent = `${Object.keys(state.flags).length}`;
+  document.getElementById("overviewEndings").textContent = `${state.unlockedEndings.length}`;
 }
 
-function renderQuickStarts(quickStarts, activeId, onJump) {
-  const list = document.getElementById("quickStartList");
-  list.innerHTML = "";
+function toChineseNum(n) {
+  return ["一", "二", "三", "四", "五", "六"][n - 1] || String(n);
+}
 
-  quickStarts.forEach((item) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `quickstart-button${item.id === activeId ? " is-active" : ""}`;
-    button.innerHTML = `<strong>${item.label}</strong><span>${item.description}</span>`;
-    button.onclick = () => onJump(item.nodeId, item.id);
-    list.appendChild(button);
+function renderMilestoneTimeline(flags, milestones) {
+  const container = document.getElementById("milestoneTimeline");
+  container.innerHTML = "";
+
+  const triggered = milestones.filter((m) => flags[m.flag]);
+
+  if (!triggered.length) {
+    const empty = document.createElement("div");
+    empty.className = "milestone-empty";
+    empty.textContent = "尚未触发关键事件";
+    container.appendChild(empty);
+    return;
+  }
+
+  triggered.forEach((milestone) => {
+    const item = document.createElement("div");
+    item.className = "milestone-item";
+    item.innerHTML = `
+      <div class="milestone-dot"></div>
+      <div class="milestone-content">
+        <strong>${milestone.label}</strong>
+        <span>${milestone.description}</span>
+      </div>
+    `;
+    container.appendChild(item);
   });
 }
 
-function renderChapters(chapterGroups, activeId, onJump) {
-  const list = document.getElementById("chapterList");
-  list.innerHTML = "";
+function renderChapterProgress(state, chapterGroups, nodes) {
+  const container = document.getElementById("chapterProgress");
+  container.innerHTML = "";
 
-  chapterGroups.forEach((item) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `chapter-button${item.id === activeId ? " is-active" : ""}`;
-    button.innerHTML = `<strong>${item.label}</strong><span>${item.description}</span>`;
-    button.onclick = () => onJump(item.nodeId, item.id);
-    list.appendChild(button);
+  const visitedChapters = new Set();
+  state.history.forEach((nodeId) => {
+    const node = nodes[nodeId];
+    if (node) visitedChapters.add(node.sliceId);
+  });
+
+  const currentChapter = nodes[state.currentNodeId]?.sliceId;
+
+  chapterGroups.forEach((chapter) => {
+    const unlocked = visitedChapters.has(chapter.id);
+    const isCurrent = chapter.id === currentChapter;
+    const li = document.createElement("li");
+    li.className = `chapter-item${unlocked ? " is-unlocked" : " is-locked"}${isCurrent ? " is-current" : ""}`;
+    li.innerHTML = `
+      <span class="chapter-icon">${unlocked ? "◆" : "◇"}</span>
+      <span class="chapter-label">${chapter.label}</span>
+    `;
+    container.appendChild(li);
   });
 }
 
@@ -111,9 +130,8 @@ function renderStory(
   onBack,
   onRollCheck,
   currentCheckResolution,
-  onAdvanceResolved,
-  currentCheckModes,
-  onSetCheckMode
+  pendingCombat,
+  onStartCombat
 ) {
   const feedback = document.getElementById("actionFeedback");
   feedback.innerHTML = "";
@@ -121,7 +139,7 @@ function renderStory(
 
   document.getElementById("sceneMeta").textContent = (node.tags || []).join(" / ");
   document.getElementById("sceneTitle").textContent = node.title;
-  document.getElementById("sceneText").textContent = node.text;
+  document.getElementById("sceneText").innerHTML = formatSceneText(node.text);
   document.getElementById("sceneTitleOverlay").textContent = node.title;
   document.getElementById("sceneOverlayMeta").textContent = (node.tags || []).join(" · ");
   document.getElementById("currentNodeCode").textContent = node.id;
@@ -130,6 +148,8 @@ function renderStory(
   renderTransitionBanner(state.lastTransition);
 
   renderSceneArt(node.image);
+  renderDirectiveBadges(node.directives || []);
+  renderEffectNotices(state.lastAppliedEffects || [], state.thresholdResult);
 
   const backButton = document.getElementById("jumpBackButton");
   backButton.disabled = state.history.length <= 1;
@@ -138,17 +158,35 @@ function renderStory(
   const actionList = document.getElementById("actionList");
   actionList.innerHTML = "";
 
+  if (pendingCombat) {
+    const combatRow = document.createElement("div");
+    combatRow.className = "action-row";
+    const combatBtn = document.createElement("button");
+    combatBtn.type = "button";
+    combatBtn.className = "action-button is-recommended";
+    combatBtn.innerHTML = `
+      <span class="action-main">
+        <span class="action-label">进入战斗</span>
+        <span class="action-note">点击开始对抗/战斗解算</span>
+      </span>
+    `;
+    combatBtn.onclick = () => onStartCombat(pendingCombat);
+    combatRow.appendChild(combatBtn);
+    actionList.appendChild(combatRow);
+    return;
+  }
+
   renderCheckHints(
     node,
     onRollCheck,
-    currentCheckResolution,
-    node.actions || [],
-    onAdvanceResolved,
-    currentCheckModes,
-    onSetCheckMode
+    currentCheckResolution
   );
 
-  (node.actions || []).forEach((action) => {
+  (node.actions || []).forEach((action, actionIndex) => {
+    if (state.thresholdResult && actionIndex !== state.thresholdResult.visibleActionIndex) {
+      return;
+    }
+
     const row = document.createElement("div");
     row.className = "action-row";
 
@@ -161,9 +199,10 @@ function renderStory(
       button.classList.add("is-locked");
       button.disabled = true;
     }
+    const actionLabel = state.thresholdResult ? "继续 →" : action.label;
     button.innerHTML = `
       <span class="action-main">
-        <span class="action-label">${action.label}</span>
+        <span class="action-label">${actionLabel}</span>
         <span class="action-note">${action.description || ""}</span>
       </span>
     `;
@@ -173,7 +212,7 @@ function renderStory(
     }
 
     const rollButton = renderActionCheck(action.check);
-    if (rollButton && gateState !== "locked" && !currentCheckResolution) {
+    if (rollButton && gateState === "free" && !currentCheckResolution) {
       rollButton.addEventListener("click", () =>
         onRollCheck({
           notation: rollButton.dataset.rollNotation,
@@ -192,11 +231,7 @@ function renderStory(
 function renderCheckHints(
   node,
   onRollCheck,
-  currentCheckResolution,
-  actions,
-  onAdvanceResolved,
-  currentCheckModes,
-  onSetCheckMode
+  currentCheckResolution
 ) {
   const feedback = document.getElementById("actionFeedback");
   const hints = node.checkHints || [];
@@ -208,14 +243,11 @@ function renderCheckHints(
     const row = document.createElement("div");
     row.className = "check-hint";
     const targetMeta = renderCheckTargetMeta(hint);
-    const modeKey = getCheckModeKey(node.id, hint);
-    const selectedMode = currentCheckModes[modeKey] || hint.mode || "regular";
     row.innerHTML = `
       <div class="check-copy">
         <strong>${hint.label}</strong>
-        <span>${hint.description || "建议先完成一次检定，再选择结果分支。"}</span>
+        <span>${hint.description || "进行一次检定，结果将决定后续走向。"}</span>
         ${targetMeta ? `<small>${targetMeta}</small>` : ""}
-        ${renderCheckModeSelector(selectedMode, !!currentCheckResolution)}
       </div>
       <button type="button" class="check-roll-button" data-notation="${hint.notation || "1d100"}">
         投 ${formatRollButtonLabel(hint)}
@@ -227,30 +259,12 @@ function renderCheckHints(
       row.classList.add(`rank-${currentCheckResolution.rank}`);
       row.querySelector(".check-roll-button").remove();
       row.querySelector(".check-copy").appendChild(renderResolutionSummary(currentCheckResolution));
-      const resolvedAction = findResolvedAction(actions, currentCheckResolution);
-      if (resolvedAction) {
-        if (resolvedAction.transitionSummary) {
-          const summary = document.createElement("div");
-          summary.className = "resolved-transition-summary";
-          summary.textContent = resolvedAction.transitionSummary;
-          row.querySelector(".check-copy").appendChild(summary);
-        }
-        const advanceButton = document.createElement("button");
-        advanceButton.type = "button";
-        advanceButton.className = "resolve-advance-button";
-        advanceButton.textContent = `按本次结果前进：${resolvedAction.label}`;
-        advanceButton.addEventListener("click", () => onAdvanceResolved(resolvedAction.id));
-        row.appendChild(advanceButton);
-      }
     }
 
     const rollTrigger = row.querySelector(".check-roll-button");
     if (rollTrigger) {
       rollTrigger.addEventListener("click", () => onRollCheck(hint));
     }
-    row.querySelectorAll("[data-check-mode]").forEach((button) => {
-      button.addEventListener("click", () => onSetCheckMode(node.id, hint, button.dataset.checkMode));
-    });
     feedback.appendChild(row);
   });
 }
@@ -275,25 +289,25 @@ function renderCheckTargetMeta(check) {
 function getActionRecommendationClass(check, resolution) {
   if (!check || !resolution || check.outcome == null) return "";
   if (check.outcome === "success" && resolution.success) return "is-recommended";
-  if (check.outcome === "failure" && !resolution.success) return "is-recommended";
+  if (check.outcome === "failure" && !resolution.success && resolution.rank !== "fumble") return "is-recommended";
+  if (check.outcome === "fumble" && resolution.rank === "fumble") return "is-recommended";
+  if (check.outcome === "non_fumble" && resolution.rank !== "fumble") return "is-recommended";
   return "is-muted";
 }
 
 function getActionGateState(check, resolution) {
   if (!check || check.outcome == null) return "free";
-  if (!resolution) return "locked";
+  if (!resolution) return "hidden";
   if (check.outcome === "success" && resolution.success) return "free";
-  if (check.outcome === "failure" && !resolution.success) return "free";
-  return "locked";
+  if (check.outcome === "failure") {
+    if (resolution.rank === "fumble") return "hidden";
+    if (!resolution.success) return "free";
+  }
+  if (check.outcome === "fumble" && resolution.rank === "fumble") return "free";
+  if (check.outcome === "non_fumble" && resolution.rank !== "fumble") return "free";
+  return "hidden";
 }
 
-function findResolvedAction(actions, resolution) {
-  return (actions || []).find((action) => {
-    if (!action.check || action.check.outcome == null) return false;
-    return (action.check.outcome === "success" && resolution.success) ||
-      (action.check.outcome === "failure" && !resolution.success);
-  });
-}
 
 function renderResolutionSummary(resolution) {
   const block = document.createElement("div");
@@ -312,31 +326,6 @@ function renderResolutionSummary(resolution) {
     </div>
   `;
   return block;
-}
-
-function renderCheckModeSelector(selectedMode, disabled) {
-  const modes = [
-    { id: "regular", label: "常规" },
-    { id: "bonus", label: "奖励" },
-    { id: "penalty", label: "惩罚" }
-  ];
-
-  return `
-    <div class="check-mode-selector${disabled ? " is-disabled" : ""}">
-      ${modes
-        .map(
-          (mode) =>
-            `<button type="button" class="check-mode-button${mode.id === selectedMode ? " is-active" : ""}" data-check-mode="${mode.id}" ${
-              disabled ? "disabled" : ""
-            }>${mode.label}</button>`
-        )
-        .join("")}
-    </div>
-  `;
-}
-
-function getCheckModeKey(nodeId, check) {
-  return `${nodeId}::${check.skill || check.sourceLabel || check.label}`;
 }
 
 function formatRollButtonLabel(check) {
@@ -374,6 +363,102 @@ function renderSceneArt(imagePath) {
   }
 }
 
+function renderDirectiveBadges(directives) {
+  let container = document.getElementById("directiveBadges");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "directiveBadges";
+    container.className = "directive-badges";
+    const sceneText = document.getElementById("sceneText");
+    sceneText.parentNode.insertBefore(container, sceneText.nextSibling);
+  }
+  container.innerHTML = "";
+  if (!directives || directives.length === 0) {
+    container.hidden = true;
+    return;
+  }
+  container.hidden = false;
+  directives.forEach((dir) => {
+    const badge = document.createElement("span");
+    badge.className = `directive-badge tone-${dir.kind}`;
+    badge.textContent = formatDirectiveLabel(dir);
+    if (dir.snippet) badge.title = dir.snippet;
+    container.appendChild(badge);
+  });
+}
+
+function formatDirectiveLabel(dir) {
+  const sign = dir.sign === -1 ? "−" : dir.sign === 1 ? "+" : "";
+  switch (dir.kind) {
+    case "check-mention":
+      return `检定:${dir.skill || "?"}`;
+    case "check-hard":
+      return `困难检定:${dir.skill || "?"}`;
+    case "check-extreme":
+      return `极难检定:${dir.skill || "?"}`;
+    case "tickSkill":
+      return `技能勾选:${dir.skill || "?"}`;
+    case "adjustHp":
+      return `耐久 ${sign}${dir.amount || ""}`;
+    case "adjustSan":
+      return `理智 ${sign}${dir.amount || ""}`;
+    case "adjustMp":
+      return `魔法 ${sign}${dir.amount || ""}`;
+    case "penalty-die":
+      return "惩罚骰";
+    case "bonus-die":
+      return "奖励骰";
+    default:
+      return (dir.snippet || dir.kind || "提示").slice(0, 30);
+  }
+}
+
+function renderEffectNotices(appliedEffects, thresholdResult) {
+  let container = document.getElementById("effectNotices");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "effectNotices";
+    container.className = "effect-notices";
+    const sceneText = document.getElementById("sceneText");
+    sceneText.parentNode.insertBefore(container, sceneText.nextSibling);
+  }
+  container.innerHTML = "";
+
+  const hasEffects = appliedEffects && appliedEffects.length;
+  if (!hasEffects && !thresholdResult) {
+    container.hidden = true;
+    return;
+  }
+  container.hidden = false;
+
+  if (hasEffects) {
+    appliedEffects.forEach((eff) => {
+      const pill = document.createElement("span");
+      pill.className = `effect-pill effect-${getEffectTone(eff)}`;
+      pill.textContent = eff.label;
+      container.appendChild(pill);
+    });
+  }
+
+  if (thresholdResult) {
+    const pill = document.createElement("span");
+    pill.className = `effect-pill effect-${thresholdResult.met ? "damage" : "heal"}`;
+    pill.textContent = `伤害 ${thresholdResult.damage} ${thresholdResult.met ? "≥" : "<"} HP上限一半(${thresholdResult.threshold})`;
+    container.appendChild(pill);
+  }
+}
+
+function getEffectTone(eff) {
+  if (eff.type === "adjustHp") return eff.value < 0 ? "damage" : "heal";
+  if (eff.type === "adjustSan") return eff.value < 0 ? "sanLoss" : "heal";
+  if (eff.type === "adjustMp") return eff.value < 0 ? "mpLoss" : "heal";
+  if (eff.type === "adjustLuck") return eff.value < 0 ? "damage" : "heal";
+  if (eff.type === "tickSkill" || eff.type === "adjustSkill") return "growth";
+  if (eff.type === "gainItem") return "gain";
+  if (eff.type === "loseItem") return "loss";
+  return "neutral";
+}
+
 function renderTransitionBanner(transition) {
   let banner = document.getElementById("sceneTransitionBanner");
 
@@ -395,76 +480,6 @@ function renderTransitionBanner(transition) {
   banner.hidden = false;
   banner.className = `scene-transition-banner tone-${transition.tone || "neutral"}`;
   banner.textContent = transition.text;
-}
-
-function renderStats(visibleStats, trackerBars, inventory, investigator) {
-  document.getElementById("investigatorName").textContent = investigator.name;
-  document.getElementById("investigatorRole").textContent = investigator.occupation;
-  document.getElementById("investigatorMeta").textContent = investigator.identityMeta || "未载入更多角色信息";
-  document.getElementById("detailHometown").textContent = investigator.hometown || "-";
-  document.getElementById("detailResidence").textContent = investigator.residence || "-";
-
-  renderPortrait(investigator);
-  renderTrackerBars(trackerBars);
-
-  const statGrid = document.getElementById("statGrid");
-  statGrid.innerHTML = "";
-
-  visibleStats.forEach((stat) => {
-    const card = document.createElement("dl");
-    card.className = "stat-card";
-    card.innerHTML = `<dt>${stat.label}</dt><dd>${stat.value}</dd>`;
-    statGrid.appendChild(card);
-  });
-
-  const inventoryList = document.getElementById("inventoryList");
-  inventoryList.innerHTML = "";
-  const sourceInventory = inventory.length ? inventory : ["暂无关键持有物"];
-  sourceInventory.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    inventoryList.appendChild(li);
-  });
-}
-
-function renderPortrait(investigator) {
-  const image = document.getElementById("portraitImage");
-  const placeholder = document.getElementById("portraitPlaceholder");
-
-  if (investigator.portraitUrl) {
-    image.src = investigator.portraitUrl;
-    image.hidden = false;
-    placeholder.hidden = true;
-    image.onerror = () => {
-      image.hidden = true;
-      placeholder.hidden = false;
-    };
-    return;
-  }
-
-  image.hidden = true;
-  image.removeAttribute("src");
-  placeholder.hidden = false;
-}
-
-function renderTrackerBars(trackerBars) {
-  const container = document.getElementById("trackerBars");
-  container.innerHTML = "";
-
-  trackerBars.forEach((tracker) => {
-    const card = document.createElement("div");
-    card.className = `tracker-bar tone-${tracker.tone}`;
-    card.innerHTML = `
-      <div class="tracker-head">
-        <span>${tracker.label}</span>
-        <strong>${tracker.current}/${tracker.max}</strong>
-      </div>
-      <div class="tracker-track">
-        <div class="tracker-fill" style="width:${tracker.percent}%"></div>
-      </div>
-    `;
-    container.appendChild(card);
-  });
 }
 
 function renderFlags(flags) {
@@ -492,42 +507,13 @@ function renderClueThreads(flags, currentNodeId, onJump) {
   const container = document.getElementById("clueThreadList");
   container.innerHTML = "";
 
-  const clues = buildClueThreads(flags);
-  if (!clues.length) {
-    const empty = document.createElement("div");
-    empty.className = "clue-thread-card is-empty";
-    empty.innerHTML = `
-      <strong>还没有成形的线索</strong>
-      <p>继续调查村庄、夜空、露丝或图书室之后，这里会开始整理你正在追的问题。</p>
-    `;
-    container.appendChild(empty);
-    return;
-  }
-
-  clues.forEach((clue) => {
-    const card = document.createElement("article");
-    const isCurrent = clue.nodeId === currentNodeId;
-    card.className = `clue-thread-card tone-${clue.tone || "neutral"}${isCurrent ? " is-current" : ""}`;
-    card.innerHTML = `
-      <div class="clue-thread-top">
-        <strong>${clue.title}</strong>
-        <span>${clue.status}</span>
-      </div>
-      <p>${clue.summary}</p>
-      ${
-        clue.nodeId
-          ? `<button type="button" class="clue-thread-jump"${isCurrent ? " disabled" : ""}>${
-              isCurrent ? "当前相关场景" : clue.cta || "追这条线"
-            }</button>`
-          : ""
-      }
-    `;
-    const jumpButton = card.querySelector(".clue-thread-jump");
-    if (jumpButton) {
-      jumpButton.addEventListener("click", () => onJump(clue.nodeId, clue.id || clue.nodeId));
-    }
-    container.appendChild(card);
-  });
+  const empty = document.createElement("div");
+  empty.className = "clue-thread-card is-empty";
+  empty.innerHTML = `
+    <strong>线索面板暂未启用</strong>
+    <p>原线索梳理基于早期手写剧情数据;现已切换到 wiki 全文驱动,线索整理会在后续重新接入。</p>
+  `;
+  container.appendChild(empty);
 }
 
 function renderAdapterStatuses(adapterStatuses) {
@@ -612,6 +598,100 @@ function buildClueThreads(flags) {
   return threads;
 }
 
+function renderEndingRecap(ending, state, milestones, onReset) {
+  const container = document.getElementById("actionFeedback");
+  container.innerHTML = "";
+
+  const recap = document.createElement("div");
+  recap.className = `ending-recap tone-${ending.tone}`;
+
+  const toneIcon = getEndingToneIcon(ending.tone);
+  const toneLabel = getEndingToneLabel(ending.tone);
+
+  const triggeredMilestones = milestones.filter((m) => state.flags[m.flag]);
+  const skillTicks = state.skillTicks || [];
+
+  const hp = state.character.stats.hp;
+  const san = state.character.stats.san;
+  const mp = state.character.stats.mp;
+  const luck = state.character.stats.luck;
+
+  recap.innerHTML = `
+    <div class="ending-recap-header">
+      <span class="ending-tone-icon">${toneIcon}</span>
+      <div class="ending-recap-title">
+        <h3>${ending.label}</h3>
+        <span class="ending-tone-label">${toneLabel}</span>
+      </div>
+    </div>
+    <p class="ending-recap-summary">${ending.summary}</p>
+    <div class="ending-recap-stats">
+      <div class="ending-stat">
+        <span class="ending-stat-label">路径长度</span>
+        <strong>${state.history.length} 步</strong>
+      </div>
+      <div class="ending-stat">
+        <span class="ending-stat-label">耐久</span>
+        <strong>${hp.current} / ${hp.max}</strong>
+      </div>
+      <div class="ending-stat">
+        <span class="ending-stat-label">理智</span>
+        <strong>${san.current} / ${san.max}</strong>
+      </div>
+      <div class="ending-stat">
+        <span class="ending-stat-label">魔法</span>
+        <strong>${mp.current} / ${mp.max}</strong>
+      </div>
+      <div class="ending-stat">
+        <span class="ending-stat-label">幸运</span>
+        <strong>${luck}</strong>
+      </div>
+    </div>
+    ${triggeredMilestones.length ? `
+      <div class="ending-recap-section">
+        <h4>触发的里程碑</h4>
+        <ul class="ending-milestone-list">
+          ${triggeredMilestones.map((m) => `<li><strong>${m.label}</strong><span>${m.description}</span></li>`).join("")}
+        </ul>
+      </div>
+    ` : ""}
+    ${skillTicks.length ? `
+      <div class="ending-recap-section">
+        <h4>技能成长</h4>
+        <div class="ending-skill-ticks">
+          ${skillTicks.map((s) => `<span class="ending-skill-pill">${s}</span>`).join("")}
+        </div>
+      </div>
+    ` : ""}
+    <button type="button" class="ending-restart-button">重新开始冒险</button>
+  `;
+
+  recap.querySelector(".ending-restart-button").addEventListener("click", onReset);
+  container.appendChild(recap);
+}
+
+function getEndingToneIcon(tone) {
+  switch (tone) {
+    case "death": return "💀";
+    case "escape": return "🏃";
+    case "triumph": return "⭐";
+    case "madness": return "🌀";
+    case "sacrifice": return "🔥";
+    default: return "📖";
+  }
+}
+
+function getEndingToneLabel(tone) {
+  switch (tone) {
+    case "death": return "死亡结局";
+    case "escape": return "逃离结局";
+    case "triumph": return "胜利结局";
+    case "madness": return "疯狂结局";
+    case "sacrifice": return "献祭结局";
+    default: return "结局";
+  }
+}
+
 function renderEchoes(echoes) {
   const echoList = document.getElementById("echoList");
   echoList.innerHTML = "";
@@ -645,13 +725,73 @@ function renderHistory(history, nodeMap) {
 }
 
 function inferPhase(node) {
-  const tags = node.tags || [];
-  if (tags.includes("开场")) return "旅程开场";
-  if (tags.includes("借宿")) return "借宿与试探";
-  if (tags.includes("白天探索")) return "白天调查";
-  if (tags.includes("图书室")) return "会堂研究";
-  if (tags.includes("夜里")) return "夜间收束";
-  if (tags.includes("傍晚")) return "傍晚回流";
-  if (tags.includes("待结构化")) return "待接内容";
-  return "游玩中";
+  const map = {
+    "chapter-1": "抵达烬头",
+    "chapter-2": "白昼调查",
+    "chapter-3": "入夜与节日",
+    "chapter-4": "火焰与终局"
+  };
+  return map[node.sliceId] || "游玩中";
+}
+
+function formatSceneText(raw) {
+  const escaped = escapeHtml(raw);
+  const highlighted = applyHighlights(escaped);
+  const paragraphs = highlighted.split(/\n\n+/);
+  return paragraphs
+    .map((p) => `<p>${p.replace(/\n/g, "<br>")}</p>`)
+    .join("");
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function applyHighlights(text) {
+  // Attributes with English abbreviation: 力量(STR), 体质(CON), etc.
+  text = text.replace(
+    /(力量|体质|意志|敏捷|外貌|体形|智力|教育|幸运)\s*[\(（](STR|CON|POW|DEX|APP|SIZ|INT|EDU|Luck)[\)）]/g,
+    '<span class="hl-attr">$1($2)</span>'
+  );
+
+  // Standalone attribute names (Chinese only, not already wrapped)
+  text = text.replace(
+    /(?<!<span[^>]*>)(力量|体质|意志|敏捷|外貌|体形|智力|教育)(?![\(（])/g,
+    '<span class="hl-attr">$1</span>'
+  );
+
+  // Skill/quoted terms: 「技能名」 (with or without 检定/技能 suffix)
+  text = text.replace(
+    /「([^」]{1,12})」/g,
+    '<span class="hl-skill">「$1」</span>'
+  );
+
+  // Mechanic keywords: 检定, 困难检定, 极难检定, 奖励骰, 惩罚骰
+  text = text.replace(
+    /(?<!<[^>]*)(?:困难检定|极难检定|奖励骰|惩罚骰)/g,
+    '<span class="hl-mechanic">$&</span>'
+  );
+
+  // HP/SAN/MP/Luck changes: 回复/失去 N 点 耐久值/理智值/魔法值
+  text = text.replace(
+    /((?:回复|失去|损失|受到)\s*\d+\s*点(?:耐久值|HP|理智值|SAN|San|魔法值|MP|幸运值|幸运|Luck))/g,
+    '<span class="hl-mechanic">$1</span>'
+  );
+
+  // Entry references: [条目 N]
+  text = text.replace(
+    /\[条目 (\d+)\]/g,
+    '<span class="hl-ref">条目 $1</span>'
+  );
+
+  // Ending marker: 【剧终】
+  text = text.replace(
+    /【剧终】/g,
+    '<span class="hl-ending">【剧终】</span>'
+  );
+
+  return text;
 }

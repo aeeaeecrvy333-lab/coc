@@ -1,23 +1,7 @@
-const ATTR_KEYS = ["STR", "CON", "SIZ", "DEX", "APP", "INT", "POW", "EDU"];
+import { SKILLS_DATA, SPECIALTY_MAP, ATTR_KEYS, MODULE_SKILLS } from "../data/skills-data.js";
+
 const STORAGE_KEY = "alone-against-the-flames-character";
-const AVATAR_BASE = "../character-tracker/coc_character_sheet/assets/avatars/";
-const SKILL_BASES = {
-  "信用评级": 0,
-  "博物学": 10,
-  "图书馆使用": 20,
-  "聆听": 20,
-  "侦查": 25,
-  "魅惑": 15,
-  "话术": 5,
-  "说服": 10,
-  "心理学": 10,
-  "神秘学": 5,
-  "历史": 5,
-  "法律": 5,
-  "急救": 30,
-  "母语": "EDU",
-  "闪避": "DEX/2"
-};
+const AVATAR_BASE = "assets/avatars/";
 
 const DEFAULT_CHARACTER = normalizeCharacter({
   name: "亨利·阿什克罗夫特",
@@ -40,6 +24,59 @@ const DEFAULT_CHARACTER = normalizeCharacter({
     { name: "石质护符（来历不明）" }
   ]
 });
+
+export function getSkillBase(skillName, attrs) {
+  if (skillName === "信用评级") return 0;
+  if (skillName === "闪避") return Math.floor((attrs.DEX || 0) / 2);
+  if (skillName === "母语") return attrs.EDU || 0;
+
+  const specialtyMatch = skillName.match(/^(.+?)[（(](.+?)[）)]$/);
+  if (specialtyMatch) {
+    const [, parent, sub] = specialtyMatch;
+    const mapping = SPECIALTY_MAP[parent];
+    if (mapping) {
+      if (mapping.category && SKILLS_DATA[mapping.category]?.[sub] != null) {
+        return SKILLS_DATA[mapping.category][sub];
+      }
+      if (mapping.freeForm) {
+        if (parent === "生存") return 10;
+        if (parent === "艺术和手艺") return 5;
+        return 1;
+      }
+      return 0;
+    }
+  }
+
+  const regularVal = SKILLS_DATA.regular[skillName];
+  if (regularVal != null) {
+    if (regularVal === "DEX/2") return Math.floor((attrs.DEX || 0) / 2);
+    if (regularVal === "EDU") return attrs.EDU || 0;
+    return regularVal;
+  }
+
+  for (const cat of ["combat", "firearms", "science", "artCraft", "survival", "unconventional"]) {
+    if (SKILLS_DATA[cat]?.[skillName] != null) {
+      return SKILLS_DATA[cat][skillName];
+    }
+  }
+
+  return 0;
+}
+
+export function getSkillTotal(skillName, attrs, skillPoints) {
+  const base = getSkillBase(skillName, attrs);
+  const points = skillPoints?.[skillName];
+  const bonus = points ? (points.occ || 0) + (points.int || 0) + (points.adj || 0) : 0;
+  return base + bonus;
+}
+
+export function half(value) {
+  return Math.floor(value / 2);
+}
+
+export function fifth(value) {
+  return Math.floor(value / 5);
+}
 
 export const characterAdapter = {
   status: "已接入 `.coc7` 导入与简化追踪视图，可直接复用现有角色卡数据。",
@@ -121,8 +158,52 @@ export const characterAdapter = {
     const equipment = (character.equipment || [])
       .map((item) => (typeof item === "string" ? item : item.name || item.detail || ""))
       .filter(Boolean);
-    if (equipment.length) return equipment.slice(0, 8);
-    return character.inventory || [];
+    const dynamic = (character.inventory || []).filter((item) => !equipment.includes(item));
+    return [...equipment, ...dynamic].slice(0, 12);
+  },
+
+  getFullSkillList(character) {
+    const attrs = character.effectiveAttrs || character.rawAttrs || {};
+    const skillPoints = character.skillPoints || {};
+    const occSkills = character.occSkills || [];
+    const allSkills = new Set();
+
+    Object.keys(SKILLS_DATA.regular).forEach((name) => allSkills.add(name));
+    Object.keys(skillPoints).forEach((name) => allSkills.add(name));
+
+    const active = [];
+    const other = [];
+
+    for (const name of allSkills) {
+      if (name === "信用评级") continue;
+      const total = getSkillTotal(name, attrs, skillPoints);
+      const base = getSkillBase(name, attrs);
+      const hasPoints = skillPoints[name] && ((skillPoints[name].occ || 0) + (skillPoints[name].int || 0) + (skillPoints[name].adj || 0)) > 0;
+      const isModuleSkill = MODULE_SKILLS.includes(name);
+      const isOcc = occSkills.includes(name);
+
+      const entry = { name, total, half: half(total), fifth: fifth(total), base, isOcc, hasPoints };
+
+      if (hasPoints || isModuleSkill) {
+        active.push(entry);
+      } else if (base > 0) {
+        other.push(entry);
+      }
+    }
+
+    // Also include specialty skills from skillPoints
+    for (const name of Object.keys(skillPoints)) {
+      if (allSkills.has(name)) continue;
+      const total = getSkillTotal(name, attrs, skillPoints);
+      const base = getSkillBase(name, attrs);
+      const isOcc = occSkills.includes(name);
+      active.push({ name, total, half: half(total), fifth: fifth(total), base, isOcc, hasPoints: true });
+    }
+
+    active.sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
+    other.sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
+
+    return { active, other };
   },
 
   resolveCheck(check, character) {
@@ -134,18 +215,19 @@ export const characterAdapter = {
 
     if (check.type === "attribute" && check.key) {
       target = Number(attrs[check.key] || 0);
-      sourceLabel = check.key;
+      sourceLabel = check.skill || check.key;
     } else if (check.type === "derived" && check.key) {
-      target = Number(character.derived?.[check.key] || 0);
-      sourceLabel = check.key;
+      if (check.key === "luck") {
+        target = Number(character.stats?.luck || character.luck || 0);
+      } else if (check.key === "san") {
+        target = Number(character.stats?.san?.current ?? character.derived?.SAN ?? 0);
+      } else {
+        target = Number(character.derived?.[check.key] || 0);
+      }
+      sourceLabel = check.skill || check.key;
     } else if (check.type === "skill" && check.skill) {
       target = getSkillTotal(check.skill, attrs, character.skillPoints || {});
       sourceLabel = check.skill;
-    }
-
-    if (check.key === "luck") {
-      target = Number(character.stats?.luck || character.luck || 0);
-      sourceLabel = "Luck";
     }
 
     if (check.target != null) {
@@ -158,8 +240,8 @@ export const characterAdapter = {
       ...check,
       sourceLabel,
       target,
-      half: Math.floor(target / 2),
-      fifth: Math.floor(target / 5)
+      half: half(target),
+      fifth: fifth(target)
     };
   }
 };
@@ -304,36 +386,6 @@ function decodeSkillPoints(source) {
     };
   }
   return result;
-}
-
-function getSkillBase(skillName, attrs) {
-  if (skillName === "信用评级") return 0;
-  if (skillName === "闪避") return Math.floor((attrs.DEX || 0) / 2);
-  if (skillName === "母语") return attrs.EDU || 0;
-
-  const specialtyMatch = skillName.match(/^(.+)\((.+)\)$/);
-  if (specialtyMatch) {
-    const [, parent] = specialtyMatch;
-    if (parent === "艺术和手艺") return 5;
-    if (parent === "生存") return 10;
-    if (parent === "格斗") return 0;
-  }
-
-  return typeof SKILL_BASES[skillName] === "string"
-    ? SKILL_BASES[skillName] === "DEX/2"
-      ? Math.floor((attrs.DEX || 0) / 2)
-      : attrs.EDU || 0
-    : SKILL_BASES[skillName] ?? 0;
-}
-
-function getSkillTotal(skillName, attrs, skillPoints) {
-  const base = getSkillBase(skillName, attrs);
-  const points = skillPoints[skillName];
-  const bonus = points ? (points.occ || 0) + (points.int || 0) : 0;
-  if (skillName === "信用评级" && bonus === 0) {
-    return Number.isFinite(base) ? base : 0;
-  }
-  return base + bonus;
 }
 
 function makeTrackerBar(label, current, max, tone) {

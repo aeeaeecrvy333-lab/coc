@@ -1,151 +1,102 @@
 import { characterAdapter } from "./adapters/character-adapter.js";
 import { diceAdapter, initDiceAdapter, mountDiceShortcuts } from "./adapters/dice-adapter.js";
-import { moduleStub } from "./data/module-stub.js";
-import { createInitialState, enterCurrentNode, getCurrentNode, jumpToNode, performAction } from "./engine/module-engine.js";
+import { module as aatfModule } from "./data/module.js";
+import { COMBAT_SCRIPTS } from "./data/combat-scripts.js";
+import { createInitialState, enterCurrentNode, getCurrentNode, jumpToNode, performAction, applyEffects } from "./engine/module-engine.js";
+import { createCombatState, startCombat, submitPlayerChoice, submitRollResult, getAvailableActions } from "./engine/combat-engine.js";
 import { renderApp } from "./ui/render.js";
+import { renderCharacterPanel } from "./ui/character-panel.js";
+import { renderCombatOverlay, openCombatOverlay, closeCombatOverlay } from "./ui/combat-overlay.js";
 
 const contentAdapterStatus =
-  "当前采用 hand-authored module stub，目的是先做出可试玩界面；后续再把 wiki 抽取内容更系统地灌进来。";
+  "数据来自 wiki fulltext 解析,共 270 条目、12 张插图、422 跳转。检定结果由玩家自掷自判。";
 
-const quickStarts = [
-  {
-    id: "bus-opening",
-    label: "长途车开场",
-    description: "先看汽车站、西拉斯、车票和最初的角色建立味道。",
-    nodeId: "entry-1"
-  },
-  {
-    id: "arrival-bridge",
-    label: "正式抵村",
-    description: "从长途车后半段直接落到烬头村，快速接上主体验。",
-    nodeId: "entry-134"
-  },
-  {
-    id: "lodging-scene",
-    label: "借宿与节日",
-    description: "直接跳进梅·莱德贝特家的第一轮对话。",
-    nodeId: "entry-4"
-  },
-  {
-    id: "day-investigation",
-    label: "白天调查枢纽",
-    description: "从午饭后的抉择开始，感受烬头村白天的可选路线。",
-    nodeId: "entry-22"
-  },
-  {
-    id: "town-hall",
-    label: "村会堂线",
-    description: "看文特斯、会堂、咖啡和图书室研究支线。",
-    nodeId: "entry-11"
-  },
-  {
-    id: "library-slice",
-    label: "图书室研究",
-    description: "直接落到文特斯的资料阅读段，最容易看出 app 的面板价值。",
-    nodeId: "entry-68"
-  },
-  {
-    id: "next-morning",
-    label: "次日清晨",
-    description: "从第一夜之后继续，直接接次日的调查与不安。",
-    nodeId: "entry-154"
-  },
-  {
-    id: "festival-finale",
-    label: "节夜终盘",
-    description: "直接跳到节日前夕，试玩夜间队列、灯塔与结局收束。",
-    nodeId: "entry-190"
-  }
+const NARRATIVE_MILESTONES = [
+  { flag: "metRuth", label: "遇见露丝", description: "小女孩的警告" },
+  { flag: "heardAboutFestival", label: "听闻节日", description: "村民提到今晚的庆典" },
+  { flag: "visitedBlackStructure", label: "黑色建筑", description: "发现不协调的金属建筑" },
+  { flag: "visitedRuinedChurch", label: "坍圮教堂", description: "被掏空的信仰痕迹" },
+  { flag: "foundAlignmentNote", label: "校准备忘", description: "「让村子对准」" },
+  { flag: "heardRuthNightWarning", label: "露丝夜谈", description: "「不要看上面」" },
+  { flag: "sawNightLanterns", label: "夜间火光", description: "火把在屋舍间汇聚" },
+  { flag: "shadowedNightProcession", label: "夜间游行", description: "跟踪火光队列" },
+  { flag: "roadsBlocked", label: "出村受阻", description: "确认村口有人把守" },
+  { flag: "decodedMetalSymbols", label: "解读浮雕", description: "仪式布局的节点" }
 ];
 
-const chapterGroups = [
-  {
-    id: "chapter-opening",
-    label: "第一幕 · 上路",
-    description: "车票、行李架、角色半值与长途车气味。",
-    nodeId: "entry-1"
-  },
-  {
-    id: "chapter-lodging",
-    label: "第二幕 · 借宿",
-    description: "梅、露丝、火光和第一层异样。",
-    nodeId: "entry-4"
-  },
-  {
-    id: "chapter-daytime",
-    label: "第三幕 · 白天调查",
-    description: "杂货店、村会堂、总览与离村冲动。",
-    nodeId: "entry-22"
-  },
-  {
-    id: "chapter-townhall",
-    label: "第四幕 · 会堂与资料",
-    description: "文特斯、电报、图书室与背景资料。",
-    nodeId: "entry-43"
-  },
-  {
-    id: "chapter-night",
-    label: "第五幕 · 夜色压下来",
-    description: "夜谈、夜游、睡前收束和露丝的怪异存在感。",
-    nodeId: "entry-31"
-  },
-  {
-    id: "chapter-finale",
-    label: "第六幕 · 节夜",
-    description: "队列、灯塔、火光与最后的逃路。",
-    nodeId: "entry-190"
-  }
-];
+const chapterGroups = aatfModule.chapters.map((ch) => ({
+  id: ch.id,
+  label: ch.label,
+  description: ch.description,
+  nodeId: ch.anchorNodeId,
+  range: ch.range
+}));
 
-let selectedEntryId = quickStarts[0].id;
-let selectedNodeId = quickStarts[0].nodeId;
+const SAVE_KEY = "aatf-game-state";
+
+let selectedNodeId = "entry-1";
 let seedCharacter = characterAdapter.loadPersistedCharacter() || characterAdapter.createSeedCharacter();
-let state = createInitialState(moduleStub, seedCharacter);
+let state = createInitialState(aatfModule, seedCharacter);
 let pendingCheck = null;
 let lastCheckResolution = null;
-let checkModeSelections = {};
+let activeCombat = null;
+let activeCombatScript = null;
 initDiceAdapter();
 diceAdapter.setRollCompleteListener(handleRollComplete);
-enterCurrentNode(moduleStub, state);
+
+if (!loadSavedState()) {
+  enterCurrentNode(aatfModule, state);
+}
 bindCharacterControls();
+bindDebugJump();
+bindResetRun();
 paint();
 
+function bindDebugJump() {
+  const input = document.getElementById("debugJumpInput");
+  const button = document.getElementById("debugJumpButton");
+  if (!input || !button) return;
+  const go = () => {
+    const num = parseInt(input.value, 10);
+    if (!Number.isInteger(num) || num < 1 || num > 270) return;
+    handleJump(`entry-${num}`);
+  };
+  button.addEventListener("click", go);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") go();
+  });
+}
+
 function paint() {
-  const investigator = decorateInvestigator(state.character);
-  const currentNode = decorateNodeChecks(getCurrentNode(moduleStub, state));
+  const currentNode = decorateNodeChecks(getCurrentNode(aatfModule, state));
   renderApp({
-    moduleData: moduleStub,
+    moduleData: aatfModule,
     state,
     currentNode,
-    visibleStats: characterAdapter.getVisibleStats(state.character),
-    trackerBars: characterAdapter.getTrackerBars(state.character),
     adapterStatuses: {
       character: characterAdapter.status,
       dice: `${diceAdapter.status} ${diceAdapter.describeIntegration()}`,
       content: contentAdapterStatus
     },
-    investigator,
-    quickStarts,
     chapterGroups,
-    structureStats: getStructureStats(moduleStub),
-    activeQuickStartId: getActiveQuickStartId(),
-    activeChapterId: getActiveChapterId(),
+    milestones: NARRATIVE_MILESTONES,
     currentCheckResolution: lastCheckResolution,
-    currentCheckModes: checkModeSelections,
+    pendingCombat: state.pendingCombat || null,
     onAction: handleAction,
-    onAdvanceResolved: handleAdvanceResolved,
     onReset: handleReset,
     onJump: handleJump,
     onBack: handleBack,
     onOpenDice: handleOpenDice,
     onRollCheck: handleRollCheck,
-    onSetCheckMode: handleSetCheckMode
+    onStartCombat: openCombat
   });
+  renderCharacterPanel(state.character, document.getElementById("characterPanel"), state.skillTicks);
   mountDiceShortcuts(handleQuickRoll);
+  saveState();
 }
 
 function handleAction(actionId) {
-  const currentNode = decorateNodeChecks(getCurrentNode(moduleStub, state));
+  const currentNode = decorateNodeChecks(getCurrentNode(aatfModule, state));
   const action = (currentNode.actions || []).find((item) => item.id === actionId);
   const resolutionSnapshot = lastCheckResolution;
   const beforeSnapshot = captureStateSnapshot(state);
@@ -155,30 +106,26 @@ function handleAction(actionId) {
     return;
   }
 
-  performAction(moduleStub, state, actionId);
+  performAction(aatfModule, state, actionId);
   state.lastTransition = buildTransitionNotice(action, resolutionSnapshot, summarizeStateDelta(beforeSnapshot, state));
   pendingCheck = null;
   lastCheckResolution = null;
   paint();
 }
 
-function handleAdvanceResolved(actionId) {
-  handleAction(actionId);
-}
-
 function handleReset() {
+  clearSavedState();
+  selectedNodeId = aatfModule.startNodeId;
   resetState();
-  if (selectedNodeId !== moduleStub.startNodeId) {
-    jumpToNode(moduleStub, state, selectedNodeId);
-  }
   paint();
 }
 
-function handleJump(nodeId, entryId) {
-  resetState();
-  selectedEntryId = entryId || selectedEntryId;
+function handleJump(nodeId) {
   selectedNodeId = nodeId;
-  jumpToNode(moduleStub, state, nodeId);
+  state.currentNodeId = nodeId;
+  enterCurrentNode(aatfModule, state);
+  pendingCheck = null;
+  lastCheckResolution = null;
   paint();
 }
 
@@ -187,7 +134,7 @@ function handleBack() {
 
   const previousId = state.history[state.history.length - 2];
   resetState();
-  jumpToNode(moduleStub, state, previousId);
+  jumpToNode(aatfModule, state, previousId);
   paint();
 }
 
@@ -235,7 +182,110 @@ function handleRollComplete(summary) {
     at: Date.now()
   });
   state.echoes = state.echoes.slice(0, 8);
+
+  if (!resolution.success) {
+    const currentNode = getCurrentNode(aatfModule, state);
+    if (currentNode.checkFailEffects?.length) {
+      applyEffects(state, currentNode.checkFailEffects);
+    }
+  }
   paint();
+}
+
+// ─── 战斗系统集成 ───
+
+function openCombat(scriptId) {
+  const script = COMBAT_SCRIPTS[scriptId];
+  if (!script) return;
+
+  activeCombatScript = script;
+  activeCombat = createCombatState(script, state.character, state.inventory);
+  diceAdapter.setRollCompleteListener(handleCombatRollComplete);
+  paintCombat();
+  openCombatOverlay();
+}
+
+function paintCombat() {
+  if (!activeCombat || !activeCombatScript) return;
+  renderCombatOverlay(activeCombat, activeCombatScript, {
+    onStart: handleCombatStart,
+    onChoice: handleCombatChoice,
+    onRoll: handleCombatRoll,
+    onNextRound: handleCombatNextRound,
+    onEnd: handleCombatEnd,
+    onWeaponSelect: handleCombatWeaponSelect
+  });
+}
+
+function handleCombatStart() {
+  if (!activeCombat || !activeCombatScript) return;
+  const result = startCombat(activeCombat, activeCombatScript);
+  activeCombat = result.state;
+  paintCombat();
+}
+
+function handleCombatChoice(choice) {
+  if (!activeCombat || !activeCombatScript) return;
+  const result = submitPlayerChoice(activeCombat, activeCombatScript, choice);
+  activeCombat = result.state;
+  paintCombat();
+}
+
+function handleCombatRoll(diceRequest) {
+  let notation = diceRequest.notation;
+  if (diceRequest.meta?.percentile) {
+    notation = ["1d10", "1d10"];
+  }
+  diceAdapter.quickRoll({
+    notation,
+    meta: diceRequest.meta || { percentile: false }
+  });
+}
+
+function handleCombatRollComplete(summary) {
+  if (!activeCombat || !activeCombat.pendingRoll) return;
+
+  let rollValue;
+  if (activeCombat.pendingRoll.meta?.percentile) {
+    rollValue = summary.percentileChosen ?? summary.total ?? 50;
+  } else {
+    rollValue = summary.total ?? 0;
+  }
+
+  const result = submitRollResult(activeCombat, activeCombatScript, rollValue);
+  activeCombat = result.state;
+  paintCombat();
+}
+
+function handleCombatNextRound() {
+  if (!activeCombat || !activeCombatScript) return;
+  activeCombat.phase = "exchangeResolved";
+  const result = startCombat(activeCombat, activeCombatScript);
+  activeCombat = result.state;
+  paintCombat();
+}
+
+function handleCombatEnd(outcome) {
+  closeCombatOverlay();
+  diceAdapter.setRollCompleteListener(handleRollComplete);
+
+  state.character.stats.hp.current = activeCombat.playerCurrentHp ?? state.character.stats.hp.current;
+  state.character.derived.HP_current = state.character.stats.hp.current;
+  state.pendingCombat = null;
+
+  activeCombat = null;
+  activeCombatScript = null;
+
+  jumpToNode(aatfModule, state, outcome.next);
+  pendingCheck = null;
+  lastCheckResolution = null;
+  paint();
+}
+
+function handleCombatWeaponSelect(weapon) {
+  if (activeCombat) {
+    activeCombat.playerWeapon = weapon;
+  }
 }
 
 function bindCharacterControls() {
@@ -254,9 +304,10 @@ async function handleCharacterImport(event) {
 
   try {
     seedCharacter = await characterAdapter.importFromFile(file);
+    clearSavedState();
     resetState();
-    if (selectedNodeId !== moduleStub.startNodeId) {
-      jumpToNode(moduleStub, state, selectedNodeId);
+    if (selectedNodeId !== aatfModule.startNodeId) {
+      jumpToNode(aatfModule, state, selectedNodeId);
     }
     paint();
   } catch (error) {
@@ -270,37 +321,84 @@ async function handleCharacterImport(event) {
 function handleCharacterClear() {
   seedCharacter = characterAdapter.createSeedCharacter();
   characterAdapter.clearPersistedCharacter();
+  clearSavedState();
   resetState();
-  if (selectedNodeId !== moduleStub.startNodeId) {
-    jumpToNode(moduleStub, state, selectedNodeId);
+  if (selectedNodeId !== aatfModule.startNodeId) {
+    jumpToNode(aatfModule, state, selectedNodeId);
   }
   paint();
 }
 
 function resetState() {
-  state = createInitialState(moduleStub, seedCharacter);
+  state = createInitialState(aatfModule, seedCharacter);
   pendingCheck = null;
   lastCheckResolution = null;
-  checkModeSelections = {};
-  enterCurrentNode(moduleStub, state);
+  enterCurrentNode(aatfModule, state);
 }
 
-function decorateInvestigator(character) {
-  return {
-    ...character,
-    portraitUrl: characterAdapter.getPortraitUrl(character),
-    identityMeta: characterAdapter.getIdentityMeta(character)
+function saveState() {
+  const snapshot = {
+    currentNodeId: state.currentNodeId,
+    character: state.character,
+    inventory: state.inventory,
+    flags: state.flags,
+    history: state.history,
+    unlockedEndings: state.unlockedEndings,
+    skillTicks: state.skillTicks || [],
+    thresholdResult: state.thresholdResult || null,
+    pendingCombat: state.pendingCombat || null,
+    selectedNodeId
   };
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify(snapshot));
+  } catch (e) {
+    // localStorage full or unavailable — silently skip
+  }
+}
+
+function loadSavedState() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return false;
+    const snapshot = JSON.parse(raw);
+    if (!snapshot.currentNodeId || !aatfModule.nodes[snapshot.currentNodeId]) return false;
+    state.currentNodeId = snapshot.currentNodeId;
+    state.character = snapshot.character;
+    state.inventory = snapshot.inventory || [];
+    state.flags = snapshot.flags || {};
+    state.history = snapshot.history || [];
+    state.unlockedEndings = snapshot.unlockedEndings || [];
+    state.skillTicks = snapshot.skillTicks || [];
+    state.thresholdResult = snapshot.thresholdResult || null;
+    state.pendingCombat = snapshot.pendingCombat || null;
+    selectedNodeId = snapshot.selectedNodeId || snapshot.currentNodeId;
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function clearSavedState() {
+  localStorage.removeItem(SAVE_KEY);
+}
+
+function bindResetRun() {
+  // handled via onReset in renderApp
 }
 
 function decorateNodeChecks(node) {
   const resolveWithMode = (check) => {
     const resolved = characterAdapter.resolveCheck(check, state.character);
-    const key = getCheckSelectionKey(node.id, resolved);
-    return {
+    const withMode = {
       ...resolved,
-      mode: checkModeSelections[key] || resolved.mode || "regular"
+      mode: resolved.mode || "regular"
     };
+    if (check.difficulty === "hard" && withMode.half) {
+      withMode.target = withMode.half;
+    } else if (check.difficulty === "extreme" && withMode.fifth) {
+      withMode.target = withMode.fifth;
+    }
+    return withMode;
   };
 
   return {
@@ -512,50 +610,27 @@ function pushDelta(target, label, delta) {
   target.push(`${label} ${delta > 0 ? `+${delta}` : delta}`);
 }
 
-function handleSetCheckMode(nodeId, check, mode) {
-  const resolvedCheck = characterAdapter.resolveCheck(check, state.character);
-  checkModeSelections = {
-    ...checkModeSelections,
-    [getCheckSelectionKey(nodeId, resolvedCheck)]: mode
-  };
-  lastCheckResolution = null;
-  pendingCheck = null;
-  paint();
-}
-
 function canTakeAction(actionId) {
-  const node = decorateNodeChecks(getCurrentNode(moduleStub, state));
-  const action = (node.actions || []).find((item) => item.id === actionId);
-  if (!action?.check || action.check.outcome == null) return true;
+  const node = decorateNodeChecks(getCurrentNode(aatfModule, state));
+  const actions = node.actions || [];
+  const actionIndex = actions.findIndex((item) => item.id === actionId);
+  const action = actions[actionIndex];
+  if (!action) return false;
+
+  if (state.thresholdResult) {
+    return actionIndex === state.thresholdResult.visibleActionIndex;
+  }
+
+  if (!action.check || action.check.outcome == null) return true;
   if (!lastCheckResolution) return false;
   if (action.check.outcome === "success") return lastCheckResolution.success;
-  if (action.check.outcome === "failure") return !lastCheckResolution.success;
+  if (action.check.outcome === "failure") {
+    if (lastCheckResolution.rank === "fumble") return false;
+    return !lastCheckResolution.success;
+  }
+  if (action.check.outcome === "fumble") return lastCheckResolution.rank === "fumble";
+  if (action.check.outcome === "non_fumble") return lastCheckResolution.rank !== "fumble";
   return true;
-}
-
-function getStructureStats(moduleData) {
-  const ids = Object.keys(moduleData.nodes);
-  const unresolvedCount = ids.filter((id) => id.startsWith("unresolved-")).length;
-  const structuredCount = ids.length - unresolvedCount;
-  return {
-    totalCount: ids.length,
-    structuredCount,
-    unresolvedCount,
-    playableCount: quickStarts.length,
-    coveragePercent: Math.round((structuredCount / ids.length) * 100)
-  };
-}
-
-function getActiveQuickStartId() {
-  const current = state.currentNodeId;
-  const hit = quickStarts.find((item) => item.nodeId === current);
-  return hit ? hit.id : selectedEntryId;
-}
-
-function getActiveChapterId() {
-  const current = state.currentNodeId;
-  const hit = chapterGroups.find((item) => item.nodeId === current);
-  return hit ? hit.id : findNearestChapter(current);
 }
 
 function evaluateCheckResult(check, summary) {
@@ -640,10 +715,6 @@ function formatCheckNotation(check) {
   return Array.isArray(notation) ? notation.join(" + ") : notation;
 }
 
-function getCheckSelectionKey(nodeId, check) {
-  return `${nodeId}::${check.skill || check.sourceLabel || check.label}`;
-}
-
 function getCheckModeLabel(mode) {
   if (mode === "bonus") return "奖励骰";
   if (mode === "penalty") return "惩罚骰";
@@ -693,18 +764,4 @@ function normalizeD10Value(value) {
 function composePercentileValue(tens, ones) {
   if (tens === 0 && ones === 0) return 100;
   return tens * 10 + ones;
-}
-
-function findNearestChapter(nodeId) {
-  const chapterRules = [
-    { id: "chapter-opening", test: (id) => ["entry-1", "entry-263", "entry-8", "entry-23", "entry-38", "entry-233", "entry-134"].includes(id) },
-    { id: "chapter-lodging", test: (id) => ["entry-4", "entry-14", "entry-21", "entry-15"].includes(id) },
-    { id: "chapter-daytime", test: (id) => ["entry-154", "entry-160", "entry-168", "entry-172", "entry-22", "entry-25", "entry-6", "entry-16", "entry-18", "entry-17", "entry-30", "entry-28", "entry-34", "entry-36", "entry-42", "entry-44", "entry-35", "entry-41", "entry-57", "entry-58", "entry-59", "entry-60", "entry-3", "entry-9", "entry-7"].includes(id) },
-    { id: "chapter-townhall", test: (id) => ["entry-11", "entry-24", "entry-37", "entry-43", "entry-49", "entry-56", "entry-61", "entry-62", "entry-64", "entry-68", "entry-74", "entry-76", "entry-81", "entry-83", "entry-88", "entry-89", "entry-94", "entry-96", "entry-99", "entry-105", "entry-111", "entry-118", "entry-124", "entry-180"].includes(id) },
-    { id: "chapter-night", test: (id) => ["entry-31", "entry-39", "entry-51", "entry-63", "entry-75", "entry-86", "entry-131", "entry-138"].includes(id) },
-    { id: "chapter-finale", test: (id) => ["entry-186", "entry-188", "entry-189", "entry-190", "entry-196", "entry-203", "entry-205", "entry-209", "entry-214", "entry-220", "entry-226", "entry-240"].includes(id) }
-  ];
-
-  const match = chapterRules.find((item) => item.test(nodeId));
-  return match ? match.id : chapterGroups[0].id;
 }
