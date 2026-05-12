@@ -401,9 +401,11 @@ function renderStep2(container) {
       <div class="attr-item" id="attr_${a.key}">
         <div class="attr-name">${a.name}</div>
         <div class="check-cell">
-          <div class="ck-main">${generated ? v : '-'}</div>
-          <div class="ck-half">${generated ? Math.floor(v/2) : '-'}</div>
-          <div class="ck-fifth">${generated ? Math.floor(v/5) : '-'}</div>
+          <input type="number" class="ck-main" min="1" max="99" value="${v}"
+            oninput="updateAttr('${a.key}',this.value)"
+            style="width:48px;text-align:center;background:var(--input-bg,#1a1a2e);border:1px solid var(--gold,#c9a84c);border-radius:4px;color:var(--text-primary,#eee);font-size:1rem;padding:2px;">
+          <div class="ck-half">${Math.floor(v/2)}</div>
+          <div class="ck-fifth">${Math.floor(v/5)}</div>
         </div>
       </div>
     `;
