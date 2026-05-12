@@ -344,9 +344,17 @@ function renderStep1(container) {
 }
 
 function updateAttr(key, val) {
-  state.rawAttrs[key] = clamp(parseInt(val) || 0, 0, 99);
+  let v = clamp(parseInt(val) || 0, 0, 99);
+  state.rawAttrs[key] = v;
+  state.attrsGenerated = true;
   saveState();
-  renderStep();
+  // 只更新半值和五分之一，不重新渲染整页
+  let item = document.getElementById('attr_' + key);
+  if (item) {
+    let cells = item.querySelectorAll('.ck-half, .ck-fifth');
+    if (cells[0]) cells[0].textContent = Math.floor(v / 2);
+    if (cells[1]) cells[1].textContent = Math.floor(v / 5);
+  }
 }
 
 // ----- Era Change Handler -----
