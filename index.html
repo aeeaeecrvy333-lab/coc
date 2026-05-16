@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>CoC 调查员创建</title>
 <style>
 @font-face {
@@ -11,6 +11,12 @@
     font-display: swap;
 }
 html { font-size: 18px; }
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
 * { font-family: 'hanyi-55', sans-serif !important; }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -280,13 +286,15 @@ input[type="number"] { -moz-appearance: textfield; }
 /* ── 打印样式 ── */
 @media print {
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-  body { background: #243424 !important; margin: 0; color: #e8f0e8 !important; }
-  #coc-app { background: #243424 !important; padding: 0 !important; display: block !important; }
+  @page { margin: 1cm; size: A4; }
+  html { font-size: 14px !important; }
+  html, body { margin: 0 !important; padding: 0 !important; background: #243424 !important; color: #d8ecd8 !important; }
+  #coc-app { background: #243424 !important; padding: 0 !important; display: block !important; min-height: unset !important; }
   #coc-app .wrap { max-width: 100% !important; }
-  #coc-app .card { box-shadow: none !important; border: none !important; padding: 0.5rem 0.8rem !important; background: #243424 !important; }
+  #coc-app .card { box-shadow: none !important; border: 1px solid #4a7a4a !important; padding: 0.6rem 0.8rem !important; background: #243424 !important; }
   #coc-app .corner { display: none !important; }
   #coc-app #p6 .steps { display: none !important; }
-  #coc-app #p6 .hd { margin-bottom: 0.8rem; }
+  #coc-app #p6 .hd { margin-bottom: 0.5rem; }
   .no-print { display: none !important; }
   .sheet-page-break { page-break-before: always; margin-top: 0 !important; padding-top: 0 !important; }
   .sh-skill-pagebreak { page-break-before: always; margin-top: 0 !important; }
@@ -295,6 +303,10 @@ input[type="number"] { -moz-appearance: textfield; }
   #coc-app .page { display: none !important; }
   #coc-app #p6 { display: block !important; }
   #coc-toast { display: none !important; }
+  /* 技能字号恢复可读大小 */
+  #coc-app #p6 #sh-skills > div { font-size: 10pt !important; }
+  #coc-app #p6 #sh-skills > div > div { font-size: 9.5pt !important; padding: 0.15rem 0.3rem !important; }
+  #coc-app #p6 #sh-skills > div > div span { font-size: 9pt !important; }
 }
 
 /* ── Toast ── */
@@ -303,10 +315,9 @@ input[type="number"] { -moz-appearance: textfield; }
 
 /* ══ 手机端响应式（仅 screen，不影响 print）══ */
 @media screen and (max-width:600px){
-  html, body { max-width: 100%; overflow-x: hidden; }
-  #coc-app { padding: 0.75rem 0.5rem; overflow-x: hidden; }
-  #coc-app .wrap { width: 100%; overflow-x: hidden; }
-  #coc-app .card { padding: 1rem 0.65rem 1rem; overflow-x: hidden; }
+  #coc-app { padding: 0.75rem 0.5rem; }
+  #coc-app .wrap { width: 100%; }
+  #coc-app .card { padding: 1rem 0.65rem 1rem; }
 
   /* 步骤条换行时缩小 */
   #coc-app .step { font-size: 0.62rem; }
@@ -796,7 +807,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
   <!-- 按钮区域：打印时隐藏 -->
   <div class="no-print" style="display:flex;gap:0.6rem;">
-    <button class="btn" style="margin-top:0;" onclick="window.print()">🖨 打印人物卡</button>
+    <button class="btn" style="margin-top:0;" onclick="doPrint()">🖨 打印 / 存为PDF</button>
     <button class="btn btn-ghost" style="margin-top:0;" onclick="showPage('p5')">← 返回</button>
   </div>
 </div>
@@ -2071,6 +2082,19 @@ window.testSheet=function(opts){
   console.log('[testSheet] 已载入「'+name+'」，职业：'+(sel.value||occ)+'，信用评级：'+cr);
   return '✓ 人物卡已生成，正在弹出打印框…';
 };
+/* ── 打印（兼容iOS Safari）── */
+window.doPrint=function(){
+  // iOS Safari: window.print() works but needs a small delay after goP6 renders
+  // Also show hint for mobile users who can't easily access print dialog
+  var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
+  if(isIOS){
+    showToast('请点击分享按钮 → 打印，即可存为PDF');
+    setTimeout(function(){ window.print(); }, 400);
+  } else {
+    window.print();
+  }
+};
+
 window.getBand=getBand; // 暴露供testSheet用
 
 /* ── Init ── */
