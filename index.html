@@ -2082,20 +2082,29 @@ window.testSheet=function(opts){
   console.log('[testSheet] 已载入「'+name+'」，职业：'+(sel.value||occ)+'，信用评级：'+cr);
   return '✓ 人物卡已生成，正在弹出打印框…';
 };
-/* ── 导出PDF（兼容手机端）── */
+/* ── 导出PDF ── */
 window.doPrint=function(){
   var isMobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if(!isMobile){ window.print(); return; }
+
+  // 手机端：页面内弹出提示层，用真实按钮触发打印（避免confirm()打断交互上下文）
   var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
-  if(isMobile){
-    var iosMsg='即将打开打印菜单。\n\niOS步骤：\n1. 点击左下角「打印选项」\n2. 双指展开预览图\n3. 右上角分享→存储到文件';
-    var androidMsg='即将打开打印菜单。\n\nAndroid步骤：\n1. 选择「另存为PDF」\n2. 点击下载图标保存';
-    var msg=(isIOS?iosMsg:androidMsg)+'\n\n点击确定继续';
-    if(window.confirm(msg)){
-      setTimeout(function(){ window.print(); }, 300);
-    }
-  } else {
-    window.print();
-  }
+  var steps=isIOS
+    ?'点击下方「立即打印」后：<br>① 点左下角「打印选项」<br>② 双指展开预览图<br>③ 右上角分享 → 存储到文件 → 存为PDF'
+    :'点击下方「立即打印」后：<br>① 在打印菜单选择「另存为PDF」<br>② 点击保存/下载';
+
+  var overlay=document.createElement('div');
+  overlay.id='print-guide-overlay';
+  overlay.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(10,40,10,0.7);display:flex;align-items:center;justify-content:center;padding:1.5rem;';
+  overlay.innerHTML='<div style="background:#f8fdf8;border-radius:10px;padding:1.5rem 1.4rem;max-width:320px;width:100%;text-align:center;">'
+    +'<div style="font-size:1rem;font-weight:bold;color:#1a3a1a;margin-bottom:0.7rem;">📄 导出为 PDF</div>'
+    +'<div style="font-size:0.82rem;color:#2d5a2d;line-height:1.8;margin-bottom:1.2rem;text-align:left;">'+steps+'</div>'
+    +'<button onclick="document.getElementById(\'print-guide-overlay\').remove();window.print();" '
+      +'style="width:100%;padding:0.8rem;background:#2d7a2d;color:#fff;border:none;border-radius:6px;font-size:0.95rem;font-weight:bold;cursor:pointer;margin-bottom:0.5rem;">立即打印</button>'
+    +'<button onclick="document.getElementById(\'print-guide-overlay\').remove();" '
+      +'style="width:100%;padding:0.6rem;background:transparent;color:#2d7a2d;border:1px solid #7ab87a;border-radius:6px;font-size:0.85rem;cursor:pointer;">取消</button>'
+    +'</div>';
+  document.body.appendChild(overlay);
 };
 
 window.getBand=getBand; // 暴露供testSheet用
