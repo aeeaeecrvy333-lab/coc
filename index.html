@@ -137,9 +137,9 @@ input[type="number"] { -moz-appearance: textfield; }
 /* ── 表单 ── */
 #coc-app .field { margin-bottom: 1.3rem; }
 #coc-app .lbl { display: block; font-size: 0.88rem; letter-spacing: 0.15em; color: var(--border-hi); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: bold; }
-#coc-app .inp { width: 100%; background: transparent; border: none; border-bottom: 1.5px solid rgba(74,122,74,0.5); padding: 0.5rem 0; font-size: 1.05rem; color: #d8ecd8; outline: none; transition: border-color 0.2s; font-weight: 500; }
+#coc-app .inp { width: 100%; background: transparent; border: none; border-bottom: 1.5px solid rgba(45,122,45,0.4); padding: 0.5rem 0; font-size: 1.05rem; color: var(--ink); outline: none; transition: border-color 0.2s; font-weight: 500; }
 #coc-app .inp:focus { border-bottom-color: var(--border-hi); }
-#coc-app .inp::placeholder { color: rgba(30,80,30,0.3); font-size: 0.9rem; font-weight: normal; }
+#coc-app .inp::placeholder { color: rgba(30,80,30,0.35); font-size: 0.9rem; font-weight: normal; }
 #coc-app select.inp { cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%232d7a2d'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.3rem center; padding-right: 1.4rem; background-color: transparent; color: var(--ink); border-bottom: 1.5px solid rgba(74,122,74,0.6); }
 #coc-app select.inp option { background: #f0faf0; color: #1a3a1a; }
 
@@ -807,7 +807,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
   <!-- 按钮区域：打印时隐藏 -->
   <div class="no-print" style="display:flex;gap:0.6rem;">
-    <button class="btn" style="margin-top:0;" onclick="doPrint()">🖨 打印 / 存为PDF</button>
+    <button class="btn" style="margin-top:0;" onclick="doPrint()">📄 导出为 PDF</button>
     <button class="btn btn-ghost" style="margin-top:0;" onclick="showPage('p5')">← 返回</button>
   </div>
 </div>
@@ -2082,15 +2082,33 @@ window.testSheet=function(opts){
   console.log('[testSheet] 已载入「'+name+'」，职业：'+(sel.value||occ)+'，信用评级：'+cr);
   return '✓ 人物卡已生成，正在弹出打印框…';
 };
-/* ── 打印（兼容iOS Safari）── */
+/* ── 导出PDF（兼容手机端）── */
 window.doPrint=function(){
-  // iOS Safari: window.print() works but needs a small delay after goP6 renders
-  // Also show hint for mobile users who can't easily access print dialog
+  var isMobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
-  if(isIOS){
-    showToast('请点击分享按钮 → 打印，即可存为PDF');
-    setTimeout(function(){ window.print(); }, 400);
+
+  if(isMobile){
+    // 移动端：先显示操作说明，再触发打印
+    var msg=isIOS
+      ?'即将打开打印菜单。
+
+iOS操作步骤：
+1. 点击左下角「打印选项」
+2. 用双指展开预览图
+3. 点击右上角分享 → 存储到「文件」即可保存PDF'
+      :'即将打开打印菜单。
+
+Android操作步骤：
+1. 选择「另存为PDF」
+2. 点击右上角下载图标保存';
+    // 先弹出说明，用户确认后触发打印
+    if(window.confirm(msg+'
+
+点击确定继续')){
+      setTimeout(function(){ window.print(); }, 300);
+    }
   } else {
+    // 桌面端：直接打印
     window.print();
   }
 };
