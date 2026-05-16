@@ -2086,29 +2086,14 @@ window.testSheet=function(opts){
 window.doPrint=function(){
   var isMobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
-
   if(isMobile){
-    // 移动端：先显示操作说明，再触发打印
-    var msg=isIOS
-      ?'即将打开打印菜单。
-
-iOS操作步骤：
-1. 点击左下角「打印选项」
-2. 用双指展开预览图
-3. 点击右上角分享 → 存储到「文件」即可保存PDF'
-      :'即将打开打印菜单。
-
-Android操作步骤：
-1. 选择「另存为PDF」
-2. 点击右上角下载图标保存';
-    // 先弹出说明，用户确认后触发打印
-    if(window.confirm(msg+'
-
-点击确定继续')){
+    var iosMsg='即将打开打印菜单。\n\niOS步骤：\n1. 点击左下角「打印选项」\n2. 双指展开预览图\n3. 右上角分享→存储到文件';
+    var androidMsg='即将打开打印菜单。\n\nAndroid步骤：\n1. 选择「另存为PDF」\n2. 点击下载图标保存';
+    var msg=(isIOS?iosMsg:androidMsg)+'\n\n点击确定继续';
+    if(window.confirm(msg)){
       setTimeout(function(){ window.print(); }, 300);
     }
   } else {
-    // 桌面端：直接打印
     window.print();
   }
 };
