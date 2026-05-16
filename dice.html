@@ -142,11 +142,14 @@ body { background: var(--bg); color: var(--ink); min-height: 100vh; display: fle
 .hist-list { display: flex; flex-direction: column; gap: 0.3rem; max-height: 400px; overflow-y: auto; }
 .hist-list::-webkit-scrollbar { width: 4px; }
 .hist-list::-webkit-scrollbar-thumb { background: var(--border); }
-.hist-item { padding: 0.5rem 0.7rem; background: rgba(26,46,26,0.5); border: 1px solid rgba(74,122,74,0.18); font-size: 0.78rem; animation: histIn 0.22s ease; display: grid; grid-template-columns: auto 1fr auto auto; gap: 0.3rem 0.5rem; align-items: center; }
+.hist-item { padding: 0.5rem 0.7rem; background: rgba(26,46,26,0.5); border: 1px solid rgba(74,122,74,0.18); font-size: 0.78rem; animation: histIn 0.22s ease; display: grid; grid-template-columns: auto 1fr auto auto auto; gap: 0.3rem 0.5rem; align-items: center; }
 @keyframes histIn { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; } }
 .hist-who { font-size: 0.65rem; color: var(--gold); font-weight: bold; white-space: nowrap; }
 .hist-formula { color: var(--ink-dim); font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hist-total { font-weight: bold; color: var(--green-light); font-size: 0.95rem; text-align: right; }
+.hist-del { background: none; border: 1px solid rgba(192,64,64,0.3); color: rgba(224,96,96,0.6); font-size: 0.65rem; padding: 0.15rem 0.35rem; cursor: pointer; transition: background 0.12s, color 0.12s; }
+.hist-del:hover { background: rgba(192,64,64,0.15); color: var(--red-light); border-color: var(--red-light); }
+.hist-del:disabled { opacity: 0.4; cursor: default; }
 .hist-time { font-size: 0.6rem; color: var(--ink-dim); white-space: nowrap; text-align: right; }
 .hist-dice { font-size: 0.65rem; color: rgba(150,200,150,0.4); grid-column: 2 / -1; }
 .hist-reason { font-size: 0.68rem; color: var(--gold); opacity: 0.75; grid-column: 1 / -1; font-style: italic; }
@@ -176,6 +179,7 @@ body { background: var(--bg); color: var(--ink); min-height: 100vh; display: fle
       <label class="modal-label">昵称</label>
       <input class="modal-inp" id="nicknameInp" type="text" placeholder="输入你的名字" maxlength="20">
       <div class="modal-hint">昵称会显示在投骰记录里，让大家知道是谁投的</div>
+      <div id="nameError" style="display:none;color:var(--red-light);font-size:0.72rem;margin-top:0.4rem;"></div>
     </div>
     <div class="modal-btns">
       <button class="modal-confirm" onclick="saveNickname()">确认</button>
@@ -258,51 +262,98 @@ body { background: var(--bg); color: var(--ink); min-height: 100vh; display: fle
 
 <script>
 (function(){
+/* ══════════════════════════════════
+   CONFIG — 使用 Publishable Key（anon），安全放 GitHub
+   Service Role Key 已移除，改用 RLS 控制权限
+══════════════════════════════════ */
 var SB_URL = 'https://dgozozaipjuogjgcwcsd.supabase.co';
 var SB_KEY = 'sb_publishable_isMzFIdMPDB1O7xc7XsUyQ_tfPYWz9Q';
 var TABLE = 'dice_rolls';
-var DICE = [4, 6, 8, 10, 12, 20, 100];
-var pool = [], currentCount = 1, nickname = localStorage.getItem('dice_nickname') || '', historyItems = [];
+var ADMIN_NAME = 'Broly';   /* 只有这个昵称的用户能看到删除按钮 */
+var RESERVED = ['broly'];   /* 大小写不敏感，占用后其他设备不能用 */
 
-/* ── NICKNAME ── */
+var DICE = [4, 6, 8, 10, 12, 20, 100];
+var pool = [], currentCount = 1, historyItems = [];
+
+/* 每台设备有唯一 uid，用于识别"我是不是第一个注册这个名字的人" */
+var myUid = localStorage.getItem('dice_uid');
+if (!myUid) { myUid = 'uid_' + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('dice_uid', myUid); }
+var nickname = localStorage.getItem('dice_nickname') || '';
+
+/* ── SUPABASE ── */
+function sbH(extra){
+  return Object.assign({'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'},extra||{});
+}
+async function sbInsert(row){
+  try{
+    var r=await fetch(SB_URL+'/rest/v1/'+TABLE,{method:'POST',headers:sbH({'Prefer':'return=representation'}),body:JSON.stringify(row)});
+    if(!r.ok) return null;
+    var d=await r.json(); return Array.isArray(d)?d[0]:d;
+  }catch(e){return null;}
+}
+async function sbDelete(id){
+  try{
+    var r=await fetch(SB_URL+'/rest/v1/'+TABLE+'?id=eq.'+id,{method:'DELETE',headers:sbH()});
+    return r.ok||r.status===204;
+  }catch(e){return false;}
+}
+async function sbLoad(limit){
+  try{
+    var r=await fetch(SB_URL+'/rest/v1/'+TABLE+'?select=*&order=created_at.desc&limit='+(limit||60),{headers:sbH()});
+    if(!r.ok) return null;
+    return await r.json();
+  }catch(e){return null;}
+}
+/* 检查昵称是否已被其他 uid 占用 */
+async function checkNameTaken(name){
+  try{
+    var enc=encodeURIComponent(name);
+    var r=await fetch(SB_URL+'/rest/v1/'+TABLE+'?roller_name=eq.'+enc+'&select=roller_uid&limit=1',{headers:sbH()});
+    if(!r.ok) return false;
+    var d=await r.json();
+    if(!d||d.length===0) return false;          /* 没人用过 */
+    return d[0].roller_uid && d[0].roller_uid !== myUid; /* 有人用过且不是我 */
+  }catch(e){return false;}
+}
+
+/* ── NICKNAME / MODAL ── */
+function isBroly(){ return nickname.trim().toLowerCase()==='broly'; }
 function updateUserUI(){
-  var badge = document.getElementById('userBadge');
-  var btn = document.getElementById('loginBtn');
+  var badge=document.getElementById('userBadge');
+  var btn=document.getElementById('loginBtn');
   if(nickname){ badge.style.display='flex'; btn.style.display='none'; document.getElementById('userNameDisplay').textContent=nickname; }
   else { badge.style.display='none'; btn.style.display='block'; }
 }
 window.openModal=function(){
   document.getElementById('nicknameInp').value=nickname;
   document.getElementById('logoutRow').style.display=nickname?'block':'none';
+  document.getElementById('nameError').style.display='none';
   document.getElementById('modalOverlay').classList.add('show');
   setTimeout(function(){ document.getElementById('nicknameInp').focus(); },150);
 };
 window.closeModal=function(){ document.getElementById('modalOverlay').classList.remove('show'); };
 window.closeModalOutside=function(e){ if(e.target===document.getElementById('modalOverlay')) closeModal(); };
-window.saveNickname=function(){
+window.saveNickname=async function(){
   var v=document.getElementById('nicknameInp').value.trim();
+  var errEl=document.getElementById('nameError');
+  errEl.style.display='none';
   if(!v){ document.getElementById('nicknameInp').style.borderBottomColor='var(--red)'; return; }
-  nickname=v; localStorage.setItem('dice_nickname',nickname); updateUserUI(); closeModal();
-};
-window.clearNickname=function(){ nickname=''; localStorage.removeItem('dice_nickname'); updateUserUI(); closeModal(); };
-document.getElementById('nicknameInp').addEventListener('keydown',function(e){ if(e.key==='Enter') saveNickname(); });
 
-/* ── SUPABASE ── */
-function sbH(){ return {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'}; }
-async function sbInsert(row){
-  try{
-    var r=await fetch(SB_URL+'/rest/v1/'+TABLE,{method:'POST',headers:sbH(),body:JSON.stringify(row)});
-    return r.ok;
-  }catch(e){return false;}
-}
-async function sbLoad(limit){
-  limit=limit||60;
-  try{
-    var r=await fetch(SB_URL+'/rest/v1/'+TABLE+'?select=*&order=created_at.desc&limit='+limit,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
-    if(!r.ok) return null;
-    return await r.json();
-  }catch(e){return null;}
-}
+  /* 检查保留昵称是否被占 */
+  var isReserved=RESERVED.includes(v.toLowerCase());
+  if(isReserved){
+    var taken=await checkNameTaken(v);
+    if(taken){
+      errEl.textContent='「'+v+'」已被占用，无法使用此昵称';
+      errEl.style.display='block';
+      return;
+    }
+  }
+  nickname=v; localStorage.setItem('dice_nickname',nickname);
+  updateUserUI(); renderHistory(); closeModal();
+};
+window.clearNickname=function(){ nickname=''; localStorage.removeItem('dice_nickname'); updateUserUI(); renderHistory(); closeModal(); };
+document.getElementById('nicknameInp').addEventListener('keydown',function(e){ if(e.key==='Enter') saveNickname(); });
 
 /* ── DICE GRID ── */
 var grid=document.getElementById('diceGrid');
@@ -331,17 +382,10 @@ cntCustom.addEventListener('input',function(){
 /* ── POOL ── */
 function addDie(sides){
   var idx=pool.findIndex(function(p){return p.sides===sides;});
-  if(idx>-1){
-    // already selected: toggle off
-    pool.splice(idx,1);
-  } else {
-    pool.push({sides:sides,count:currentCount});
-  }
+  if(idx>-1){ pool.splice(idx,1); } else { pool.push({sides:sides,count:currentCount}); }
   updateFormula();
 }
-window.clearPool=function(){
-  pool=[]; document.getElementById('modInp').value=''; updateFormula();
-};
+window.clearPool=function(){ pool=[]; document.getElementById('modInp').value=''; updateFormula(); };
 function updateFormula(){
   pool.sort(function(a,b){return a.sides-b.sides;});
   DICE.forEach(function(d){
@@ -380,13 +424,11 @@ async function doRoll(){
 
   /* show result */
   var rw=document.getElementById('resultWrap');
-  var rp=document.getElementById('resultPlaceholder');
-  rp.style.display='none';
+  document.getElementById('resultPlaceholder').style.display='none';
   rw.classList.remove('show');
   setTimeout(function(){
     document.getElementById('resultFormulaTxt').textContent='公式：'+formulaBase+(reason?'（'+reason+'）':'');
-    var rollsEl=document.getElementById('resultRolls');
-    rollsEl.innerHTML='';
+    var rollsEl=document.getElementById('resultRolls'); rollsEl.innerHTML='';
     allRolls.forEach(function(r,idx){
       var div=document.createElement('div');
       div.className='result-die'+(r.val===r.sides?' max':'')+(r.val===1?' min':'');
@@ -402,15 +444,29 @@ async function doRoll(){
     rw.classList.add('show');
   },60);
 
-  /* save */
-  var row={roller_name:nickname||'匿名',formula:formulaBase,dice_results:allRolls.map(function(r){return r.val;}).join(','),total:total,reason:reason||null};
-  sbInsert(row);
-
-  /* prepend to local list */
-  historyItems.unshift(Object.assign({},row,{created_at:new Date().toISOString()}));
+  /* save to supabase */
+  var row={roller_name:nickname||'匿名',roller_uid:myUid,formula:formulaBase,dice_results:allRolls.map(function(r){return r.val;}).join(','),total:total,reason:reason||null};
+  var saved=await sbInsert(row);
+  var localItem=Object.assign({},row,{id:saved?saved.id:null,created_at:saved?saved.created_at:new Date().toISOString()});
+  historyItems.unshift(localItem);
   if(historyItems.length>80) historyItems.pop();
   renderHistory();
 }
+
+/* ── DELETE ── */
+window.deleteRecord=async function(id, el){
+  if(!isBroly()) return;
+  if(!confirm('确认删除这条记录？')) return;
+  el.disabled=true; el.textContent='…';
+  var ok=await sbDelete(id);
+  if(ok){
+    historyItems=historyItems.filter(function(h){return h.id!==id;});
+    renderHistory();
+  } else {
+    el.disabled=false; el.textContent='删';
+    alert('删除失败，请稍后再试');
+  }
+};
 
 /* ── HISTORY ── */
 function fmtTime(iso){
@@ -420,14 +476,17 @@ function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').
 function renderHistory(){
   var list=document.getElementById('histList');
   if(historyItems.length===0){list.innerHTML='<div class="hist-empty">尚无记录</div>';return;}
+  var isAdmin=isBroly();
   list.innerHTML=historyItems.map(function(h,i){
     var rollArr=(h.dice_results||'').split(',').filter(Boolean);
     var rollDisplay=rollArr.length<=14?'[ '+rollArr.join(', ')+' ]':'[ '+rollArr.slice(0,14).join(', ')+'… ]';
     var reasonHtml=h.reason?'<div class="hist-reason">因为 '+esc(h.reason)+'</div>':'';
+    var delBtn=isAdmin&&h.id?'<button class="hist-del" onclick="deleteRecord(\''+h.id+'\',this)">删</button>':'';
     return '<div class="hist-item" style="animation-delay:'+(i*15)+'ms">'
       +'<span class="hist-who">'+esc(h.roller_name)+'</span>'
       +'<span class="hist-formula">'+esc(h.formula)+'</span>'
       +'<span class="hist-total">'+h.total+'</span>'
+      +(delBtn?delBtn:'<span></span>')
       +'<span class="hist-time">'+fmtTime(h.created_at)+'</span>'
       +'<span class="hist-dice" style="grid-column:2/-1;">'+rollDisplay+'</span>'
       +reasonHtml
@@ -439,7 +498,7 @@ async function loadHistory(){
   var data=await sbLoad(60);
   document.getElementById('histLoading').style.display='none';
   if(data&&data.length){ historyItems=data; renderHistory(); }
-  else if(!data){ document.getElementById('histList').innerHTML='<div class="hist-empty">无法连接数据库 — 记录仅在本次会话可见<br><small style="font-size:0.65rem;opacity:0.6;">请确认 dice_rolls 表已创建</small></div>'; }
+  else if(!data){ document.getElementById('histList').innerHTML='<div class="hist-empty">无法连接数据库<br><small style="font-size:0.65rem;opacity:0.6;">请确认 dice_rolls 表已创建并设置正确 RLS</small></div>'; }
   else { renderHistory(); }
 }
 
