@@ -139,6 +139,8 @@ body { background: var(--bg); color: var(--ink); min-height: 100vh; display: fle
 .hist-title-txt { font-size: 0.72rem; letter-spacing: 0.15em; color: var(--ink-dim); text-transform: uppercase; padding-left: 0.4rem; border-left: 2px solid rgba(74,122,74,0.35); }
 .hist-clear { background: none; border: none; color: rgba(180,120,120,0.5); font-size: 0.68rem; cursor: pointer; }
 .hist-clear:hover { color: var(--red-light); }
+.hist-clear-all { background: none; border: 1px solid rgba(192,64,64,0.35); color: rgba(224,96,96,0.55); font-size: 0.68rem; padding: 0.2rem 0.6rem; cursor: pointer; letter-spacing: 0.06em; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+.hist-clear-all:hover { background: rgba(192,64,64,0.12); color: var(--red-light); border-color: var(--red-light); }
 .hist-list { display: flex; flex-direction: column; gap: 0.3rem; max-height: 400px; overflow-y: auto; }
 .hist-list::-webkit-scrollbar { width: 4px; }
 .hist-list::-webkit-scrollbar-thumb { background: var(--border); }
@@ -253,6 +255,7 @@ body { background: var(--bg); color: var(--ink); min-height: 100vh; display: fle
     <span class="corner tl">◤</span><span class="corner br">◢</span>
     <div class="hist-head">
       <div class="hist-title-txt">历史记录（共享）</div>
+      <button class="hist-clear-all" id="clearAllBtn" onclick="clearAllRecords()" style="display:none">⚠ 清空所有记录</button>
     </div>
     <div class="hist-list" id="histList">
       <div class="hist-loading" id="histLoading">正在从数据库加载…</div>
@@ -267,7 +270,9 @@ body { background: var(--bg); color: var(--ink); min-height: 100vh; display: fle
    Service Role Key 已移除，改用 RLS 控制权限
 ══════════════════════════════════ */
 var SB_URL = 'https://dgozozaipjuogjgcwcsd.supabase.co';
-var SB_KEY = 'sb_publishable_isMzFIdMPDB1O7xc7XsUyQ_tfPYWz9Q';
+// ⚠ 请将下方替换为 Supabase 控制台 → Settings → API → "anon public" 的 eyJ... key
+// service_role key 也可临时使用但不推荐放 GitHub 公开仓库
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnb3pvemFpcGp1b2dqZ2N3Y3NkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjY1NjYyNiwiZXhwIjoyMDkyMjMyNjI2fQ.RtHPRqomY0ThppXFEzqGkMTKB9L0MEv40Xa5MSxjts8';
 var TABLE = 'dice_rolls';
 var ADMIN_NAME = 'Broly';   /* 只有这个昵称的用户能看到删除按钮 */
 var RESERVED = ['broly'];   /* 大小写不敏感，占用后其他设备不能用 */
@@ -287,9 +292,13 @@ function sbH(extra){
 async function sbInsert(row){
   try{
     var r=await fetch(SB_URL+'/rest/v1/'+TABLE,{method:'POST',headers:sbH({'Prefer':'return=representation'}),body:JSON.stringify(row)});
-    if(!r.ok) return null;
+    if(!r.ok){
+      var errBody=await r.json().catch(function(){return {};});
+      console.error('sbInsert failed',r.status,errBody);
+      return null;
+    }
     var d=await r.json(); return Array.isArray(d)?d[0]:d;
-  }catch(e){return null;}
+  }catch(e){console.error('sbInsert error',e);return null;}
 }
 async function sbDelete(id){
   try{
@@ -300,9 +309,13 @@ async function sbDelete(id){
 async function sbLoad(limit){
   try{
     var r=await fetch(SB_URL+'/rest/v1/'+TABLE+'?select=*&order=created_at.desc&limit='+(limit||60),{headers:sbH()});
-    if(!r.ok) return null;
+    if(!r.ok){
+      var errBody=await r.json().catch(function(){return {};});
+      console.error('sbLoad failed',r.status, errBody);
+      return null;
+    }
     return await r.json();
-  }catch(e){return null;}
+  }catch(e){console.error('sbLoad error',e);return null;}
 }
 /* 检查昵称是否已被其他 uid 占用 */
 async function checkNameTaken(name){
@@ -321,8 +334,10 @@ function isBroly(){ return nickname.trim().toLowerCase()==='broly'; }
 function updateUserUI(){
   var badge=document.getElementById('userBadge');
   var btn=document.getElementById('loginBtn');
+  var clearAll=document.getElementById('clearAllBtn');
   if(nickname){ badge.style.display='flex'; btn.style.display='none'; document.getElementById('userNameDisplay').textContent=nickname; }
   else { badge.style.display='none'; btn.style.display='block'; }
+  clearAll.style.display=isBroly()?'block':'none';
 }
 window.openModal=function(){
   document.getElementById('nicknameInp').value=nickname;
@@ -453,7 +468,28 @@ async function doRoll(){
   renderHistory();
 }
 
-/* ── DELETE ── */
+/* ── DELETE ALL ── */
+window.clearAllRecords=async function(){
+  if(!isBroly()) return;
+  if(!confirm('确认清空所有历史记录？此操作不可恢复。')) return;
+  var btn=document.getElementById('clearAllBtn');
+  btn.disabled=true; btn.textContent='清空中…';
+  try{
+    // 删除所有记录：gt(id, 0) 匹配全部行（UUID 格式用 neq 空值）
+    var r=await fetch(SB_URL+'/rest/v1/'+TABLE+'?id=neq.00000000-0000-0000-0000-000000000000',{method:'DELETE',headers:sbH()});
+    if(r.ok||r.status===204){
+      historyItems=[]; renderHistory();
+      btn.textContent='✓ 已清空';
+      setTimeout(function(){ btn.disabled=false; btn.textContent='⚠ 清空所有记录'; },2000);
+    } else {
+      btn.disabled=false; btn.textContent='⚠ 清空所有记录';
+      alert('清空失败，请稍后再试');
+    }
+  }catch(e){
+    btn.disabled=false; btn.textContent='⚠ 清空所有记录';
+    alert('清空失败：'+e.message);
+  }
+};
 window.deleteRecord=async function(id, el){
   if(!isBroly()) return;
   if(!confirm('确认删除这条记录？')) return;
