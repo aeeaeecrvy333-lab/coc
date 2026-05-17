@@ -283,6 +283,16 @@ input[type="number"] { -moz-appearance: textfield; }
 .sh-items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 0.5rem; }
 .sh-items-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 0.5rem; margin-top: 0.2rem; }
 
+/* ── p6 按钮：CSS控制显示 ── */
+@media screen and (max-width:767px){
+  .p6-btn-desktop { display: none !important; }
+  .p6-btn-mobile { display: flex !important; }
+}
+@media screen and (min-width:768px){
+  .p6-btn-desktop { display: flex !important; }
+  .p6-btn-mobile { display: none !important; }
+}
+
 /* ── 打印样式 ── */
 @media print {
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -304,9 +314,10 @@ input[type="number"] { -moz-appearance: textfield; }
   #coc-app #p6 { display: block !important; }
   #coc-toast { display: none !important; }
   /* 技能字号恢复可读大小 */
-  #coc-app #p6 #sh-skills > div { font-size: 11pt !important; }
-  #coc-app #p6 #sh-skills > div > div { font-size: 10.5pt !important; padding: 0.2rem 0.35rem !important; }
+  #coc-app #p6 #sh-skills > div { font-size: 11pt !important; overflow: visible !important; }
+  #coc-app #p6 #sh-skills > div > div { font-size: 10.5pt !important; padding: 0.2rem 0.35rem !important; page-break-inside: avoid; }
   #coc-app #p6 #sh-skills > div > div span { font-size: 10pt !important; }
+  #coc-app #p6 .sheet-page-break { overflow: visible !important; height: auto !important; }
 }
 
 /* ── Toast ── */
@@ -370,7 +381,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
   /* 技能：1列，字体大一些 */
   #coc-app #p6 #sh-skills > div { grid-template-columns: 1fr !important; gap: 0 !important; }
-  #coc-app #p6 #sh-skills > div > div { grid-column: unset !important; font-size: 0.82rem !important; padding: 0.22rem 0.4rem !important; }
+  #coc-app #p6 #sh-skills > div > div { font-size: 0.82rem !important; padding: 0.22rem 0.4rem !important; }
   #coc-app #p6 #sh-skills > div > div > span:first-child { font-size: 0.8rem !important; }
 
   /* 步骤条：手机端每行3个 */
@@ -400,7 +411,7 @@ input[type="number"] { -moz-appearance: textfield; }
   #coc-app { padding: 1.2rem 0.75rem; }
   /* p6 技能：2列 */
   #coc-app #p6 #sh-skills > div { grid-template-columns: 1fr 1fr !important; }
-  #coc-app #p6 #sh-skills > div > div[style*="grid-column:1/-1"] { grid-column: 1/-1 !important; }
+
   /* p6 衍生属性：3列 */
   #coc-app #p6 #sh-derived { grid-template-columns: repeat(3,1fr) !important; }
 }
@@ -714,7 +725,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
 <!-- ══ PAGE 6 ══ -->
 <div class="page" id="p6">
-<div class="card" style="padding:2.8rem 1.8rem 1.8rem;">
+<div class="card" style="padding:3.5rem 1.8rem 1.8rem;">
   <span class="corner tl">✦</span><span class="corner br">✦</span>
   <div class="hd">
     <h2 class="hd-title">调查员人物卡</h2>
@@ -812,13 +823,12 @@ input[type="number"] { -moz-appearance: textfield; }
   <div class="sheet-page-break" id="sh-skills-wrap"><div id="sh-skills"></div></div>
 
   <!-- 按钮区域：打印时隐藏 -->
-  <!-- PC：下载 + 提交；平板/手机：只提交 -->
-  <div class="no-print" id="p6-btn-desktop" style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+  <div class="no-print p6-btn-desktop" style="display:flex;gap:0.6rem;flex-wrap:wrap;">
     <button class="btn" style="margin-top:0;flex:1;" onclick="doPrint()">📄 下载人物卡</button>
     <button class="btn" style="margin-top:0;flex:1;background:#1a5a2a;" onclick="saveToCloud()">📤 提交人物卡</button>
     <button class="btn btn-ghost" style="margin-top:0;width:100%;" onclick="showPage('p5')">← 返回</button>
   </div>
-  <div class="no-print" id="p6-btn-mobile" style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+  <div class="no-print p6-btn-mobile" style="display:none;gap:0.6rem;flex-wrap:wrap;">
     <button class="btn" style="margin-top:0;width:100%;" onclick="saveToCloud()">📤 提交人物卡</button>
     <button class="btn btn-ghost" style="margin-top:0;width:100%;" onclick="showPage('p5')">← 返回</button>
   </div>
@@ -1882,12 +1892,6 @@ function updateItemSummary(){
 /* ── Page 6: Character Sheet ── */
 window.goP6=function(){
   showPage('p6');
-  // 按设备显示按钮
-  var _isPC=window.innerWidth>=1024&&!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  var _bd=document.getElementById('p6-btn-desktop');
-  var _bm=document.getElementById('p6-btn-mobile');
-  if(_bd) _bd.style.display=_isPC?'flex':'none';
-  if(_bm) _bm.style.display=_isPC?'none':'flex';
   var name=document.getElementById('name').value.trim()||'未命名调查员';
   var gender=document.querySelector('input[name="gender"]:checked');
   var age=document.getElementById('age-inp').value||'—';
@@ -2185,7 +2189,7 @@ window.saveToCloud=function(callback){
     body:JSON.stringify(payload)
   }).then(function(r){
     if(r.ok){
-      showToast('✓ 已保存到云端！');
+      showToast('✓ 人物卡已提交！');
       if(typeof callback==='function') callback();
     } else {
       r.text().then(function(t){ showToast('保存失败：'+r.status); console.error(t); });
@@ -2200,10 +2204,9 @@ window.saveToCloud=function(callback){
 
 /* ── 导出PDF ── */
 window.doPrint=function(){
-  var isMobile=window.innerWidth<1024||/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  var isMobile=window.innerWidth<768;
   if(!isMobile){
-    // 电脑端：自动保存到云端，然后打印
-    saveToCloud(function(){ window.print(); });
+    saveToCloud(function(){ showToast('✓ 人物卡已下载！'); setTimeout(function(){ window.print(); },500); });
   } else {
     // 手机端：只显示引导浮层，保存由「保存到云端」按钮手动触发
     var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
