@@ -313,6 +313,8 @@ input[type="number"] { -moz-appearance: textfield; }
   #coc-app .page { display: none !important; }
   #coc-app #p6 { display: block !important; }
   #coc-toast { display: none !important; }
+  #qr-mobile-check { display: none !important; }
+  #coc-app #p6 #quick-ref-section table:first-of-type { display: table !important; }
   /* 技能字号恢复可读大小 */
   #coc-app #p6 #sh-skills > div { font-size: 11pt !important; overflow: visible !important; }
   #coc-app #p6 #sh-skills > div > div { font-size: 10.5pt !important; padding: 0.2rem 0.35rem !important; page-break-inside: avoid; }
@@ -378,14 +380,17 @@ input[type="number"] { -moz-appearance: textfield; }
   .sh-items-grid { grid-template-columns:1fr !important; }
   .sh-items-grid-2 { grid-template-columns:1fr !important; }
 
-  /* ── 快速参考：label加粗，内容换行，不溢出 ── */
-  #coc-app #p6 #quick-ref-section { width:100%; }
-  #coc-app #p6 #quick-ref-section table { display:block; width:100%; }
-  #coc-app #p6 #quick-ref-section table thead { display:none; }
-  #coc-app #p6 #quick-ref-section table tbody { display:block; width:100%; }
-  #coc-app #p6 #quick-ref-section table tbody tr { display:block; border-bottom:1px solid rgba(45,122,45,0.2); padding:0.3rem 0; }
-  #coc-app #p6 #quick-ref-section table tbody td { display:block; font-size:0.78rem; padding:0.1rem 0.5rem !important; border:none !important; word-break:break-word; white-space:normal; }
-  #coc-app #p6 #quick-ref-section table tbody td.qr-lbl { font-weight:bold; color:var(--border-hi); }
+  /* ── 快速参考第一张表：手机显示flex版，隐藏原table ── */
+  #qr-mobile-check { display:block !important; }
+  #coc-app #p6 #quick-ref-section table:first-of-type { display:none !important; }
+
+  /* ── 快速参考第二张表（医疗/状态）：名称一行，描述紧贴下方 ── */
+  #coc-app #p6 #quick-ref-section table:last-of-type { display:block !important; }
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody { display:block !important; }
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody tr { display:block !important; border-bottom:1px solid rgba(45,122,45,0.2) !important; padding:0.2rem 0 !important; }
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody td { display:block !important; width:100% !important; border:none !important; padding:0.1rem 0.4rem !important; font-size:0.72rem !important; white-space:normal !important; word-break:break-word !important; }
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody td[style*="font-weight:bold"],
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody td.qr-lbl { font-weight:bold !important; color:var(--border-hi) !important; padding-top:0.25rem !important; }
 
   /* ── 技能：1列，字体0.8rem ── */
   #coc-app #p6 #sh-skills > div { grid-template-columns:1fr !important; }
@@ -2017,6 +2022,26 @@ window.goP6=function(){
   });
   skillHtml+='</div>';
   document.getElementById('sh-skills').innerHTML=skillHtml;
+
+  // 手机端：快速参考检定表旁边插入flex版本，CSS控制显示哪个
+  var qrSection=document.getElementById('quick-ref-section');
+  if(qrSection&&!document.getElementById('qr-mobile-check')){
+    var firstTbl=qrSection.querySelector('table');
+    if(firstTbl){
+      var ths=[].slice.call(firstTbl.querySelectorAll('thead th'));
+      var tds=[].slice.call(firstTbl.querySelectorAll('tbody td'));
+      var mobHtml='<div id="qr-mobile-check" style="display:none;width:100%;font-size:0.78rem;margin-bottom:0.6rem;">';
+      for(var qi=0;qi<ths.length;qi++){
+        var qbg=qi%2===0?'':'background:rgba(45,122,45,0.05);';
+        mobHtml+='<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;'+qbg+'border-bottom:0.5px solid rgba(45,122,45,0.15);">'
+          +'<span style="font-weight:bold;color:var(--border-hi);">'+(ths[qi]?ths[qi].textContent.trim():'')+'</span>'
+          +'<span style="color:var(--ink);text-align:right;">'+(tds[qi]?tds[qi].textContent.trim():'')+'</span>'
+          +'</div>';
+      }
+      mobHtml+='</div>';
+      firstTbl.insertAdjacentHTML('beforebegin', mobHtml);
+    }
+  }
 };
 
 /* ══ 控制台测试函数 ══
