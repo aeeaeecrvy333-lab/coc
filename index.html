@@ -304,7 +304,7 @@ input[type="number"] { -moz-appearance: textfield; }
   #coc-app .card { box-shadow: none !important; border: none !important; padding: 0.3rem 0.4rem !important; background: transparent !important; }
   #coc-app .corner { display: none !important; }
   #coc-app #p6 .steps { display: none !important; }
-  #coc-app #p6 .hd { margin-bottom: 1.2rem; }
+  #coc-app #p6 .hd { margin-top: 3rem; margin-bottom: 1rem; }
   .no-print { display: none !important; }
   .sheet-page-break { page-break-before: always; margin-top: 0 !important; padding-top: 0 !important; }
   .sh-skill-pagebreak { page-break-before: always; margin-top: 0 !important; }
@@ -362,19 +362,15 @@ input[type="number"] { -moz-appearance: textfield; }
     gap: 0.25rem 0 !important;
   }
 
-  /* 属性：每行1属性（3列表格→1列，每属性独行） */
-  #coc-app #p6 #sh-attrs table { width: 100%; font-size: 0.75rem; }
-  #coc-app #p6 #sh-attrs thead { display: none; }
-  #coc-app #p6 #sh-attrs tbody tr { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border-bottom: 1px solid rgba(45,122,45,0.13); }
-  #coc-app #p6 #sh-attrs tbody td { border: none !important; padding: 0.22rem 0.35rem !important; }
-  #coc-app #p6 #sh-attrs tbody td:nth-child(5),
-  #coc-app #p6 #sh-attrs tbody td:nth-child(6),
-  #coc-app #p6 #sh-attrs tbody td:nth-child(7),
-  #coc-app #p6 #sh-attrs tbody td:nth-child(8),
-  #coc-app #p6 #sh-attrs tbody td:nth-child(9),
-  #coc-app #p6 #sh-attrs tbody td:nth-child(10),
-  #coc-app #p6 #sh-attrs tbody td:nth-child(11),
-  #coc-app #p6 #sh-attrs tbody td:nth-child(12) { display: none !important; }
+  /* 属性：手机端每行1个属性（只显示第1组，隐藏第2/3组的td） */
+  #coc-app #p6 #sh-attrs table { width: 100%; font-size: 0.82rem; }
+  #coc-app #p6 #sh-attrs thead tr th:nth-child(n+5) { display: none; }
+  #coc-app #p6 #sh-attrs tbody tr { display: contents; }
+  #coc-app #p6 #sh-attrs tbody td { display: none; }
+  #coc-app #p6 #sh-attrs tbody td:nth-child(1),
+  #coc-app #p6 #sh-attrs tbody td:nth-child(2),
+  #coc-app #p6 #sh-attrs tbody td:nth-child(3),
+  #coc-app #p6 #sh-attrs tbody td:nth-child(4) { display: table-cell; padding: 0.25rem 0.4rem !important; }
 
   /* 衍生属性：2列 */
   #coc-app #p6 #sh-derived { grid-template-columns: repeat(2,1fr) !important; gap: 0.3rem !important; }
@@ -1912,18 +1908,17 @@ window.goP6=function(){
     +TH+'属性</th>'+THV+'总值</th>'+THV+'半值</th>'+THV+'⅕值</th>'
     +TH+'属性</th>'+THV+'总值</th>'+THV+'半值</th>'+THV+'⅕值</th>'
     +'</tr></thead><tbody>';
-  // 9 attrs → 3 per row (3 rows)
   for(var ai=0;ai<ALL.length;ai+=3){
-    var bg=(Math.floor(ai/3)%2===1)?'background:rgba(74,122,74,0.04);':'';
+    var bg=(Math.floor(ai/3)%2===1)?'background:rgba(45,122,45,0.04);':'';
     attrHtml+='<tr style="'+bg+'">';
     for(var ci=0;ci<3;ci++){
       var a=ALL[ai+ci];
       if(a){
         var v=getVal(a.key),h=Math.floor(v/2),f=Math.floor(v/5);
-        attrHtml+='<td style="text-align:center;padding:0.25rem 0.5rem;border:1px solid rgba(45,122,45,0.18);font-weight:500;white-space:nowrap;">'+a.cn+' <span style="font-size:0.68rem;color:var(--ink-dim);">'+a.key+'</span></td>'
-          +'<td style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);font-weight:bold;color:var(--ink);">'+v+'</td>'
-          +'<td style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);color:var(--ink-dim);">'+h+'</td>'
-          +'<td style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);color:var(--ink-dim);">'+f+'</td>';
+        attrHtml+='<td class="sh-attr-name" style="text-align:center;padding:0.25rem 0.5rem;border:1px solid rgba(45,122,45,0.18);font-weight:500;white-space:nowrap;">'+a.cn+' <span style="font-size:0.68rem;color:var(--ink-dim);">'+a.key+'</span></td>'
+          +'<td class="sh-attr-val" style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);font-weight:bold;color:var(--ink);">'+v+'</td>'
+          +'<td class="sh-attr-sub" style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);color:var(--ink-dim);">'+h+'</td>'
+          +'<td class="sh-attr-sub" style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);color:var(--ink-dim);">'+f+'</td>';
       } else {
         attrHtml+='<td colspan="4" style="border:1px solid rgba(45,122,45,0.18);"></td>';
       }
