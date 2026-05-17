@@ -362,7 +362,14 @@ input[type="number"] { -moz-appearance: textfield; }
     gap: 0.25rem 0 !important;
   }
 
-  /* ── 属性：由JS在手机端渲染为flex格式 ── */
+  /* ── 属性：每属性一行（仅screen，打印不受影响）── */
+  #coc-app #p6 #sh-attrs table { width:100%; font-size:0.8rem; border-collapse:collapse; }
+  #coc-app #p6 #sh-attrs table thead { display:none; }
+  #coc-app #p6 #sh-attrs table tbody tr { display:block; border-bottom:1px solid rgba(45,122,45,0.15); }
+  #coc-app #p6 #sh-attrs table tbody td { display:none; }
+  #coc-app #p6 #sh-attrs table tbody td.sh-attr-name { display:inline-block; width:42%; padding:0.25rem 0.4rem !important; font-weight:500; }
+  #coc-app #p6 #sh-attrs table tbody td.sh-attr-val  { display:inline-block; width:18%; text-align:center; padding:0.25rem 0.2rem !important; font-weight:bold; color:var(--ink); }
+  #coc-app #p6 #sh-attrs table tbody td.sh-attr-sub  { display:inline-block; width:18%; text-align:center; padding:0.25rem 0.2rem !important; color:var(--ink-dim); }
 
   /* ── 衍生属性：2列 ── */
   #coc-app #p6 #sh-derived { grid-template-columns:repeat(2,1fr) !important; gap:0.35rem !important; }
@@ -1913,25 +1920,6 @@ window.goP6=function(){
   }
   attrHtml+='</tbody></table>';
   document.getElementById('sh-attrs').innerHTML=attrHtml;
-
-  // 手机端：用flex格式替代table显示属性
-  if(window.innerWidth<600){
-    var mobAttrs='<div style="width:100%;">'
-      +'<div style="display:grid;grid-template-columns:1fr 44px 44px 44px;gap:0;background:rgba(45,122,45,0.12);padding:0.2rem 0.4rem;font-size:0.72rem;font-weight:bold;color:var(--border-hi);">'
-      +'<span>属性</span><span style="text-align:center;">总值</span><span style="text-align:center;">半值</span><span style="text-align:center;">⅕值</span></div>';
-    ALL.forEach(function(a,i){
-      var v=getVal(a.key),h=Math.floor(v/2),f=Math.floor(v/5);
-      var bg=i%2===1?'rgba(45,122,45,0.04)':'transparent';
-      mobAttrs+='<div style="display:grid;grid-template-columns:1fr 44px 44px 44px;gap:0;padding:0.22rem 0.4rem;background:'+bg+';border-bottom:0.5px solid rgba(45,122,45,0.15);font-size:0.82rem;">'
-        +'<span style="font-weight:500;">'+a.cn+' <span style="font-size:0.68rem;color:var(--ink-dim);">'+a.key+'</span></span>'
-        +'<span style="text-align:center;font-weight:bold;color:var(--ink);">'+v+'</span>'
-        +'<span style="text-align:center;color:var(--ink-dim);">'+h+'</span>'
-        +'<span style="text-align:center;color:var(--ink-dim);">'+f+'</span>'
-        +'</div>';
-    });
-    mobAttrs+='</div>';
-    document.getElementById('sh-attrs').innerHTML=mobAttrs;
-  }
 
   // ── 衍生属性 ──
   var pow=getVal('POW'),con=getVal('CON'),siz=getVal('SIZ'),str=getVal('STR'),dex=getVal('DEX');
