@@ -25,13 +25,13 @@ input[type="number"] { -moz-appearance: textfield; }
 
 /* ── 暗绿色主题 ── */
 #coc-app {
-    --ink: #1a3a1a;              
+    --ink: #1a3a1a;              /* 主文字：深绿 */
     --ink-dim: rgba(30,70,30,0.55);
-    --bg: #eef5ee;               
-    --bg-card: #f8fdf8;          
-    --bg-card2: #eef5ee;         
-    --border: #7ab87a;           
-    --border-hi: #2d7a2d;        
+    --bg: #eef5ee;               /* 页面背景：极浅绿 */
+    --bg-card: #f8fdf8;          /* 卡片底：近白浅绿 */
+    --bg-card2: #eef5ee;         /* 卡片内层 */
+    --border: #7ab87a;           /* 边框：中绿 */
+    --border-hi: #2d7a2d;        /* 高亮：深绿 */
     --green: #2d7a2d;
     --green-light: #4a9a4a;
     --green-dim: rgba(74,160,74,0.12);
@@ -49,23 +49,70 @@ input[type="number"] { -moz-appearance: textfield; }
     box-sizing: border-box;
 }
 
-/* ── 手机端弹窗 ── */
-.mobile-pop { position: fixed !important; top: 50% !important; left: 50% !important; right: auto !important; transform: translate(-50%, -50%) !important; width: min(320px, 88vw) !important; z-index: 2001 !important; }
-.mobile-pop .popover { background: #f8fdf8; border: 1.5px solid #7ab87a; box-shadow: 0 8px 24px rgba(45,100,45,0.2); padding: 1.1rem; border-radius: 6px; }
-.mobile-pop .pop-title { font-size: 0.82rem; letter-spacing: 0.08em; color: #2d7a2d; margin-bottom: 0.65rem; font-weight: bold; }
-.mobile-pop .pop-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-.mobile-pop .pop-chip { padding: 0.4rem 0.8rem; background: #2d7a2d; color: #f0fff0; font-size: 1.15rem; font-weight: bold; border: 1px solid #c8a84c; cursor: pointer; border-radius: 3px; }
-.mobile-pop .pop-empty { font-size: 0.82rem; color: rgba(30,70,30,0.45); }
-.pop-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(10,20,10,0.7); }
-
+/* ── 手机端弹窗：全局选择器，因为挂在 body 上 ── */
+.mobile-pop {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(320px, 88vw) !important;
+    z-index: 2001 !important;
+}
+.mobile-pop .popover {
+    background: #f8fdf8;
+    border: 1.5px solid #7ab87a;
+    box-shadow: 0 8px 24px rgba(45,100,45,0.2);
+    padding: 1.1rem;
+    border-radius: 6px;
+}
+.mobile-pop .pop-title {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    color: #2d7a2d;
+    margin-bottom: 0.65rem;
+    font-weight: bold;
+}
+.mobile-pop .pop-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+.mobile-pop .pop-chip {
+    padding: 0.4rem 0.8rem;
+    background: #2d7a2d;
+    color: #f0fff0;
+    font-size: 1.15rem;
+    font-weight: bold;
+    border: 1px solid #c8a84c;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.mobile-pop .pop-empty {
+    font-size: 0.82rem;
+    color: rgba(30,70,30,0.45);
+}
+.pop-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(10,20,10,0.7);
+}
 #coc-app *, #coc-app *::before, #coc-app *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 #coc-app .wrap { width: 100%; max-width: 900px; }
 #coc-app .page { display: none; }
 #coc-app .page.active { display: block; animation: fadeIn 0.35s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ── 卡片 ── */
-#coc-app .card { background: var(--bg-card); border: 1px solid var(--border); box-shadow: 0 0 0 3px var(--bg-card2), 0 0 0 4px var(--border), 0 8px 24px rgba(45,100,45,0.12); padding: 2.2rem 2rem 1.8rem; position: relative; }
+#coc-app .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 0 3px var(--bg-card2), 0 0 0 4px var(--border), 0 8px 24px rgba(45,100,45,0.12);
+    padding: 2.2rem 2rem 1.8rem;
+    position: relative;
+}
 @media(max-width:600px){ #coc-app .card { padding: 1.4rem 1rem 1.2rem; } }
 #coc-app .corner { position: absolute; font-size: 11px; color: var(--green); opacity: 0.4; }
 #coc-app .corner.tl { top: 12px; left: 12px; }
@@ -94,6 +141,7 @@ input[type="number"] { -moz-appearance: textfield; }
 #coc-app .inp:focus { border-bottom-color: var(--border-hi); }
 #coc-app .inp::placeholder { color: rgba(30,80,30,0.35); font-size: 0.9rem; font-weight: normal; }
 #coc-app select.inp { cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%232d7a2d'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.3rem center; padding-right: 1.4rem; background-color: transparent; color: var(--ink); border-bottom: 1.5px solid rgba(74,122,74,0.6); }
+#coc-app select.inp option { background: #f0faf0; color: #1a3a1a; }
 
 #coc-app .radios { display: flex; gap: 1.4rem; padding: 0.3rem 0; }
 #coc-app .radio { display: flex; align-items: center; gap: 0.45rem; cursor: pointer; font-size: 1rem; user-select: none; font-weight: 500; }
@@ -103,15 +151,14 @@ input[type="number"] { -moz-appearance: textfield; }
 #coc-app .radio input:checked+.rdot { border-color: var(--border-hi); }
 #coc-app .radio input:checked+.rdot::after { opacity: 1; }
 
-#coc-app .btn { width: 100%; padding: 0.9rem; background: var(--border-hi); color: var(--bg-card); border: 1px solid var(--border); font-size: 0.9rem; letter-spacing: 0.2em; cursor: pointer; transition: background 0.2s, letter-spacing 0.2s; margin-top: 0.8rem; font-weight: bold; }
-#coc-app .btn:hover { background: #1a5a1a; letter-spacing: 0.26em; color: #fff; }
+/* ── 按钮 ── */
+#coc-app .btn { width: 100%; padding: 0.9rem; background: var(--border-hi); color: var(--ink); border: 1px solid var(--border); font-size: 0.9rem; letter-spacing: 0.2em; cursor: pointer; transition: background 0.2s, letter-spacing 0.2s; margin-top: 0.8rem; font-weight: bold; }
+#coc-app .btn:hover { background: #1a5a1a; letter-spacing: 0.26em; }
 #coc-app .btn-ghost { background: transparent; color: var(--border-hi); border: 1px solid var(--border); font-size: 0.78rem; }
 #coc-app .btn-ghost:hover { background: rgba(107,76,16,0.1); }
-
-/* ── 区块排版重置：拉近边距 ── */
-#coc-app .sec-title { font-size: 0.88rem; letter-spacing: 0.13em; color: var(--border-hi); text-transform: uppercase; margin: 1.6rem 0 0.4rem 0; padding-left: 0.5rem; border-left: 3px solid var(--border); font-weight: bold; }
+#coc-app .sec-title { font-size: 0.88rem; letter-spacing: 0.13em; color: var(--border-hi); text-transform: uppercase; margin-top: 3rem; margin-bottom: 0.55rem; padding-left: 0.5rem; border-left: 3px solid var(--border); font-weight: bold; }
 #coc-app .sec-title:first-of-type { margin-top: 0; }
-#coc-app .hd + .sec-title, #coc-app .steps + .sec-title, #coc-app .field + .sec-title, .sheet-title-box + .sec-title, #sheet-basic + .sec-title { margin-top: 0; }
+#coc-app .hd + .sec-title, #coc-app .steps + .sec-title, #coc-app .field + .sec-title { margin-top: 0; }
 
 /* ── 骰子池 ── */
 #coc-app .roll-wrap { text-align: center; margin-bottom: 1rem; }
@@ -120,9 +167,9 @@ input[type="number"] { -moz-appearance: textfield; }
 #coc-app .pools-wrapper { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; }
 #coc-app .pool-section { flex: 1; min-width: 220px; }
 #coc-app .pool-lbl { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--border-hi); margin-bottom: 0.4rem; font-weight: bold; }
-#coc-app .pool-tag { display: inline-block; font-size: 0.65rem; background: var(--border-hi); color: var(--bg-card); border: 0.5px solid var(--border); padding: 0.1rem 0.35rem; margin-left: 0.3rem; }
+#coc-app .pool-tag { display: inline-block; font-size: 0.65rem; background: var(--border-hi); color: var(--ink); border: 0.5px solid var(--border); padding: 0.1rem 0.35rem; margin-left: 0.3rem; }
 #coc-app .pool-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; min-height: 40px; padding: 0.5rem; background: rgba(45,122,45,0.09); border: 1px dashed var(--border); }
-#coc-app .chip { padding: 0.25rem 0.65rem; background: var(--border-hi); color: var(--bg-card); font-size: 1rem; font-weight: bold; border: 1px solid var(--border); user-select: none; }
+#coc-app .chip { padding: 0.25rem 0.65rem; background: var(--border-hi); color: var(--ink); font-size: 1rem; font-weight: bold; border: 1px solid var(--border); user-select: none; }
 #coc-app .chip.used { opacity: 0.25; }
 #coc-app .pool-empty { color: var(--ink-dim); font-size: 0.8rem; align-self: center; }
 
@@ -139,7 +186,7 @@ input[type="number"] { -moz-appearance: textfield; }
 #coc-app .attr-col-lbl small { display: block; font-size: 0.62rem; color: var(--border-hi); font-weight: normal; }
 #coc-app .attr-val { width: 100%; height: 42px; background: rgba(45,122,45,0.08); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; color: rgba(150,200,150,0.6); cursor: pointer; transition: all 0.15s; }
 #coc-app .attr-val:hover { border-color: var(--border-hi); background: rgba(74,122,74,0.22); color: var(--border-hi); }
-#coc-app .attr-val.filled { background: var(--border-hi); color: var(--bg-card); border: 1px solid var(--border); font-size: 1.15rem; }
+#coc-app .attr-val.filled { background: var(--border-hi); color: var(--ink); border: 1px solid var(--border); font-size: 1.15rem; }
 #coc-app .attr-val.filled:hover { background: var(--red); border-color: #6b1010; }
 
 /* ── 属性详情表 ── */
@@ -152,12 +199,13 @@ input[type="number"] { -moz-appearance: textfield; }
 #coc-app .attr-detail-table td.val-main { font-size: 0.95rem; font-weight: bold; color: var(--border-hi); }
 #coc-app .attr-detail-table tr:hover td { background: rgba(45,122,45,0.07); }
 @media(max-width:480px){
-  #coc-app .attr-detail-table th, #coc-app .attr-detail-table td { font-size: 0.75rem; padding: 0.22rem 0.28rem; }
+  #coc-app .attr-detail-table th,
+  #coc-app .attr-detail-table td { font-size: 0.75rem; padding: 0.22rem 0.28rem; }
   #coc-app .attr-detail-table td:first-child { font-size: 0.75rem; }
   #coc-app .attr-detail-table td.val-main { font-size: 0.82rem; }
 }
 
-/* ── Popover ── */
+/* ── Popover：桌面/平板=行内附着对话框 ── */
 #coc-app .popover-wrap { position:absolute; z-index:1000; top:calc(100% + 8px); right:0; width:300px; }
 #coc-app .popover { background:var(--bg-card); border:1px solid var(--border); box-shadow:0 4px 16px rgba(45,100,45,0.15); padding:1.1rem; border-radius:4px; }
 #coc-app .popover::before { content:''; position:absolute; top:-6px; right:12px; width:12px; height:12px; background:var(--bg-card); border-left:1px solid var(--border); border-top:1px solid var(--border); transform:rotate(45deg); }
@@ -176,15 +224,15 @@ input[type="number"] { -moz-appearance: textfield; }
 #coc-app .adj-cur { font-size: 0.8rem; color: var(--ink-dim); width: 65px; text-align: center; }
 #coc-app .adj-reduced { font-size: 0.9rem; font-weight: bold; color: var(--ink); width: 34px; text-align: center; }
 #coc-app .adj-btn { width: 28px; height: 28px; background: var(--bg-card2); color: var(--border-hi); border: 1px solid var(--border-hi); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; }
-#coc-app .adj-btn:hover { background: var(--border-hi); color: var(--bg-card); }
+#coc-app .adj-btn:hover { background: var(--border-hi); color: var(--ink); }
 
 /* ── 衍生属性 ── */
-.derived-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.3rem; margin-bottom: 1rem; }
-@media(max-width:480px){ .derived-grid { grid-template-columns: repeat(2, 1fr); gap:0.35rem; } }
-@media screen and (min-width:601px) and (max-width:900px){ .derived-grid { grid-template-columns: repeat(3,1fr); } }
-.der-cell { background: rgba(45,122,45,0.08); border: 1px solid var(--border); padding: 0.3rem 0.3rem; text-align: center; border-radius:3px; }
-.der-lbl { font-size: 0.6rem; color: var(--border-hi); margin-bottom: 0.18rem; font-weight: bold; line-height: 1.2;}
-.der-val { font-size: 0.95rem; font-weight: bold; color: var(--ink); }
+#coc-app .derived-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; margin-bottom: 1rem; }
+@media(max-width:480px){ #coc-app .derived-grid { grid-template-columns: repeat(2, 1fr); } }
+#coc-app .der-cell { background: rgba(45,122,45,0.08); border: 1px solid var(--border); padding: 0.55rem 0.6rem; text-align: center; }
+#coc-app .der-lbl { font-size: 0.62rem; letter-spacing: 0.05em; color: var(--border-hi); margin-bottom: 0.18rem; font-weight: bold; }
+#coc-app .der-val { font-size: 1.2rem; font-weight: bold; color: var(--ink); }
+#coc-app .der-fml { font-size: 0.58rem; color: var(--ink-dim); margin-top: 0.1rem; }
 
 /* ── 职业 & 技能 ── */
 #coc-app .occ-info { background: rgba(45,122,45,0.07); border: 1px solid var(--border); padding: 0.8rem 0.9rem; margin-bottom: 0.9rem; display: none; border-radius: 4px; }
@@ -197,11 +245,13 @@ input[type="number"] { -moz-appearance: textfield; }
 #coc-app .pts-big { font-size: 1.5rem; font-weight: bold; color: var(--border-hi); }
 #coc-app .pts-sub { font-size: 0.72rem; color: var(--ink-dim); margin-top: 0.15rem; }
 
+/* 信用评级框 */
 #coc-app .cr-box { background: rgba(45,122,45,0.08); border: 1px solid var(--border-hi); padding: 0.9rem 1rem; margin-bottom: 1rem; display: none; }
 #coc-app .cr-box.show { display: block; }
 
-/* ── 技能网格区 ── */
+/* ── 技能网格 ── */
 #coc-app .sk-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-bottom: 0.8rem; }
+#coc-app .sk-grid-hd { display: none; }
 #coc-app .sk-cat-hd { font-size: 0.78rem; font-weight: bold; color: var(--border-hi); letter-spacing: 0.1em; padding: 0.4rem 0.5rem 0.25rem; margin-top: 0.5rem; border-bottom: 1.5px solid var(--border); background: rgba(45,122,45,0.08); }
 #coc-app .sk-cat-hd:first-child { margin-top: 0; }
 #coc-app .sk-row { display: grid; grid-template-columns: 1fr 36px 58px 40px; align-items: center; gap: 0.4rem; padding: 0.3rem 0.5rem; background: rgba(74,122,74,0.03); border-bottom: 0.5px solid rgba(45,122,45,0.09); }
@@ -217,76 +267,34 @@ input[type="number"] { -moz-appearance: textfield; }
 #coc-app .sk-tot { font-size: 0.85rem; font-weight: bold; color: var(--ink); text-align: center; }
 #coc-app .sk-legend { display: flex; gap: 0.8rem; font-size: 0.7rem; color: var(--ink-dim); margin-bottom: 0.5rem; flex-wrap: wrap; }
 
+/* 技能生成的数字网格统一对齐 */
+.sk-vals { display:grid; grid-template-columns:30px 24px 24px; gap:4px; text-align:right; flex-shrink:0; align-items:center; }
+.sk-vals b, .sk-vals span { font-size: 0.75rem; }
+
 /* ── 物品页 ── */
 #coc-app .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 0.5rem; margin-bottom: 0.4rem; }
 #coc-app .item-card { display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.6rem; background: rgba(74,122,74,0.06); border: 1px solid rgba(45,122,45,0.18); border-radius: 5px; cursor: pointer; transition: all 0.15s; user-select: none; }
 #coc-app .item-card:hover { background: rgba(45,122,45,0.1); border-color: var(--border); }
 #coc-app .item-card.selected { background: rgba(122,80,32,0.15); border-color: var(--border-hi); border-width: 1.5px; }
 #coc-app .item-chk { width: 16px; height: 16px; border: 1.5px solid var(--border); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--ink); background: transparent; transition: all 0.15s; }
-#coc-app .item-card.selected .item-chk { background: var(--border-hi); border-color: var(--border-hi); color: var(--bg-card); }
+#coc-app .item-card.selected .item-chk { background: var(--border-hi); border-color: var(--border-hi); }
 #coc-app .item-info { flex: 1; min-width: 0; }
 #coc-app .item-name { font-size: 0.82rem; font-weight: bold; color: var(--ink); line-height: 1.3; }
 #coc-app .item-note { font-size: 0.68rem; color: var(--ink-dim); line-height: 1.3; }
-#coc-app .item-tag { font-size: 0.6rem; background: var(--border-hi); color: var(--bg-card); border-radius: 3px; padding: 0.05rem 0.3rem; display: inline-block; margin-top: 0.1rem; }
+#coc-app .item-tag { font-size: 0.6rem; background: var(--border-hi); color: var(--ink); border-radius: 3px; padding: 0.05rem 0.3rem; display: inline-block; margin-top: 0.1rem; }
 
 /* ── 携带装备三列网格 ── */
 .sh-items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 0.5rem; }
 .sh-items-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 0.5rem; margin-top: 0.2rem; }
 
-/* 技能生成的数字网格统一对齐 */
-.sk-vals { display:grid; grid-template-columns:30px 24px 24px; gap:4px; text-align:right; flex-shrink:0; align-items:center; }
-.sk-vals b, .sk-vals span { font-size: 0.75rem; }
-
-/* ── p6 按钮显示 ── */
-@media screen and (max-width:767px){ .p6-btn-desktop{display:none !important;} .p6-btn-mobile{display:flex !important;} }
-@media screen and (min-width:768px){ .p6-btn-desktop{display:flex !important;} .p6-btn-mobile{display:none !important;} }
-
-/* ── 手机响应式 ── */
-@media screen and (max-width:600px){
-  #coc-app { padding: 0.75rem 0.5rem; }
-  #coc-app .wrap { width: 100%; }
-  #coc-app .card { padding: 1rem 0.65rem 1rem; }
-  #coc-app .step { font-size: 0.62rem; }
-  #coc-app .step-n { width: 17px; height: 17px; font-size: 9px; }
-  #coc-app .sec-title { margin-top: 1.6rem !important; }
-  #coc-app .pools-wrapper { flex-direction: column; }
-  #coc-app .pool-section { min-width: unset; }
-  #coc-app .sk-row { grid-template-columns: 1fr 30px 50px 34px; padding: 0.22rem 0.3rem; }
-  #coc-app .sk-cat-hd { font-size: 0.7rem; }
-  #coc-app .derived-grid { grid-template-columns: repeat(3,1fr) !important; }
-  #coc-app .item-grid { grid-template-columns: 1fr; }
-  #coc-app .pts-bar { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
-
-  /* p6 人物卡排版 */
-  #coc-app #p6 #sheet-basic > div:nth-child(2) { grid-template-columns: 1fr !important; gap: 0.25rem 0 !important; }
-  #coc-app #p6 #sh-attrs table { width:100%; font-size:0.8rem; border-collapse:collapse; }
-  #coc-app #p6 #sh-attrs table thead { display:none; }
-  #coc-app #p6 #sh-attrs table tbody tr { display:block; border-bottom:1px solid rgba(45,122,45,0.15); }
-  #coc-app #p6 #sh-attrs table tbody td { display:none; }
-  #coc-app #p6 #sh-attrs table tbody td.sh-attr-name { display:inline-block; width:42%; padding:0.25rem 0.4rem !important; font-weight:500; border:none!important; }
-  #coc-app #p6 #sh-attrs table tbody td.sh-attr-val  { display:inline-block; width:18%; text-align:center; padding:0.25rem 0.2rem !important; font-weight:bold; color:var(--ink); border:none!important; }
-  #coc-app #p6 #sh-attrs table tbody td.sh-attr-sub  { display:inline-block; width:18%; text-align:center; padding:0.25rem 0.2rem !important; color:var(--ink-dim); border:none!important; }
-  
-  #coc-app #p6 #sh-derived { grid-template-columns:repeat(2,1fr) !important; gap:0.35rem !important; }
-  .sh-items-grid, .sh-items-grid-2 { grid-template-columns:1fr !important; }
-
-  #qr-mobile-check { display:block !important; }
-  #coc-app #p6 #quick-ref-section table:first-of-type { display:none !important; }
-  #coc-app #p6 #quick-ref-section table:last-of-type { display:block !important; }
-  #coc-app #p6 #quick-ref-section table:last-of-type tbody { display:block !important; }
-  #coc-app #p6 #quick-ref-section table:last-of-type tbody tr { display:block !important; border-bottom:1px solid rgba(45,122,45,0.2) !important; padding:0.2rem 0 !important; }
-  #coc-app #p6 #quick-ref-section table:last-of-type tbody td { display:block !important; width:100% !important; border:none !important; padding:0.1rem 0.4rem !important; font-size:0.72rem !important; white-space:normal !important; word-break:break-word !important; }
-  #coc-app #p6 #quick-ref-section table:last-of-type tbody td.qr-lbl { font-weight:bold !important; color:var(--border-hi) !important; padding-top:0.25rem !important; }
-
-  #coc-app #p6 #sh-skills > div { grid-template-columns:1fr !important; }
-  #coc-app #p6 #sh-skills > div > div { font-size:0.8rem !important; padding:0.2rem 0.4rem !important; }
-  #coc-app #p6 .no-print { flex-direction: column !important; gap: 0.4rem !important; }
+/* ── p6 按钮：CSS控制显示 ── */
+@media screen and (max-width:767px){
+  .p6-btn-desktop { display: none !important; }
+  .p6-btn-mobile { display: flex !important; }
 }
-
-@media screen and (min-width:601px) and (max-width:900px){
-  #coc-app { padding: 1.2rem 0.75rem; }
-  #coc-app #p6 #sh-skills > div { grid-template-columns: 1fr 1fr !important; }
-  #coc-app #p6 #sh-derived { grid-template-columns: repeat(3,1fr) !important; }
+@media screen and (min-width:768px){
+  .p6-btn-desktop { display: flex !important; }
+  .p6-btn-mobile { display: none !important; }
 }
 
 /* ── 打印样式 ── */
@@ -295,41 +303,122 @@ input[type="number"] { -moz-appearance: textfield; }
   @page { margin: 0.5cm 0.6cm; size: A4; }
   html { font-size: 14px !important; }
   html, body { margin: 0 !important; padding: 0 !important; background: #f8fdf8 !important; color: #1a3a1a !important; }
-  
   #coc-app { background: #f8fdf8 !important; padding: 0 !important; display: block !important; min-height: unset !important; }
   #coc-app .wrap { max-width: 100% !important; }
   #coc-app .card { box-shadow: none !important; border: none !important; padding: 0.3rem 0.4rem !important; background: transparent !important; }
   #coc-app .corner { display: none !important; }
   #coc-app #p6 .steps { display: none !important; }
-  #coc-app #p6 .hd { display: none !important; } /* 屏蔽旧头部 */
+  #coc-app #p6 .hd { margin-top: 3rem; margin-bottom: 1rem; }
   .no-print { display: none !important; }
-  
-  /* P6 显示 */
-  #coc-app .page { display: none !important; }
-  #coc-app #p6 { display: block !important; }
-  
-  /* 强制打印大标题和边距 */
-  .sheet-title-box { margin-top: 2rem !important; margin-bottom: 1.5rem !important; }
-  .sec-title { margin-top: 1.6rem !important; margin-bottom: 0.4rem !important; }
-
+  .sheet-page-break { page-break-before: always; margin-top: 0 !important; padding-top: 0 !important; }
+  .sh-skill-pagebreak { page-break-before: always; margin-top: 0 !important; }
   .sh-items-grid { grid-template-columns: repeat(3,1fr) !important; }
   .sh-items-grid-2 { grid-template-columns: repeat(2,1fr) !important; }
+  #coc-app .page { display: none !important; }
+  #coc-app #p6 { display: block !important; }
   #coc-toast { display: none !important; }
   #qr-mobile-check { display: none !important; }
   #coc-app #p6 #quick-ref-section table:first-of-type { display: table !important; }
-  
-  /* 技能页绝对对齐与缩放 */
+/* 技能页字体与对齐，严格锁定 10.5pt 与数值网格列宽 */
   #coc-app #p6 #sh-skills > div { font-size: 11pt !important; overflow: visible !important; }
   #coc-app #p6 #sh-skills > div > div { font-size: 10.5pt !important; padding: 0.2rem 0.35rem !important; page-break-inside: avoid; }
   .sk-vals { grid-template-columns: 36px 28px 28px !important; gap: 6px !important; }
   .sk-vals b, .sk-vals span { font-size: 10.5pt !important; }
-  
-  .sheet-page-break { page-break-before: always; margin-top: 0 !important; padding-top: 0 !important; overflow: visible !important; height: auto !important;}
 }
 
 /* ── Toast ── */
 #coc-toast { position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%) translateY(20px); background: #2d7a2d; color: #f0fff0; font-weight: bold; padding: 0.85rem 1.6rem; border-radius: 4px; font-size: 0.92rem; letter-spacing: 0.06em; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 9999; box-shadow: 0 4px 16px rgba(0,40,0,0.5); border: 1px solid #4a7a4a; }
 #coc-toast.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+/* ══ 手机端响应式（仅 screen，不影响 print）══ */
+@media screen and (max-width:600px){
+  #coc-app { padding: 0.75rem 0.5rem; }
+  #coc-app .wrap { width: 100%; }
+  #coc-app .card { padding: 1rem 0.65rem 1rem; }
+
+  /* 步骤条换行时缩小 */
+  #coc-app .step { font-size: 0.62rem; }
+  #coc-app .step-n { width: 17px; height: 17px; font-size: 9px; }
+
+  /* sec-title 间距缩小 */
+  #coc-app .sec-title { margin-top: 1.6rem !important; }
+
+  /* 骰子池纵向 */
+  #coc-app .pools-wrapper { flex-direction: column; }
+  #coc-app .pool-section { min-width: unset; }
+
+  /* 技能网格 */
+  #coc-app .sk-row { grid-template-columns: 1fr 30px 50px 34px; padding: 0.22rem 0.3rem; }
+  #coc-app .sk-cat-hd { font-size: 0.7rem; }
+
+  /* 衍生属性 3列 */
+  #coc-app .derived-grid { grid-template-columns: repeat(3,1fr) !important; }
+
+  /* 物品卡 1列 */
+  #coc-app .item-grid { grid-template-columns: 1fr; }
+
+  /* pts-bar 纵向 */
+  #coc-app .pts-bar { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+
+  /* ── p6 人物卡手机专属布局 ── */
+
+  /* 基本信息：每项独行 */
+  #coc-app #p6 #sheet-basic > div:nth-child(2) {
+    grid-template-columns: 1fr !important;
+    gap: 0.25rem 0 !important;
+  }
+
+  /* ── 属性：每属性一行（仅screen，打印不受影响）── */
+  #coc-app #p6 #sh-attrs table { width:100%; font-size:0.8rem; border-collapse:collapse; }
+  #coc-app #p6 #sh-attrs table thead { display:none; }
+  #coc-app #p6 #sh-attrs table tbody tr { display:block; border-bottom:1px solid rgba(45,122,45,0.15); }
+  #coc-app #p6 #sh-attrs table tbody td { display:none; }
+  #coc-app #p6 #sh-attrs table tbody td.sh-attr-name { display:inline-block; width:42%; padding:0.25rem 0.4rem !important; font-weight:500; }
+  #coc-app #p6 #sh-attrs table tbody td.sh-attr-val  { display:inline-block; width:18%; text-align:center; padding:0.25rem 0.2rem !important; font-weight:bold; color:var(--ink); }
+  #coc-app #p6 #sh-attrs table tbody td.sh-attr-sub  { display:inline-block; width:18%; text-align:center; padding:0.25rem 0.2rem !important; color:var(--ink-dim); }
+
+  /* ── 衍生属性：2列 ── */
+  #coc-app #p6 #sh-derived { grid-template-columns:repeat(2,1fr) !important; gap:0.35rem !important; }
+
+  /* ── 携带装备：1列 ── */
+  .sh-items-grid { grid-template-columns:1fr !important; }
+  .sh-items-grid-2 { grid-template-columns:1fr !important; }
+
+  /* ── 快速参考第一张表：手机显示flex版，隐藏原table ── */
+  #qr-mobile-check { display:block !important; }
+  #coc-app #p6 #quick-ref-section table:first-of-type { display:none !important; }
+
+  /* ── 快速参考第二张表（医疗/状态）：名称一行，描述紧贴下方 ── */
+  #coc-app #p6 #quick-ref-section table:last-of-type { display:block !important; }
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody { display:block !important; }
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody tr { display:block !important; border-bottom:1px solid rgba(45,122,45,0.2) !important; padding:0.2rem 0 !important; }
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody td { display:block !important; width:100% !important; border:none !important; padding:0.1rem 0.4rem !important; font-size:0.72rem !important; white-space:normal !important; word-break:break-word !important; }
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody td[style*="font-weight:bold"],
+  #coc-app #p6 #quick-ref-section table:last-of-type tbody td.qr-lbl { font-weight:bold !important; color:var(--border-hi) !important; padding-top:0.25rem !important; }
+
+  /* ── 技能：1列，字体0.8rem ── */
+  #coc-app #p6 #sh-skills > div { grid-template-columns:1fr !important; }
+  #coc-app #p6 #sh-skills > div > div { font-size:0.8rem !important; padding:0.2rem 0.4rem !important; }
+
+  /* 打印/返回按钮：各自一行 */
+  #coc-app #p6 .no-print { flex-direction: column !important; gap: 0.4rem !important; }
+}
+
+/* ══ 平板端（601-900px）screen only ══ */
+@media screen and (min-width:601px) and (max-width:900px){
+  #coc-app { padding: 1.2rem 0.75rem; }
+  /* p6 技能：2列 */
+  #coc-app #p6 #sh-skills > div { grid-template-columns: 1fr 1fr !important; }
+
+  /* p6 衍生属性：3列 */
+  #coc-app #p6 #sh-derived { grid-template-columns: repeat(3,1fr) !important; }
+}
+
+@media print {
+  /* 加上这行，强制把所有内联的 0.75rem 放大为 10.5pt，同时把间距撑宽 */
+  .sk-vals { grid-template-columns: 36px 28px 28px !important; gap: 6px !important; }
+  .sk-vals b, .sk-vals span { font-size: 10.5pt !important; }
+}
 </style>
 </head>
 <body>
@@ -342,7 +431,7 @@ input[type="number"] { -moz-appearance: textfield; }
   <span class="corner tl">✦</span><span class="corner br">✦</span>
   <div class="hd">
     <p class="hd-eye">Call of Cthulhu · 7th Edition</p>
-    <h2 class="hd-title">调查员创建</h2>
+    <h2 class="hd-title">调查员档案</h2>
     <div class="hd-div"><span class="hd-div-icon">❧</span></div>
     <p class="hd-sub">INVESTIGATOR DOSSIER</p>
   </div>
@@ -375,6 +464,7 @@ input[type="number"] { -moz-appearance: textfield; }
     <button class="roll-btn" onclick="doRoll()">⚂ &nbsp;掷骰生成属性</button>
   </div>
 
+  <!-- 骰子池并排 -->
   <div class="pools-wrapper">
     <div class="pool-section">
       <p class="pool-lbl">3D6×5 <span class="pool-tag">力量等6项</span></p>
@@ -386,13 +476,15 @@ input[type="number"] { -moz-appearance: textfield; }
     </div>
   </div>
 
-  <div class="sec-title">3D6×5 属性</div>
+  <!-- 属性分配区：横排，上名称下数值 -->
+  <p class="sec-title">3D6×5 属性</p>
   <div class="attr-assign-row grp-a" id="grid-a" style="margin-bottom:1rem;"></div>
 
-  <div class="sec-title">(2D6+6)×5 属性</div>
+  <p class="sec-title">(2D6+6)×5 属性</p>
   <div class="attr-assign-row grp-b" id="grid-b" style="margin-bottom:1rem;"></div>
 
-  <div class="sec-title">属性详情</div>
+  <!-- 三值详情表 -->
+  <p class="sec-title">属性详情</p>
   <div class="attr-detail-wrap">
     <table class="attr-detail-table" id="attr-detail-table">
       <thead><tr>
@@ -426,26 +518,27 @@ input[type="number"] { -moz-appearance: textfield; }
     <div class="step"><div class="step-n">6</div><span>人物卡</span></div>
   </div>
 
-  <div class="sec-title">年龄（20~60岁）</div>
+  <p class="sec-title">年龄（20~60岁）</p>
   <div class="field">
-    <input class="inp" type="number" id="age-inp" placeholder="输入年龄后按Enter或点击其他区域" min="20" max="60" onblur="onAgeBlur()" onkeydown="if(event.key==='Enter')this.blur()">
+    <input class="inp" type="number" id="age-inp" placeholder="输入年龄后按Enter或点击其他区域" min="20" max="60"
+      onblur="onAgeBlur()" onkeydown="if(event.key==='Enter')this.blur()">
   </div>
   <div id="age-section" style="display:none;">
     <div class="age-box" id="age-box"></div>
     <div id="adj-section" style="display:none;">
-      <div class="sec-title">属性减值</div>
+      <p class="sec-title">属性减值</p>
       <div class="adj-grid" id="adj-grid"></div>
     </div>
   </div>
 
-  <div class="sec-title">衍生属性</div>
+  <p class="sec-title">衍生属性</p>
   <div class="derived-grid">
-    <div class="der-cell"><div class="der-lbl">理智（SAN）</div><div class="der-val" id="d-san">—</div></div>
-    <div class="der-cell"><div class="der-lbl">魔法值（MP）</div><div class="der-val" id="d-mp">—</div></div>
-    <div class="der-cell"><div class="der-lbl">生命值（HP）</div><div class="der-val" id="d-hp">—</div></div>
-    <div class="der-cell"><div class="der-lbl">移动（MOV）</div><div class="der-val" id="d-mov">—</div></div>
-    <div class="der-cell"><div class="der-lbl">伤害加成（DB）</div><div class="der-val" id="d-db">—</div></div>
-    <div class="der-cell"><div class="der-lbl">体格（体格值）</div><div class="der-val" id="d-build">—</div></div>
+    <div class="der-cell"><div class="der-lbl">理智（SAN）</div><div class="der-val" id="d-san">—</div><div class="der-fml">视意志而定</div></div>
+    <div class="der-cell"><div class="der-lbl">魔法值（MP）</div><div class="der-val" id="d-mp">—</div><div class="der-fml">视意志÷5而定</div></div>
+    <div class="der-cell"><div class="der-lbl">生命值（HP）</div><div class="der-val" id="d-hp">—</div><div class="der-fml">视（体型+体质）÷10而定</div></div>
+    <div class="der-cell"><div class="der-lbl">移动（MOV）</div><div class="der-val" id="d-mov">—</div><div class="der-fml">视力量/敏捷/体型及年龄而定</div></div>
+    <div class="der-cell"><div class="der-lbl">伤害加成（DB）</div><div class="der-val" id="d-db">—</div><div class="der-fml">视力量+体型而定</div></div>
+    <div class="der-cell"><div class="der-lbl">体格（体格值）</div><div class="der-val" id="d-build">—</div><div class="der-fml">视力量+体型而定</div></div>
   </div>
 
   <button class="btn" onclick="goP3()">继续</button>
@@ -472,7 +565,7 @@ input[type="number"] { -moz-appearance: textfield; }
     <div class="step"><div class="step-n">6</div><span>人物卡</span></div>
   </div>
 
-  <div class="sec-title">职业选择</div>
+  <p class="sec-title">职业选择</p>
   <div class="field">
     <select class="inp" id="occ-sel" onchange="onOccChange()">
       <option value="">— 请选择职业 —</option>
@@ -487,10 +580,11 @@ input[type="number"] { -moz-appearance: textfield; }
     </div>
   </div>
 
+  <!-- 信用评级 -->
   <div class="cr-box" id="cr-field">
     <div style="display:flex;justify-content:space-between;align-items:center;">
       <div>
-        <span style="font-weight:bold;font-size:1rem;color:var(--border-hi);">★ 信用评级</span>
+        <span style="font-weight:bold;font-size:1rem;color:var(--border-hi);">★ 信用评级 (Credit Rating)</span>
         <span id="cr-range-txt" style="display:block;font-size:0.82rem;color:var(--ink-dim);margin-top:0.2rem;">范围：0~0</span>
       </div>
       <input class="sk-inp occ-inp" style="width:60px;height:36px;font-size:1.05rem;" type="number" id="cr-inp" value="0" oninput="onCrInput(this.value)">
@@ -498,6 +592,7 @@ input[type="number"] { -moz-appearance: textfield; }
   </div>
   <div id="cr-desc-box" style="display:none;background:rgba(45,122,45,0.06);border:1px solid var(--border);border-radius:4px;padding:0.7rem 0.9rem;margin-bottom:0.9rem;font-size:0.82rem;line-height:1.75;color:var(--ink-dim);">
     <strong style="color:var(--border-hi);display:block;margin-bottom:0.3rem;">信用评级决定：</strong>
+    决定角色的身份地位、消费水平、现金和资产。<br>
     <span style="color:var(--ink)">●</span> <strong>身无分文（0）</strong>：流浪汉，一无所有<br>
     <span style="color:var(--ink)">●</span> <strong>贫穷（1–9）</strong>：挣扎于温饱线<br>
     <span style="color:var(--ink)">●</span> <strong>普通（10–49）</strong>：工薪阶层，有基本储蓄<br>
@@ -511,7 +606,7 @@ input[type="number"] { -moz-appearance: textfield; }
     <div style="text-align:right;"><div class="pts-lbl">剩余点数</div><div class="pts-big" id="pts-remain">0</div></div>
   </div>
 
-  <div class="sec-title">职业技能分配</div>
+  <p class="sec-title">职业技能分配</p>
   <div class="sk-legend">
     <span><span style="color:var(--border-hi)">★</span> 本职技能（可分配点数）</span>
     <span>技能总值上限 90</span>
@@ -550,7 +645,7 @@ input[type="number"] { -moz-appearance: textfield; }
     <div style="text-align:right;"><div class="pts-lbl">剩余点数</div><div class="pts-big" id="pts-remain-free">0</div></div>
   </div>
 
-  <div class="sec-title">所有技能分配</div>
+  <p class="sec-title">所有技能分配</p>
   <div class="sk-legend">
     <span>初始值已包含上一步分配的职业点数</span>
     <span>技能总值上限 90</span>
@@ -564,6 +659,7 @@ input[type="number"] { -moz-appearance: textfield; }
   <button class="btn btn-ghost" onclick="goP3back()">← 返回</button>
 </div>
 </div>
+
 
 <!-- ══ PAGE 5 ══ -->
 <div class="page" id="p5">
@@ -584,6 +680,7 @@ input[type="number"] { -moz-appearance: textfield; }
     <div class="step"><div class="step-n">6</div><span>人物卡</span></div>
   </div>
 
+  <!-- 财富状况提示 -->
   <div id="p5-wealth-hint" style="background:rgba(45,122,45,0.07);border:1px solid var(--border);border-radius:4px;padding:0.7rem 0.9rem;margin-bottom:1rem;font-size:0.82rem;color:var(--ink-dim);line-height:1.9;">
     <div style="display:grid;grid-template-columns:auto 1fr;gap:0.2rem 0.8rem;align-items:baseline;">
       <strong style="color:var(--border-hi);">财富状况</strong><span id="p5-wealth-txt">—</span>
@@ -593,28 +690,33 @@ input[type="number"] { -moz-appearance: textfield; }
     </div>
   </div>
 
-  <div class="sec-title">基础物品（最多选 5 件）</div>
+  <!-- 基础装备 -->
+  <p class="sec-title">基础物品（最多选 5 件）</p>
   <div class="item-grid" id="item-grid-basic"></div>
 
+  <!-- 职业额外物品 -->
   <div id="item-occ-section" style="display:none;">
-    <div class="sec-title">职业装备</div>
+    <p class="sec-title" style="margin-top:1.5rem;">职业装备</p>
     <div class="item-grid" id="item-grid-occ"></div>
   </div>
 
+  <!-- 武器（仅特定职业显示） -->
   <div id="item-weapon-section" style="display:none;">
-    <div class="sec-title">武器（可选携带）</div>
+    <p class="sec-title" style="margin-top:1.5rem;">武器（可选携带）</p>
     <div class="item-grid" id="item-grid-weapon"></div>
   </div>
 
-  <div class="sec-title">自定义物品（最多 2 项）</div>
+  <!-- 自定义物品（最多2项） -->
+  <p class="sec-title" style="margin-top:1.5rem;">自定义物品（最多 2 项）</p>
   <p style="font-size:0.75rem;color:var(--ink-dim);margin-bottom:0.5rem;line-height:1.6;">
-    ⚠️ <em>若携带的物品不符合职业背景或超出合理范围，守秘人（KP）有权没收。</em>
+    ⚠️ <em>若携带的物品不符合职业背景或超出合理范围，守秘人（KP）有权在游戏中没收或拒认。</em>
   </p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.8rem;">
     <input class="inp" type="text" id="custom-item-1" placeholder="自定义物品 1" style="font-size:0.9rem;">
     <input class="inp" type="text" id="custom-item-2" placeholder="自定义物品 2" style="font-size:0.9rem;">
   </div>
 
+  <!-- 已选物品汇总 -->
   <div id="item-summary" style="margin-top:1rem;background:rgba(45,122,45,0.06);border:1px solid var(--border);border-radius:4px;padding:0.7rem 0.9rem;font-size:0.82rem;display:none;">
     <strong style="color:var(--border-hi);display:block;margin-bottom:0.4rem;">已选装备：</strong>
     <div id="item-summary-list" style="color:var(--ink-dim);line-height:1.8;"></div>
@@ -629,13 +731,11 @@ input[type="number"] { -moz-appearance: textfield; }
 <div class="page" id="p6">
 <div class="card" style="padding:3.5rem 1.8rem 1.8rem;">
   <span class="corner tl">✦</span><span class="corner br">✦</span>
-  
-  <div class="hd no-print">
+  <div class="hd">
     <h2 class="hd-title">调查员人物卡</h2>
     <div class="hd-div"><span class="hd-div-icon">❧</span></div>
   </div>
-  
-  <div class="steps no-print">
+  <div class="steps">
     <div class="step"><div class="step-n">1</div><span>属性</span></div><div class="step-sep">—</div>
     <div class="step"><div class="step-n">2</div><span>年龄</span></div><div class="step-sep">—</div>
     <div class="step"><div class="step-n">3</div><span>职业</span></div><div class="step-sep">—</div>
@@ -643,18 +743,98 @@ input[type="number"] { -moz-appearance: textfield; }
     <div class="step"><div class="step-n">5</div><span>物品</span></div><div class="step-sep">—</div>
     <div class="step on"><div class="step-n">6</div><span>人物卡</span></div>
   </div>
+  <!-- 基本信息：名字大、其他小 -->
+  <div id="sheet-basic" style="background:rgba(45,122,45,0.06);border:1px solid var(--border);border-radius:4px;padding:0.8rem 1rem;margin-bottom:1rem;">
+    <div style="font-size:1.15rem;font-weight:bold;color:var(--ink);margin-bottom:0.5rem;letter-spacing:0.04em;" id="sh-name">—</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.3rem 1rem;font-size:0.82rem;color:var(--ink-dim);">
+      <div><strong style="color:var(--border-hi);">性别</strong>　<span id="sh-gender">—</span></div>
+      <div><strong style="color:var(--border-hi);">年龄</strong>　<span id="sh-age">—</span></div>
+      <div><strong style="color:var(--border-hi);">职业</strong>　<span id="sh-occ">—</span></div>
+      <div style="grid-column:1/-1;"><strong style="color:var(--border-hi);">外貌</strong>　<span id="sh-appearance">—</span></div>
+    </div>
+  </div>
 
-  <!-- 用 JS 生成真正的打印版带有花纹的 sheet-title-box 标题 -->
-  <div id="p6-content"></div>
+  <!-- 属性表：2列，总值/半值/⅕值 -->
+  <div id="sh-attrs" style="margin-bottom:1rem;"></div>
 
-  <div class="no-print p6-btn-desktop" style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:1rem;">
+  <!-- 衍生属性 -->
+  <p class="sec-title" style="margin-top:1.8rem;">衍生属性</p>
+  <div id="sh-derived" style="display:grid;grid-template-columns:repeat(6,1fr);gap:0.3rem;margin-bottom:1rem;"></div>
+
+  <!-- 财富 -->
+  <p class="sec-title" style="margin-top:1.8rem;">财富状况</p>
+  <div id="sh-wealth" style="background:rgba(45,122,45,0.06);border:1px solid var(--border);border-radius:4px;padding:0.65rem 0.9rem;margin-bottom:1rem;font-size:0.82rem;line-height:1.8;"></div>
+
+  <!-- 携带装备 -->
+  <p class="sec-title" style="margin-top:1.8rem;">携带装备</p>
+  <div id="sh-items" style="background:rgba(45,122,45,0.06);border:1px solid var(--border);border-radius:4px;padding:0.65rem 0.9rem;margin-bottom:1rem;font-size:0.82rem;"></div>
+
+  <!-- 快速参考规则（第一页底部，装备下方） -->
+  <div id="quick-ref-section">
+    <p class="sec-title" style="margin-top:1.8rem;">快速参考规则</p>
+    <table style="width:100%;border-collapse:collapse;font-size:0.72rem;margin-bottom:0.6rem;">
+      <thead>
+        <tr style="background:rgba(45,122,45,0.13);">
+          <th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:left;color:var(--border-hi);font-size:0.68rem;">检定结果</th>
+          <th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">大失败</th>
+          <th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">失败</th>
+          <th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">成功</th>
+          <th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">困难</th>
+          <th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">极端</th>
+          <th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">大成功</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border:1px solid var(--border);padding:0.25rem 0.4rem;color:var(--ink-dim);">骰值</td>
+          <td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">96/96+</td>
+          <td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">&gt;技能</td>
+          <td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">≤技能</td>
+          <td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">½值</td>
+          <td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">⅕值</td>
+          <td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">1</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table style="width:100%;border-collapse:collapse;font-size:0.72rem;margin-bottom:1rem;">
+      <tbody>
+        <tr>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.09);font-weight:bold;color:var(--border-hi);white-space:nowrap;">【急救】</td>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink-dim);">回复1点体力（需于一小时内进行）</td>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.09);font-weight:bold;color:var(--border-hi);white-space:nowrap;">【医学】</td>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink-dim);">回复1D3点体力（花费一小时）</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.12);font-weight:bold;color:var(--border-hi);white-space:nowrap;">重伤</td>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink);">一次受到最大生命值一半或以上的伤害</td>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.12);font-weight:bold;color:var(--border-hi);white-space:nowrap;">昏迷</td>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink);">生命值降至0但未受到重伤</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.12);font-weight:bold;color:var(--border-hi);">濒死</td>
+          <td colspan="3" style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink);">HP = 0 且受到【重伤】。需要【急救】摆脱濒死效果，并用【医学】进行后续治疗。</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink-dim);" colspan="2">无<strong style="color:var(--ink);">重伤</strong>下每天自然回复1点体力</td>
+          <td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink-dim);" colspan="2"><strong style="color:var(--ink);">重伤</strong>时每周做1次恢复检定</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 技能：PDF另起一页，无标题 -->
+  <div class="sheet-page-break" id="sh-skills-wrap"><div id="sh-skills"></div></div>
+
+  <!-- 按钮区域：打印时隐藏 -->
+  <div class="no-print p6-btn-desktop" style="display:flex;gap:0.6rem;flex-wrap:wrap;">
     <button class="btn" style="margin-top:0;flex:1;" onclick="doPrint()">📄 下载人物卡</button>
     <button class="btn" style="margin-top:0;flex:1;background:#1a5a2a;" onclick="saveToCloud()">📤 提交人物卡</button>
-    <button class="btn btn-ghost" style="margin-top:0;width:100%;" onclick="goP5back()">← 返回</button>
+    <button class="btn btn-ghost" style="margin-top:0;width:100%;" onclick="showPage('p5')">← 返回</button>
   </div>
-  <div class="no-print p6-btn-mobile" style="display:none;gap:0.6rem;flex-wrap:wrap;margin-top:1rem;">
+  <div class="no-print p6-btn-mobile" style="display:none;gap:0.6rem;flex-wrap:wrap;">
     <button class="btn" style="margin-top:0;width:100%;" onclick="saveToCloud()">📤 提交人物卡</button>
-    <button class="btn btn-ghost" style="margin-top:0;width:100%;" onclick="goP5back()">← 返回</button>
+    <button class="btn btn-ghost" style="margin-top:0;width:100%;" onclick="showPage('p5')">← 返回</button>
   </div>
 </div>
 </div>
@@ -665,9 +845,7 @@ input[type="number"] { -moz-appearance: textfield; }
 <script>
 (function(){
 
-var SUPABASE_URL='https://dgozozaipjuogjgcwcsd.supabase.co';
-var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnb3pvemFpcGp1b2dqZ2N3Y3NkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2NTY2MjYsImV4cCI6MjA5MjIzMjYyNn0.1Pp8zVIdVn1eMwyVh8m9c2zYM0ezSmotYdws6DdnGMs';
-
+/* ── Toast ── */
 var toastTimeout;
 window.showToast = function(msg) {
   var t = document.getElementById('coc-toast');
@@ -678,29 +856,126 @@ window.showToast = function(msg) {
   toastTimeout = setTimeout(function(){ t.classList.remove('show'); }, 2200);
 };
 
-/* ── 字典精简 ── */
-var ATTR_ORDER=['STR','CON','DEX','APP','POW','LUCK','SIZ','INT','EDU'];
-var ATTR_CN={STR:'力量',CON:'体质',DEX:'敏捷',APP:'外貌',POW:'意志',LUCK:'幸运',SIZ:'体型',INT:'智力',EDU:'教育'};
-var ATTRS_A=[{key:'STR',cn:'力量',pool:'a'},{key:'CON',cn:'体质',pool:'a'},{key:'DEX',cn:'敏捷',pool:'a'},{key:'APP',cn:'外貌',pool:'a'},{key:'POW',cn:'意志',pool:'a'},{key:'LUCK',cn:'幸运',pool:'a'}];
-var ATTRS_B=[{key:'SIZ',cn:'体型',pool:'b'},{key:'INT',cn:'智力',pool:'b'},{key:'EDU',cn:'教育',pool:'b'}];
+/* ── Data ── */
+var ATTRS_A=[
+  {key:'STR',cn:'力量',pool:'a'},{key:'CON',cn:'体质',pool:'a'},
+  {key:'DEX',cn:'敏捷',pool:'a'},{key:'APP',cn:'外貌',pool:'a'},
+  {key:'POW',cn:'意志',pool:'a'},{key:'LUCK',cn:'幸运',pool:'a'},
+];
+var ATTRS_B=[
+  {key:'SIZ',cn:'体型',pool:'b'},{key:'INT',cn:'智力',pool:'b'},{key:'EDU',cn:'教育',pool:'b'},
+];
 var ALL=ATTRS_A.concat(ATTRS_B);
+
 var AGE_BANDS=[
   {min:20,max:39,label:'20~39岁',desc:'教育 +5',appRed:0,eduInc:5,reductions:[]},
-  {min:40,max:49,label:'40~49岁',desc:'外貌 已自动减去 <strong>5点</strong>，移动减1<br>教育 +10',appRed:5,eduInc:10,reductions:[{keys:['STR','CON','DEX'],total:5,label:'力量/体质/敏捷 减去5点'}]},
-  {min:50,max:59,label:'50~59岁',desc:'外貌 已自动减去 <strong>10点</strong>，移动减2<br>教育 +15',appRed:10,eduInc:15,reductions:[{keys:['STR','CON','DEX'],total:10,label:'力量/体质/敏捷 减去10点'}]},
-  {min:60,max:60,label:'60岁',desc:'外貌 已自动减去 <strong>15点</strong>，移动减3<br>教育 +20',appRed:15,eduInc:20,reductions:[{keys:['STR','CON','DEX'],total:20,label:'力量/体质/敏捷 减去20点'}]}
+  {min:40,max:49,label:'40~49岁',desc:'外貌 已自动减去 <strong>5点</strong>，移动减1<br>教育 +10',appRed:5,eduInc:10,reductions:[{keys:['STR','CON','DEX'],total:5,label:'力量 / 体质 / 敏捷 自选减去5点'}]},
+  {min:50,max:59,label:'50~59岁',desc:'外貌 已自动减去 <strong>10点</strong>，移动减2<br>教育 +15',appRed:10,eduInc:15,reductions:[{keys:['STR','CON','DEX'],total:10,label:'力量 / 体质 / 敏捷 自选减去10点'}]},
+  {min:60,max:60,label:'60岁',desc:'外貌 已自动减去 <strong>15点</strong>，移动减3<br>教育 +20',appRed:15,eduInc:20,reductions:[{keys:['STR','CON','DEX'],total:20,label:'力量 / 体质 / 敏捷 自选减去20点'}]},
 ];
-var SKILL_CATS=[{id:'combat',name:'战斗类'},{id:'invest',name:'调查类'},{id:'social',name:'交际类'},{id:'move',name:'移动类'},{id:'stealth_c',name:'隐秘类'},{id:'knowledge',name:'学问类'},{id:'craft',name:'职业类'},{id:'medical',name:'医疗类'}];
+
+// 技能分类
+var SKILL_CATS=[
+  {id:'combat',    name:'战斗类'},
+  {id:'invest',    name:'调查类'},
+  {id:'social',    name:'交际类'},
+  {id:'move',      name:'移动类'},
+  {id:'stealth_c', name:'隐秘类'},
+  {id:'knowledge', name:'学问类'},
+  {id:'craft',     name:'职业类'},
+  {id:'medical',   name:'医疗类'},
+];
+
 var SKILLS=[
-  {id:'dodge',name:'闪避',base:-1,cat:'combat'},{id:'fight_brawl',name:'格斗—徒手',base:25,cat:'combat'},{id:'fight_sharp',name:'格斗—锐器',base:20,cat:'combat'},{id:'fight_blunt',name:'格斗—钝器',base:15,cat:'combat'},{id:'fight_special',name:'格斗—特异',base:10,cat:'combat'},{id:'throw',name:'投掷',base:20,cat:'combat'},{id:'fire_bow',name:'射击—弓',base:15,cat:'combat'},{id:'fire_handgun',name:'射击—手枪',base:20,cat:'combat'},{id:'fire_rifle',name:'射击—步枪',base:25,cat:'combat'},{id:'fire_smg',name:'射击—冲锋枪',base:15,cat:'combat'},{id:'fire_flamethrower',name:'射击—火焰喷射器',base:10,cat:'combat'},{id:'fire_cannon',name:'炮术',base:1,cat:'combat'},{id:'explosives',name:'爆破',base:1,cat:'combat'},
-  {id:'spot',name:'侦查',base:25,cat:'invest'},{id:'listen',name:'聆听',base:20,cat:'invest'},{id:'library',name:'图书馆使用',base:20,cat:'invest'},{id:'appraise',name:'估价',base:5,cat:'invest'},{id:'read_lips',name:'读唇语',base:1,cat:'invest'},{id:'cthulhu',name:'克苏鲁神话',base:0,cat:'invest'},
-  {id:'psychology',name:'心理学',base:10,cat:'social'},{id:'persuade',name:'说服',base:10,cat:'social'},{id:'charm',name:'取悦',base:15,cat:'social'},{id:'fast_talk',name:'话术',base:5,cat:'social'},{id:'intimidate',name:'恐吓',base:15,cat:'social'},
-  {id:'navigate',name:'导航',base:10,cat:'move'},{id:'survival',name:'生存',base:10,cat:'move'},{id:'survival_sea',name:'生存（海上）',base:10,cat:'move'},{id:'jump',name:'跳跃',base:20,cat:'move'},{id:'climb',name:'攀爬',base:20,cat:'move'},{id:'swim',name:'游泳',base:20,cat:'move'},{id:'drive',name:'驾驶（汽车）',base:20,cat:'move'},{id:'drive_aircraft',name:'驾驶（飞行器）',base:1,cat:'move'},{id:'drive_boat',name:'驾驶（船）',base:1,cat:'move'},{id:'ride',name:'骑乘',base:5,cat:'move'},{id:'dive',name:'潜水',base:1,cat:'move'},{id:'heavy_machine',name:'操作重型机械',base:1,cat:'move'},
-  {id:'stealth',name:'潜行',base:20,cat:'stealth_c'},{id:'track',name:'追踪',base:10,cat:'stealth_c'},{id:'disguise',name:'乔装',base:5,cat:'stealth_c'},{id:'locksmith',name:'锁匠',base:1,cat:'stealth_c'},{id:'sleight',name:'妙手',base:10,cat:'stealth_c'},
-  {id:'accounting',name:'会计',base:5,cat:'knowledge'},{id:'law',name:'法律',base:5,cat:'knowledge'},{id:'occult',name:'神秘学',base:5,cat:'knowledge'},{id:'history',name:'历史',base:5,cat:'knowledge'},{id:'natural',name:'博物学',base:10,cat:'knowledge'},{id:'anthropology',name:'人类学',base:1,cat:'knowledge'},{id:'archaeology',name:'考古学',base:1,cat:'knowledge'},{id:'sci_math',name:'科学—数学',base:1,cat:'knowledge'},{id:'sci_phys',name:'科学—物理',base:1,cat:'knowledge'},{id:'sci_bio',name:'科学—生物学',base:1,cat:'knowledge'},{id:'sci_engineer',name:'科学—工程学',base:1,cat:'knowledge'},{id:'sci_astro',name:'科学—天文学',base:1,cat:'knowledge'},{id:'sci_zoo',name:'科学—动物学',base:1,cat:'knowledge'},{id:'sci_botany',name:'科学—植物学',base:1,cat:'knowledge'},{id:'sci_pharmacy',name:'科学—制药学',base:1,cat:'knowledge'},{id:'sci_law',name:'科学—司法科学',base:1,cat:'knowledge'},{id:'sci_chem',name:'科学—化学',base:1,cat:'knowledge'},{id:'sci_geo',name:'科学—地质学',base:1,cat:'knowledge'},{id:'sci_crypto',name:'科学—密码学',base:1,cat:'knowledge'},{id:'sci_meteor',name:'科学—气象学',base:1,cat:'knowledge'},{id:'language_own',name:'母语',base:-2,cat:'knowledge'},{id:'language',name:'外语',base:1,cat:'knowledge'},
-  {id:'art_fine',name:'技艺（美术）',base:5,cat:'craft'},{id:'art_forgery',name:'技艺（伪造）',base:5,cat:'craft'},{id:'art_act',name:'技艺（表演）',base:5,cat:'craft'},{id:'art_photo',name:'技艺（摄影）',base:5,cat:'craft'},{id:'art_craft',name:'技艺（手艺）',base:5,cat:'craft'},{id:'art_other',name:'技艺（其他）',base:5,cat:'craft'},{id:'heavy_machine2',name:'操作重型机械',base:1,cat:'craft'},{id:'mechanical',name:'机械维修',base:10,cat:'craft'},{id:'electrical',name:'电气维修',base:10,cat:'craft'},{id:'computer',name:'计算机',base:5,cat:'craft'},{id:'tame',name:'驯兽',base:5,cat:'craft'},
-  {id:'psychoanalyse',name:'精神分析',base:1,cat:'medical'},{id:'first_aid',name:'急救',base:30,cat:'medical'},{id:'medicine',name:'医学',base:1,cat:'medical'},{id:'pharmacy',name:'药学',base:1,cat:'medical'},{id:'hypnosis',name:'催眠（特殊）',base:1,cat:'medical'}
+  // ── 战斗类 ──
+  {id:'dodge',            name:'闪避',                    base:-1,   cat:'combat'},
+  {id:'fight_brawl',      name:'格斗—徒手（斗殴）',       base:25,   cat:'combat'},
+  {id:'fight_sharp',      name:'格斗—锐器（剑/矛/刀）',   base:20,   cat:'combat'},
+  {id:'fight_blunt',      name:'格斗—钝器（棍/斧/锤）',   base:15,   cat:'combat'},
+  {id:'fight_special',    name:'格斗—特异（电锯/鞭子）',  base:10,   cat:'combat'},
+  {id:'throw',            name:'投掷',                    base:20,   cat:'combat'},
+  {id:'fire_bow',         name:'射击—弓',                 base:15,   cat:'combat'},
+  {id:'fire_handgun',     name:'射击—手枪',               base:20,   cat:'combat'},
+  {id:'fire_rifle',       name:'射击—步枪/霰弹枪',        base:25,   cat:'combat'},
+  {id:'fire_smg',         name:'射击—冲锋枪/机枪',        base:15,   cat:'combat'},
+  {id:'fire_flamethrower',name:'射击—火焰喷射器',         base:10,   cat:'combat'},
+  {id:'fire_cannon',      name:'炮术',                    base:1,    cat:'combat'},
+  {id:'explosives',       name:'爆破',                    base:1,    cat:'combat'},
+  // ── 调查类 ──
+  {id:'spot',             name:'侦查',               base:25,   cat:'invest'},
+  {id:'listen',           name:'聆听',               base:20,   cat:'invest'},
+  {id:'library',          name:'图书馆使用',          base:20,   cat:'invest'},
+  {id:'appraise',         name:'估价',               base:5,    cat:'invest'},
+  {id:'read_lips',        name:'读唇语',              base:1,    cat:'invest'},
+  {id:'cthulhu',          name:'克苏鲁神话',          base:0,    cat:'invest'},
+  // ── 交际类 ──
+  {id:'psychology',       name:'心理学',              base:10,   cat:'social'},
+  {id:'persuade',         name:'说服',               base:10,   cat:'social'},
+  {id:'charm',            name:'取悦',               base:15,   cat:'social'},
+  {id:'fast_talk',        name:'话术',               base:5,    cat:'social'},
+  {id:'intimidate',       name:'恐吓',               base:15,   cat:'social'},
+  // ── 移动类 ──
+  {id:'navigate',         name:'导航',               base:10,   cat:'move'},
+  {id:'survival',         name:'生存',               base:10,   cat:'move'},
+  {id:'survival_sea',     name:'生存（海上）',        base:10,   cat:'move'},
+  {id:'jump',             name:'跳跃',               base:20,   cat:'move'},
+  {id:'climb',            name:'攀爬',               base:20,   cat:'move'},
+  {id:'swim',             name:'游泳',               base:20,   cat:'move'},
+  {id:'drive',            name:'驾驶（汽车）',        base:20,   cat:'move'},
+  {id:'drive_aircraft',   name:'驾驶（飞行器）',      base:1,    cat:'move'},
+  {id:'drive_boat',       name:'驾驶（船）',          base:1,    cat:'move'},
+  {id:'ride',             name:'骑乘',               base:5,    cat:'move'},
+  {id:'dive',             name:'潜水',               base:1,    cat:'move'},
+  {id:'heavy_machine',    name:'操作重型机械',        base:1,    cat:'move'},
+  // ── 隐秘类 ──
+  {id:'stealth',          name:'潜行',               base:20,   cat:'stealth_c'},
+  {id:'track',            name:'追踪',               base:10,   cat:'stealth_c'},
+  {id:'disguise',         name:'乔装',               base:5,    cat:'stealth_c'},
+  {id:'locksmith',        name:'锁匠',               base:1,    cat:'stealth_c'},
+  {id:'sleight',          name:'妙手',               base:10,   cat:'stealth_c'},
+  // ── 学问类 ──
+  {id:'accounting',       name:'会计',               base:5,    cat:'knowledge'},
+  {id:'law',              name:'法律',               base:5,    cat:'knowledge'},
+  {id:'occult',           name:'神秘学',              base:5,    cat:'knowledge'},
+  {id:'history',          name:'历史',               base:5,    cat:'knowledge'},
+  {id:'natural',          name:'博物学',              base:10,   cat:'knowledge'},
+  {id:'anthropology',     name:'人类学',              base:1,    cat:'knowledge'},
+  {id:'archaeology',      name:'考古学',              base:1,    cat:'knowledge'},
+  {id:'sci_math',         name:'科学—数学',           base:1,    cat:'knowledge'},
+  {id:'sci_phys',         name:'科学—物理',           base:1,    cat:'knowledge'},
+  {id:'sci_bio',          name:'科学—生物学',          base:1,    cat:'knowledge'},
+  {id:'sci_engineer',     name:'科学—工程学',          base:1,    cat:'knowledge'},
+  {id:'sci_astro',        name:'科学—天文学',          base:1,    cat:'knowledge'},
+  {id:'sci_zoo',          name:'科学—动物学',          base:1,    cat:'knowledge'},
+  {id:'sci_botany',       name:'科学—植物学',          base:1,    cat:'knowledge'},
+  {id:'sci_pharmacy',     name:'科学—制药学',          base:1,    cat:'knowledge'},
+  {id:'sci_law',          name:'科学—司法科学',        base:1,    cat:'knowledge'},
+  {id:'sci_chem',         name:'科学—化学',           base:1,    cat:'knowledge'},
+  {id:'sci_geo',          name:'科学—地质学',          base:1,    cat:'knowledge'},
+  {id:'sci_crypto',       name:'科学—密码学',          base:1,    cat:'knowledge'},
+  {id:'sci_meteor',       name:'科学—气象学',          base:1,    cat:'knowledge'},
+  {id:'language_own',     name:'母语',               base:-2,   cat:'knowledge'},
+  {id:'language',         name:'外语',               base:1,    cat:'knowledge'},
+  // ── 职业类 ──
+  {id:'art_fine',         name:'技艺（美术）',        base:5,    cat:'craft'},
+  {id:'art_forgery',      name:'技艺（伪造）',        base:5,    cat:'craft'},
+  {id:'art_act',          name:'技艺（表演）',        base:5,    cat:'craft'},
+  {id:'art_photo',        name:'技艺（摄影）',        base:5,    cat:'craft'},
+  {id:'art_craft',        name:'技艺（手艺）',        base:5,    cat:'craft'},
+  {id:'art_other',        name:'技艺（其他）',        base:5,    cat:'craft'},
+  {id:'heavy_machine2',   name:'操作重型机械',        base:1,    cat:'craft'},
+  {id:'mechanical',       name:'机械维修',            base:10,   cat:'craft'},
+  {id:'electrical',       name:'电气维修',            base:10,   cat:'craft'},
+  {id:'computer',         name:'计算机',              base:5,    cat:'craft'},
+  {id:'tame',             name:'驯兽',               base:5,    cat:'craft'},
+  // ── 医疗类 ──
+  {id:'psychoanalyse',    name:'精神分析',            base:1,    cat:'medical'},
+  {id:'first_aid',        name:'急救',               base:30,   cat:'medical'},
+  {id:'medicine',         name:'医学',               base:1,    cat:'medical'},
+  {id:'pharmacy',         name:'药学',               base:1,    cat:'medical'},
+  {id:'hypnosis',         name:'催眠（特殊）',        base:1,    cat:'medical'},
 ];
+
 var OCCS=[
   {name:'会计师',attr:'EDU×4',cr:'30~70',sk:['accounting','law','library','listen','persuade','spot','charm','fast_talk']},
   {name:'杂技演员',attr:'EDU×2+DEX×2',cr:'9~20',sk:['climb','dodge','jump','throw','spot','swim','fight_brawl','natural']},
@@ -817,51 +1092,8 @@ var OCCS=[
   {name:'狂热者',attr:'EDU×2+APP或POW×2',cr:'0~30',sk:['history','charm','persuade','psychology','stealth','occult','listen','spot']},
   {name:'饲养员',attr:'EDU×4',cr:'9~40',sk:['tame','accounting','dodge','first_aid','natural','medicine','sci_pharmacy','sci_zoo']},
 ];
-var ITEMS_BASIC=[{id:'notebook',name:'笔记本 & 钢笔',note:'记录线索必备'},{id:'lighter',name:'火柴',note:'照明与引火'},{id:'torch',name:'手电筒',note:'探索黑暗场所'},{id:'firstaid',name:'急救包',note:'紧急处理伤口'},{id:'clothes',name:'换洗衣物',note:'日常行动需要'},{id:'money',name:'钱包与证件',note:'现金及身份证明'},{id:'city_map',name:'城市地图',note:'地图或指南针'},{id:'rope',name:'绳索（10m）',note:'多用途绳索'},{id:'binoculars',name:'望远镜',note:'远距离观察'},{id:'compass',name:'指南针',note:'野外导航'},{id:'blanket',name:'毯子',note:'保暖与露营'}];
-var ITEMS_WEAPON=[{id:'w_revolver',name:'左轮手枪',note:'.38口径 ·伤害3D6 ·穿透是 ·弹数6 ·射程15m ·故障96'},{id:'w_bow',name:'弓箭',note:'伤害1D6+1+DB ·穿透否 ·弹数1 ·射程50m ·故障—'},{id:'w_knife',name:'小刀',note:'伤害1D4+DB ·穿透是 ·可投掷 ·射程— ·近身武器'},{id:'w_club',name:'棍棒',note:'伤害1D8+DB ·穿透否 ·钝器 ·射程— ·近身武器'}];
-var WEAPON_OCCS=['警探','巡警','私家侦探','军官','士兵','猎人','黑帮老大','黑帮马仔','赏金猎人','罪犯-刺客','罪犯-银行劫匪','罪犯-打手','罪犯-混混','中介调查员','旅行家','牛仔','探险家','间谍','司法人员','除魅师','警方(原作向)-警探','警方(原作向)-巡警'];
-var OCC_ITEMS={
-  '警探':[{id:'badge_det',name:'警徽',note:'表明身份',tag:'职业'},{id:'handcuffs',name:'手铐',note:'拘押用',tag:'职业'}],
-  '巡警':[{id:'badge_cop',name:'警徽',note:'表明身份',tag:'职业'},{id:'baton',name:'警棍',note:'1D6伤害',tag:'武器'}],
-  '私家侦探':[{id:'pi_card',name:'私家侦探证',note:'合法调查资质',tag:'职业'}],
-  '医生':[{id:'medkit_full',name:'完整医疗包',note:'含手术工具',tag:'职业'},{id:'stethoscope',name:'听诊器',note:'医疗诊断',tag:'职业'}],
-  '护士':[{id:'nurse_kit',name:'护理包',note:'急救与护理',tag:'职业'}],
-  '精神病医生':[{id:'psych_pad',name:'诊断记录本',note:'病患档案',tag:'职业'}],
-  '军官':[{id:'rank_badge',name:'军官证',note:'证明军衔',tag:'职业'}],
-  '士兵':[{id:'dogtag',name:'军牌',note:'识别身份',tag:'职业'}],
-  '记者':[{id:'press_card',name:'记者证',note:'采访许可',tag:'职业'}],
-  '调查记者':[{id:'press_card2',name:'记者证',note:'采访许可',tag:'职业'}],
-  '通讯记者':[{id:'press_card3',name:'记者证',note:'采访许可',tag:'职业'}],
-  '摄影记者':[{id:'camera_pro',name:'专业相机',note:'专业摄影设备',tag:'职业'}],
-  '摄影师':[{id:'camera_pro2',name:'专业相机',note:'胶片与设备',tag:'职业'}],
-  '教授':[{id:'univ_card',name:'大学证件',note:'学术身份',tag:'职业'}],
-  '律师':[{id:'law_card',name:'律师证',note:'法律执照',tag:'职业'}],
-  '神秘学家':[{id:'grimoire',name:'神秘典籍',note:'参考用古籍',tag:'职业'}],
-  '神职人员':[{id:'holy_item',name:'宗教圣物',note:'十字架/圣典',tag:'职业'}],
-  '赌徒':[{id:'gamble_kit',name:'赌具套装',note:'扑克牌/骰子',tag:'职业'}],
-  '潜水员':[{id:'dive_gear',name:'基础潜水装备',note:'面镜/脚蹼',tag:'职业'}],
-  '猎人':[{id:'hunt_kit',name:'猎具包',note:'陷阱与追踪工具',tag:'职业'}],
-  '罪犯-窃贼':[{id:'thief_tools',name:'盗窃工具',note:'撬锁与切割工具',tag:'职业'}],
-  '罪犯-刺客':[{id:'assassin_kit',name:'刺客工具',note:'消音器/钢丝',tag:'职业'}],
-  '间谍':[{id:'spy_kit',name:'间谍装备',note:'微型相机/信号器',tag:'职业'}],
-  '黑帮老大':[{id:'cigar',name:'雪茄',note:'彰显地位',tag:'职业'}],
-  '除魅师':[{id:'demonhunt',name:'驱魔工具',note:'圣水/盐/圣典',tag:'职业'}]
-};
 
-function isWeapon(name) {
-  var res=false;
-  ITEMS_WEAPON.forEach(function(i){ if(i.name===name) res=true; });
-  Object.keys(OCC_ITEMS).forEach(function(k){ OCC_ITEMS[k].forEach(function(i){ if(i.name===name && i.tag==='武器') res=true; }); });
-  return res;
-}
-function getItemNote(name) {
-  var note='';
-  ITEMS_BASIC.forEach(function(i){ if(i.name===name) note=i.note; });
-  ITEMS_WEAPON.forEach(function(i){ if(i.name===name) note=i.note; });
-  Object.keys(OCC_ITEMS).forEach(function(k){ OCC_ITEMS[k].forEach(function(i){ if(i.name===name) note=i.note; }); });
-  return note;
-}
-
+/* ── State ── */
 var poolA=[], poolB=[];
 var assigned={};
 var chipMap={};
@@ -872,10 +1104,8 @@ var freeSkillVals={};
 var crVal=0;
 var currentMinCr=0, currentMaxCr=99;
 var openPopKey=null;
-var selectedItems={};
 
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
+/* ── Dice ── */
 function d6(){ return Math.floor(Math.random()*6)+1; }
 function roll3(){ return (d6()+d6()+d6())*5; }
 function roll2p(){ return (d6()+d6()+6)*5; }
@@ -884,9 +1114,11 @@ window.doRoll=function(){
   assigned={}; chipMap={}; adjMap={}; closePopover();
   poolA=ATTRS_A.map(function(_,i){ return {id:'a'+i,val:roll3(),used:false}; });
   poolB=ATTRS_B.map(function(_,i){ return {id:'b'+i,val:roll2p(),used:false}; });
+  // 由高到低排列（保持id不变，只重排显示顺序）
   poolA=poolA.slice().sort(function(a,b){return b.val-a.val;});
   poolB=poolB.slice().sort(function(a,b){return b.val-a.val;});
-  renderPools(); renderGrids();
+  renderPools();
+  renderGrids();
 };
 
 function renderPools(){
@@ -896,7 +1128,9 @@ function renderPools(){
 function renderOnePool(pool, elId){
   var el=document.getElementById(elId);
   if(!pool.length){ el.innerHTML='<span class="pool-empty">等待掷骰...</span>'; return; }
-  el.innerHTML=pool.map(function(c){ return '<div class="chip'+(c.used?' used':'')+'">'+c.val+'</div>'; }).join('');
+  el.innerHTML=pool.map(function(c){
+    return '<div class="chip'+(c.used?' used':'')+'">'+c.val+'</div>';
+  }).join('');
 }
 
 function renderGrids(){
@@ -920,15 +1154,21 @@ function renderDetailTable(){
   var tbody=document.getElementById('attr-detail-body');
   if(!tbody) return;
   tbody.innerHTML=ALL.map(function(a){
-    var v=assigned[a.key]; var has=v!==undefined;
-    var base=has?v:'—', half=has?Math.floor(v/2):'—', fifth=has?Math.floor(v/5):'—';
+    var v=assigned[a.key];
+    var has=v!==undefined;
+    var base=has?v:'—';
+    var half=has?Math.floor(v/2):'—';
+    var fifth=has?Math.floor(v/5):'—';
     return '<tr>'
       +'<td>'+a.cn+' <span style="font-size:0.72rem;color:var(--green-light);font-weight:normal;opacity:0.7;">'+a.key+'</span></td>'
-      +'<td class="val-main">'+base+'</td><td>'+half+'</td><td>'+fifth+'</td>'
+      +'<td class="val-main">'+base+'</td>'
+      +'<td>'+half+'</td>'
+      +'<td>'+fifth+'</td>'
       +'</tr>';
   }).join('');
 }
 
+/* ── Popover：桌面/平板=行内附着，手机=固定居中+遮罩 ── */
 window.openPop=function(attrKey, poolId, btn){
   if(openPopKey===attrKey){ closePopover(); return; }
   closePopover();
@@ -942,22 +1182,32 @@ window.openPop=function(attrKey, poolId, btn){
   var pop=document.createElement('div');
   pop.id='pop-'+attrKey;
   var chipsHtml=avail.length
-    ?avail.map(function(c){ return '<div class="pop-chip" onclick="pickChip(\''+c.id+'\',\''+attrKey+'\')">'+c.val+'</div>'; }).join('')
+    ?avail.map(function(c){
+        return '<div class="pop-chip" onclick="pickChip(\''+c.id+'\',\''+attrKey+'\')">'+c.val+'</div>';
+      }).join('')
     :'<span class="pop-empty">此池已全部分配</span>';
   pop.innerHTML='<div class="popover"><div class="pop-title">选择骰子分配给 '+cn+'（'+attrKey+'）</div>'
     +'<div class="pop-chips">'+chipsHtml+'</div></div>';
 
-  if(window.innerWidth < 768){
+  var isMobile = window.innerWidth < 768;
+  if(isMobile){
+    // 手机：固定居中弹窗 + 遮罩
     pop.className='popover-wrap mobile-pop';
     var overlay=document.createElement('div');
-    overlay.className='pop-overlay'; overlay.id='pop-overlay';
+    overlay.className='pop-overlay';
+    overlay.id='pop-overlay';
     overlay.onclick=closePopover;
-    document.body.appendChild(overlay); document.body.appendChild(pop);
+    document.body.appendChild(overlay);
+    document.body.appendChild(pop);
   } else {
+    // 桌面/平板：附着在属性格右下方
     pop.className='popover-wrap';
     var row=document.getElementById('arow-'+attrKey);
-    if(row) row.appendChild(pop); else document.body.appendChild(pop);
-    setTimeout(function(){ document.addEventListener('click', outsideClick, {once:true}); }, 10);
+    if(row) row.appendChild(pop);
+    else document.body.appendChild(pop);
+    setTimeout(function(){
+      document.addEventListener('click', outsideClick, {once:true});
+    }, 10);
   }
 };
 function outsideClick(e){
@@ -968,82 +1218,125 @@ function outsideClick(e){
   }
 }
 function closePopover(){
-  if(openPopKey){ var el=document.getElementById('pop-'+openPopKey); if(el) el.remove(); openPopKey=null; }
-  var ov=document.getElementById('pop-overlay'); if(ov) ov.remove();
+  if(openPopKey){
+    var el=document.getElementById('pop-'+openPopKey);
+    if(el) el.remove();
+    openPopKey=null;
+  }
+  var ov=document.getElementById('pop-overlay');
+  if(ov) ov.remove();
 }
 window.pickChip=function(chipId, attrKey){
   var chip=findChip(chipId);
   if(!chip||chip.used) return;
   if(chipMap[attrKey]){ var prev=findChip(chipMap[attrKey]); if(prev) prev.used=false; }
-  chip.used=true; assigned[attrKey]=chip.val; chipMap[attrKey]=chip.id;
-  closePopover(); renderPools(); renderGrids();
+  chip.used=true;
+  assigned[attrKey]=chip.val;
+  chipMap[attrKey]=chip.id;
+  closePopover();
+  renderPools();
+  renderGrids();
 };
 window.clearAttr=function(attrKey){
   var cid=chipMap[attrKey];
   if(cid){ var c=findChip(cid); if(c) c.used=false; delete chipMap[attrKey]; }
   delete assigned[attrKey];
-  closePopover(); renderPools(); renderGrids();
+  closePopover();
+  renderPools();
+  renderGrids();
 };
-function findChip(id){ return poolA.find(function(c){return c.id===id;})||poolB.find(function(c){return c.id===id;}); }
+function findChip(id){
+  return poolA.find(function(c){return c.id===id;})||poolB.find(function(c){return c.id===id;});
+}
 
-function getVal(key){ return Math.min(99, Math.max(0, (assigned[key]||0) - (adjMap[key]||0))); }
+/* ── Derived value ── */
+function getVal(key){
+  var base=assigned[key]||0;
+  var adj=adjMap[key]||0; // positive = reduce
+  // For EDU and APP, age adjustments are already in adjMap as negative/positive respectively
+  return Math.min(99, Math.max(0, base - adj));
+}
 
 window.showPage=function showPage(id){
   document.querySelectorAll('#coc-app .page').forEach(function(p){ p.classList.remove('active'); });
-  document.getElementById(id).classList.add('active'); window.scrollTo(0,0);
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
 }
 
+/* ── Page Navigation ── */
 window.goP2=function(){
-  if(!ALL.every(function(a){ return assigned[a.key]!==undefined; })){ showToast('请先完成所有属性分配！'); return; }
+  var done=ALL.every(function(a){ return assigned[a.key]!==undefined; });
+  if(!done){ showToast('请先完成所有属性骰子的分配！'); return; }
   var name=document.getElementById('name').value.trim();
   if(!name){ showToast('请填写姓名'); return; }
   var gender=document.querySelector('input[name="gender"]:checked');
   if(!gender){ showToast('请选择性别'); return; }
   document.getElementById('p2-sub').textContent=name+' · '+gender.value;
-  if(document.getElementById('age-inp').value!==''){ window.onAgeBlur(); } else { adjMap={}; updateDerived(); }
+  var ageEl=document.getElementById('age-inp');
+  if(ageEl.value!==''){ window.onAgeBlur(); } else { adjMap={}; updateDerived(); }
   showPage('p2');
 };
 window.goP1=function(){ showPage('p1'); };
 
 window.goP3=function(){
-  var age=parseInt(document.getElementById('age-inp').value);
-  if(isNaN(age)){ showToast('请输入有效年龄！'); return; }
+  var ageStr=document.getElementById('age-inp').value;
+  var age=parseInt(ageStr);
+  if(isNaN(age)||ageStr===''){ showToast('请先输入有效的年龄！'); return; }
   var band=getBand(age);
   if(band.reductions&&band.reductions.length>0){
     var group=band.reductions[0];
     var groupUsed=group.keys.reduce(function(s,k){ return s+(adjMap[k]||0); },0);
     var maxPossible=group.keys.reduce(function(s,k){ return s+(assigned[k]||0); },0);
     var required=Math.min(group.total, maxPossible);
-    if(groupUsed<required){ showToast('请先分配完所有属性减值！'); return; }
+    if(groupUsed<required){ showToast('请先分配完所有属性减值！（还剩 '+(required-groupUsed)+' 点）'); return; }
   }
-  document.getElementById('p3-sub').textContent=document.getElementById('name').value.trim()+' · '+document.querySelector('input[name="gender"]:checked').value;
+  var name=document.getElementById('name').value.trim();
+  var gender=document.querySelector('input[name="gender"]:checked');
+  document.getElementById('p3-sub').textContent=name+' · '+(gender?gender.value:'');
   var sel=document.getElementById('occ-sel');
-  if(sel.options.length===1){ OCCS.forEach(function(o){ var opt=document.createElement('option'); opt.value=o.name; opt.textContent=o.name; sel.appendChild(opt); }); }
-  skillVals={}; renderSkillGrid(); showPage('p3');
+  if(sel.options.length===1){
+    OCCS.forEach(function(o){
+      var opt=document.createElement('option'); opt.value=o.name; opt.textContent=o.name; sel.appendChild(opt);
+    });
+  }
+  skillVals={};
+  renderSkillGrid();
+  showPage('p3');
 };
 window.goP2back=function(){ showPage('p2'); };
 
 window.goP4=function(){
   var sel=document.getElementById('occ-sel');
-  if(!sel.value){ showToast('请选择职业'); return; }
-  if(crVal<currentMinCr||crVal>currentMaxCr){ showToast('信用评级须在 '+currentMinCr+'~'+currentMaxCr+' 之间'); return; }
-  var remain=calcPts(OCCS.find(function(o){return o.name===sel.value;}).attr)-getUsedP3();
-  if(remain<0){ showToast('职业技能点超额！'); return; }
-  if(remain>0){ if(!confirm('有 '+remain+' 点未使用，确定继续吗？')) return; }
-  document.getElementById('p4-sub').textContent=document.getElementById('name').value.trim()+' · '+document.querySelector('input[name="gender"]:checked').value;
-  freeSkillVals={}; renderFreeSkillGrid(); showPage('p4');
+  if(!sel.value){ showToast('请先选择职业'); return; }
+  var occ=OCCS.find(function(o){ return o.name===sel.value; });
+  if(crVal<currentMinCr||crVal>currentMaxCr){ showToast('信用评级必须在 '+currentMinCr+' ~ '+currentMaxCr+' 之间！'); return; }
+  var total=calcPts(occ.attr);
+  var remain=total-getUsedP3();
+  if(remain<0){ showToast('职业技能点超额，请检查！'); return; }
+  if(remain>0){ if(!confirm('剩余 '+remain+' 点职业技能点未使用，确定要进入下一页吗？')) return; }
+  var name=document.getElementById('name').value.trim();
+  var gender=document.querySelector('input[name="gender"]:checked');
+  document.getElementById('p4-sub').textContent=name+' · '+(gender?gender.value:'');
+  freeSkillVals={};
+  renderFreeSkillGrid();
+  showPage('p4');
 };
 window.goP3back=function(){ showPage('p3'); };
 
+/* ── Age ── */
 window.onAgeBlur=function(){
-  var el=document.getElementById('age-inp'); var v=parseInt(el.value);
-  if(isNaN(v)) return;
-  if(v<20){ v=20; el.value=20; showToast('最小20岁，已设为20'); }
-  if(v>60){ v=60; el.value=60; showToast('最大60岁，已设为60'); }
-  adjMap={}; var band=getBand(v);
+  var el=document.getElementById('age-inp');
+  var v=parseInt(el.value);
+  if(isNaN(v)||el.value==='') return;
+  if(v<20){ v=20; el.value=20; showToast('年龄最小20岁，已自动设为20'); }
+  if(v>60){ v=60; el.value=60; showToast('年龄最大60岁，已自动设为60'); }
+  adjMap={};
+  var band=getBand(v);
+  // 自动应用外貌扣除和教育增加，存入adjMap（负数=增加，正数=扣减）
   if(band.appRed>0) adjMap['APP']=band.appRed;
-  if(band.eduInc>0) adjMap['EDU']=-band.eduInc;
-  buildAgeSection(v); updateDerived();
+  if(band.eduInc>0) adjMap['EDU']=-band.eduInc; // 负数表示增加
+  buildAgeSection(v);
+  updateDerived();
 };
 function getBand(age){ return AGE_BANDS.find(function(b){ return age>=b.min&&age<=b.max; })||AGE_BANDS[0]; }
 
@@ -1054,16 +1347,18 @@ function buildAgeSection(age){
   var adjSec=document.getElementById('adj-section');
   if(!band.reductions||!band.reductions.length){ adjSec.style.display='none'; return; }
   adjSec.style.display='block';
-  var grid=document.getElementById('adj-grid'); var html='';
+  var grid=document.getElementById('adj-grid');
+  var html='';
   band.reductions.forEach(function(r){
     var grpId='grp-'+r.keys.join('');
     var groupUsed=r.keys.reduce(function(s,k){ return s+(adjMap[k]||0); },0);
     html+='<div style="font-size:0.72rem;color:var(--green-light);letter-spacing:0.08em;padding:0.35rem 0.5rem 0.2rem;opacity:0.85;">'
-      +r.label+' — 剩余：<span id="'+grpId+'" style="font-weight:bold;color:var(--ink)">'+(r.total-groupUsed)+'</span>点</div>';
+      +r.label+'（请务必全部分配完毕）— 剩余：<span id="'+grpId+'" style="font-weight:bold;color:var(--ink)">'+(r.total-groupUsed)+'</span>点</div>';
     r.keys.forEach(function(key){
-      var adj=adjMap[key]||0; var aCN=ALL.find(function(x){return x.key===key;});
+      var adj=adjMap[key]||0;
       html+='<div class="adj-row">'
-        +'<div class="adj-name">'+key+' '+(aCN?'（'+aCN.cn+'）':'')+'<br><span style="font-size:0.68rem;color:var(--ink-dim);">基础值 '+(assigned[key]||0)+'</span></div>'
+        +'<div class="adj-name">'+key+' '+getCN(key)
+          +'<br><span style="font-size:0.68rem;color:var(--ink-dim);">基础值 '+(assigned[key]||0)+'</span></div>'
         +'<div class="adj-cur" id="adjcur-'+key+'">→ '+getVal(key)+'</div>'
         +'<div style="display:flex;align-items:center;gap:6px;">'
           +'<button class="adj-btn" data-grp="'+grpId+'" data-key="'+key+'" data-dir="-1">−</button>'
@@ -1074,62 +1369,113 @@ function buildAgeSection(age){
   });
   grid.innerHTML=html;
   grid.querySelectorAll('.adj-btn[data-key]').forEach(function(btn){
-    btn.addEventListener('click',function(){ doAdj(btn.getAttribute('data-grp'),btn.getAttribute('data-key'),parseInt(btn.getAttribute('data-dir'))); });
+    btn.addEventListener('click',function(){
+      doAdj(btn.getAttribute('data-grp'),btn.getAttribute('data-key'),parseInt(btn.getAttribute('data-dir')));
+    });
   });
 }
+function getCN(key){ var a=ALL.find(function(x){ return x.key===key; }); return a?'（'+a.cn+'）':''; }
 
 window.doAdj=function(grpId, key, dir){
-  var band=getBand(parseInt(document.getElementById('age-inp').value)||20);
-  var group=null; if(band.reductions) band.reductions.forEach(function(r){ if(r.keys.indexOf(key)>-1) group=r; });
+  var age=parseInt(document.getElementById('age-inp').value)||20;
+  var band=getBand(age);
+  var group=null;
+  if(band.reductions) band.reductions.forEach(function(r){ if(r.keys.indexOf(key)>-1) group=r; });
   if(!group) return;
   var cur=adjMap[key]||0;
   var groupUsed=group.keys.reduce(function(s,k){ return s+(adjMap[k]||0); },0);
-  var next=cur+(dir*5); if(next<0) next=0;
-  if((groupUsed-cur+next)>group.total) next=cur+(group.total-groupUsed);
-  if((assigned[key]||0)-next<0) next=assigned[key]||0;
+  var next=cur+(dir*5);
+  if(next<0) next=0;
+  var newGroupUsed=groupUsed-cur+next;
+  if(newGroupUsed>group.total) next=cur+(group.total-groupUsed);
+  var attrBase=assigned[key]||0;
+  if(attrBase-next<0) next=attrBase;
   adjMap[key]=next;
-  document.getElementById('adjv-'+key).textContent=next;
-  document.getElementById('adjcur-'+key).textContent='→ '+getVal(key);
-  document.getElementById(grpId).textContent=group.total - group.keys.reduce(function(s,k){ return s+(adjMap[k]||0); },0);
+  var vEl=document.getElementById('adjv-'+key);
+  var cEl=document.getElementById('adjcur-'+key);
+  if(vEl) vEl.textContent=next;
+  if(cEl) cEl.textContent='→ '+getVal(key);
+  var newUsed=group.keys.reduce(function(s,k){ return s+(adjMap[k]||0); },0);
+  var remEl=document.getElementById(grpId);
+  if(remEl) remEl.textContent=group.total-newUsed;
   updateDerived();
 };
 
 function calcDB(s){
-  if(s<=64)return'-2'; if(s<=84)return'-1'; if(s<=124)return'0'; if(s<=164)return'+1D4'; if(s<=204)return'+1D6';
-  if(s<=284)return'+2D6'; if(s<=364)return'+3D6'; if(s<=444)return'+4D6'; return'+'+(5+Math.floor((s-445)/80))+'D6';
+  if(s<=64)return'-2';
+  if(s<=84)return'-1';
+  if(s<=124)return'0';
+  if(s<=164)return'+1D4';
+  if(s<=204)return'+1D6';
+  if(s<=284)return'+2D6';
+  if(s<=364)return'+3D6';
+  if(s<=444)return'+4D6';
+  // 445-524: +5D6, 之后每+80再+1D6
+  var tier=Math.floor((s-445)/80);
+  return'+'+(5+tier)+'D6';
 }
 function calcBuild(s){
-  if(s<=64)return-2; if(s<=84)return-1; if(s<=124)return 0; if(s<=164)return 1; if(s<=204)return 2;
-  if(s<=284)return 3; if(s<=364)return 4; if(s<=444)return 5; return 6+Math.floor((s-445)/80);
+  if(s<=64)return-2;
+  if(s<=84)return-1;
+  if(s<=124)return 0;
+  if(s<=164)return 1;
+  if(s<=204)return 2;
+  if(s<=284)return 3;
+  if(s<=364)return 4;
+  if(s<=444)return 5;
+  // 445-524: Build 6, 之后每+80再+1
+  return 6+Math.floor((s-445)/80);
 }
 function updateDerived(){
   var pow=getVal('POW'),con=getVal('CON'),siz=getVal('SIZ'),str=getVal('STR'),dex=getVal('DEX');
   var san=pow, mp=Math.floor(pow/5), hp=Math.floor((siz+con)/10);
+  var baseMov=(str>siz&&dex>siz)?9:(str<siz&&dex<siz)?7:8;
+  // 年龄对MOV的影响
   var age=parseInt(document.getElementById('age-inp').value)||0;
-  var mov=Math.max(1, ((str>siz&&dex>siz)?9:(str<siz&&dex<siz)?7:8) - (age>=60?3:age>=50?2:age>=40?1:0));
+  var movPenalty=0;
+  if(age>=40&&age<50) movPenalty=1;
+  else if(age>=50&&age<60) movPenalty=2;
+  else if(age>=60) movPenalty=3;
+  var mov=Math.max(1, baseMov-movPenalty);
   var db=calcDB(str+siz), build=calcBuild(str+siz);
   function set(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
-  set('d-san',san||'—'); set('d-mp',mp||'—'); set('d-hp',hp||'—'); set('d-mov',mov); set('d-db',db); set('d-build',build);
+  set('d-san',san||'—'); set('d-mp',mp||'—'); set('d-hp',hp||'—');
+  set('d-mov',mov); set('d-db',db); set('d-build',build);
 }
 
+/* ── Page 3: Occupation ── */
 window.onOccChange=function(){
-  var name=document.getElementById('occ-sel').value;
+  var sel=document.getElementById('occ-sel');
+  var name=sel.value;
   if(!name){
-    document.getElementById('occ-info').classList.remove('show'); document.getElementById('cr-field').classList.remove('show');
-    document.getElementById('cr-desc-box').style.display='none'; document.getElementById('pts-bar').classList.remove('show');
+    document.getElementById('occ-info').classList.remove('show');
+    document.getElementById('cr-field').classList.remove('show');
+    document.getElementById('cr-desc-box').style.display='none';
+    document.getElementById('pts-bar').classList.remove('show');
     occSkills=[]; renderSkillGrid(); return;
   }
   var occ=OCCS.find(function(o){ return o.name===name; });
   if(!occ) return;
   occSkills=occ.sk;
-  var crRange=occ.cr.split('~'); currentMinCr=parseInt(crRange[0]); currentMaxCr=parseInt(crRange[1]); crVal=currentMinCr;
-  document.getElementById('occ-attr').textContent=occ.attr; document.getElementById('occ-cr').textContent=occ.cr;
-  document.getElementById('occ-sk-txt').textContent=occ.sk.map(function(id){ var s=SKILLS.find(function(x){ return x.id===id; }); return s?s.name:id; }).join('、');
-  document.getElementById('cr-range-txt').textContent='范围：'+occ.cr; document.getElementById('cr-inp').value=crVal;
-  document.getElementById('occ-info').classList.add('show'); document.getElementById('cr-field').classList.add('show');
-  document.getElementById('cr-desc-box').style.display='block'; document.getElementById('pts-formula').textContent=calcPtsLabel(occ.attr);
+  var pts=calcPts(occ.attr);
+  var crRange=occ.cr.split('~');
+  currentMinCr=parseInt(crRange[0]); currentMaxCr=parseInt(crRange[1]);
+  crVal=currentMinCr;
+  document.getElementById('occ-attr').textContent=occ.attr;
+  document.getElementById('occ-cr').textContent=occ.cr;
+  document.getElementById('occ-sk-txt').textContent=occ.sk.map(function(id){
+    var s=SKILLS.find(function(x){ return x.id===id; }); return s?s.name:id;
+  }).join('、');
+  document.getElementById('cr-range-txt').textContent='范围：'+occ.cr;
+  document.getElementById('cr-inp').value=crVal;
+  document.getElementById('occ-info').classList.add('show');
+  document.getElementById('cr-field').classList.add('show');
+  document.getElementById('cr-desc-box').style.display='block';
+  document.getElementById('pts-formula').textContent=calcPtsLabel(occ.attr);
   document.getElementById('pts-bar').classList.add('show');
-  skillVals={}; renderSkillGrid(); updatePtsP3();
+  skillVals={};
+  renderSkillGrid();
+  updatePtsP3();
 };
 
 function calcPts(f){
@@ -1146,155 +1492,342 @@ function calcPts(f){
   if(fu.indexOf('STR或DEX或APP')>-1) return edu*2+Math.max(str,dex,app)*2;
   return edu*4;
 }
+// 返回实际计算说明（用于显示）
 function calcPtsLabel(f){
   var edu=getVal('EDU'), str=getVal('STR'), dex=getVal('DEX'), app=getVal('APP'), pow=getVal('POW');
   var fu=f.toUpperCase();
   if(fu==='EDU×4') return 'EDU('+edu+')×4 = '+edu*4+'点';
   if(fu==='EDU×2+STR×2') return 'EDU('+edu+')×2 + STR('+str+')×2 = '+(edu*2+str*2)+'点';
-  if(fu.indexOf('STR或DEX')>-1){ var hi=Math.max(str,dex), which=(str>=dex?'STR':'DEX'), hv=(str>=dex?str:dex); return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点'; }
-  if(fu.indexOf('STR或DEX或APP')>-1){ var hi=Math.max(str,dex,app), which=(str>=dex&&str>=app?'STR':dex>=app?'DEX':'APP'), hv=hi; return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点'; }
-  if(fu.indexOf('APP或POW')>-1){ var hi=Math.max(app,pow), which=(app>=pow?'APP':'POW'), hv=hi; return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点'; }
-  if(fu.indexOf('DEX或POW')>-1){ var hi=Math.max(dex,pow), which=(dex>=pow?'DEX':'POW'), hv=hi; return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点'; }
-  if(fu.indexOf('DEX或APP')>-1){ var hi=Math.max(dex,app), which=(dex>=app?'DEX':'APP'), hv=hi; return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点'; }
+  if(fu.indexOf('STR或DEX')>-1){
+    var hi=Math.max(str,dex), which=(str>=dex?'STR':'DEX'), hv=(str>=dex?str:dex);
+    return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点';
+  }
+  if(fu.indexOf('STR或DEX或APP')>-1){
+    var hi=Math.max(str,dex,app), which=(str>=dex&&str>=app?'STR':dex>=app?'DEX':'APP'), hv=hi;
+    return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点';
+  }
+  if(fu.indexOf('APP或POW')>-1){
+    var hi=Math.max(app,pow), which=(app>=pow?'APP':'POW'), hv=hi;
+    return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点';
+  }
+  if(fu.indexOf('DEX或POW')>-1){
+    var hi=Math.max(dex,pow), which=(dex>=pow?'DEX':'POW'), hv=hi;
+    return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点';
+  }
+  if(fu.indexOf('DEX或APP')>-1){
+    var hi=Math.max(dex,app), which=(dex>=app?'DEX':'APP'), hv=hi;
+    return 'EDU('+edu+')×2 + '+which+'('+hv+')×2 = '+(edu*2+hi*2)+'点';
+  }
   if(fu.indexOf('APP×2')>-1&&fu.indexOf('DEX')<0) return 'EDU('+edu+')×2 + APP('+app+')×2 = '+(edu*2+app*2)+'点';
   if(fu.indexOf('DEX×2')>-1) return 'EDU('+edu+')×2 + DEX('+dex+')×2 = '+(edu*2+dex*2)+'点';
   return 'EDU('+edu+')×4 = '+edu*4+'点';
 }
-function skBase(sk){ return sk.base===-1?Math.floor(getVal('DEX')/2):sk.base===-2?getVal('EDU'):sk.base; }
+function skBase(sk){
+  if(sk.base===-1) return Math.floor(getVal('DEX')/2);
+  if(sk.base===-2) return getVal('EDU');
+  return sk.base;
+}
 function getUsedP3(){
-  var used=crVal; SKILLS.forEach(function(sk){ if(occSkills.indexOf(sk.id)>-1) used+=(skillVals[sk.id]||0); });
+  var used=crVal;
+  SKILLS.forEach(function(sk){
+    if(occSkills.indexOf(sk.id)>-1) used+=(skillVals[sk.id]||0);
+  });
   return used;
 }
 function updatePtsP3(){
-  var occ=OCCS.find(function(o){ return o.name===document.getElementById('occ-sel').value; });
+  var sel=document.getElementById('occ-sel');
+  var occ=OCCS.find(function(o){ return o.name===sel.value; });
   if(!occ) return;
-  var remain=calcPts(occ.attr)-getUsedP3();
+  var total=calcPts(occ.attr);
+  var remain=total-getUsedP3();
   var el=document.getElementById('pts-remain');
-  el.textContent=remain<0?0:remain; el.style.color=remain<0?'#c04040':'var(--border-hi)';
+  // 不显示负数，超出时显示0并变红
+  el.textContent=remain<0?0:remain;
+  el.style.color=remain<0?'#c04040':'var(--border-hi)';
 }
 
 window.onCrInput=function(raw){
-  var v=parseInt(raw)||0; if(v<0) v=0;
+  var v=parseInt(raw)||0;
+  if(v<0) v=0;
   if(v>currentMaxCr){ showToast('信用评级上限为 '+currentMaxCr); v=currentMaxCr; document.getElementById('cr-inp').value=v; }
-  crVal=v; updatePtsP3();
+  crVal=v;
+  updatePtsP3();
+  // 高亮当前档位
   var tier=v===0?'身无分文':v<=9?'贫穷（'+v+'）':v<=49?'普通（'+v+'）':v<=89?'小康（'+v+'）':v<=98?'富裕（'+v+'）':'富豪（'+v+'）';
-  var rt=document.getElementById('cr-range-txt'); if(rt) rt.textContent='范围：'+currentMinCr+'~'+currentMaxCr+'　当前：'+tier;
+  var rt=document.getElementById('cr-range-txt');
+  if(rt) rt.textContent='范围：'+currentMinCr+'~'+currentMaxCr+'　当前：'+tier;
 };
 
 function renderSkillGrid(){
-  var grid=document.getElementById('sk-grid'); var html='';
+  var grid=document.getElementById('sk-grid');
+  var html='';
   SKILL_CATS.forEach(function(cat){
     var catSkills=SKILLS.filter(function(sk){ return sk.cat===cat.id; });
+    var occInCat=catSkills.filter(function(sk){ return occSkills.indexOf(sk.id)>-1; });
+    // 只显示本职技能所属的类别，以及该类别所有技能
+    // 始终显示所有类别
     html+='<div class="sk-cat-hd">'+cat.name+'</div>';
     catSkills.forEach(function(sk){
-      var base=skBase(sk); var isCthulhu=sk.id==='cthulhu'; var isOcc=!isCthulhu&&occSkills.indexOf(sk.id)>-1;
-      var added=isCthulhu?0:(skillVals[sk.id]||0); var total=base+added;
+      var base=skBase(sk);
+      var isCthulhu=sk.id==='cthulhu';
+      var isOcc=!isCthulhu&&occSkills.indexOf(sk.id)>-1;
+      var added=isCthulhu?0:(skillVals[sk.id]||0);
+      var total=base+added;
       html+='<div class="sk-row'+(isOcc?' occ':'')+ '">'
         +'<span class="sk-name'+(isOcc?' star':'')+'">'+sk.name+(isCthulhu?' <span style="font-size:0.65rem;color:var(--ink-dim);">(由KP决定)</span>':'')+'</span>'
         +'<span class="sk-base">'+base+'</span>'
         +(isOcc
-          ?'<input class="sk-inp occ-inp" type="number" min="0" value="'+(added||'')+'" placeholder="0" oninput="onSkLive(\''+sk.id+'\',this.value,'+base+')" onblur="onSkBlur(\''+sk.id+'\',this,'+base+')">'
+          ?'<input class="sk-inp occ-inp" type="number" min="0" value="'+(added||'')+'" placeholder="0"'
+            +' oninput="onSkLive(\''+sk.id+'\',this.value,'+base+')"'
+            +' onblur="onSkBlur(\''+sk.id+'\',this,'+base+')">'
           +'<span class="sk-tot" id="tot-p3-'+sk.id+'">'+total+'</span>'
-          :'<span class="sk-static">—</span><span class="sk-tot" style="color:var(--ink-dim)">'+base+'</span>'
-        )+'</div>';
+          :'<span class="sk-static">—</span>'
+          +'<span class="sk-tot" style="color:var(--ink-dim)">'+base+'</span>'
+        )
+        +'</div>';
     });
   });
-  grid.innerHTML=html; updatePtsP3();
+  grid.innerHTML=html;
+  updatePtsP3();
 }
 
 window.renderFreeSkillGrid=function(){
-  document.getElementById('pts-formula-free').textContent='INT × 2 = '+(getVal('INT')*2)+' 点';
-  var grid=document.getElementById('sk-grid-free'); var html='';
+  var total=getVal('INT')*2;
+  document.getElementById('pts-formula-free').textContent='INT × 2 = '+total+' 点';
+  var grid=document.getElementById('sk-grid-free');
+  var html='';
   SKILL_CATS.forEach(function(cat){
     var catSkills=SKILLS.filter(function(sk){ return sk.cat===cat.id; });
     html+='<div class="sk-cat-hd">'+cat.name+'</div>';
     catSkills.forEach(function(sk){
-      var isCthulhu=sk.id==='cthulhu'; var p3Val=skBase(sk)+(skillVals[sk.id]||0);
-      var added=isCthulhu?0:(freeSkillVals[sk.id]||0); var totalVal=p3Val+added;
-      html+='<div class="sk-row'+(added>0?' occ':'')+'">'
-        +'<span class="sk-name">'+sk.name+(isCthulhu?' <span style="font-size:0.65rem;color:var(--ink-dim);">(由KP决定)</span>':'')+'</span>'
-        +'<span class="sk-base" style="color:var(--border-hi)">'+p3Val+'</span>'
-        +(isCthulhu
-          ?'<span class="sk-static">—</span><span class="sk-tot" style="color:var(--ink-dim)">'+p3Val+'</span>'
-          :'<input class="sk-inp'+(added>0?' occ-inp':'')+'" type="number" min="0" value="'+(added||'')+'" placeholder="0" oninput="onFreeLive(\''+sk.id+'\',this.value,'+p3Val+')" onblur="onFreeBlur(\''+sk.id+'\',this,'+p3Val+')">'
-          +'<span class="sk-tot" id="tot-p4-'+sk.id+'">'+totalVal+'</span>'
-        )+'</div>';
+      var isCthulhu=sk.id==='cthulhu';
+      var p3Val=getP3Val(sk.id);
+      var added=isCthulhu?0:(freeSkillVals[sk.id]||0);
+      var totalVal=p3Val+added;
+      html+='<div class="sk-row'+(added>0?' occ':'')+'">'+
+        '<span class="sk-name">'+sk.name+(isCthulhu?' <span style="font-size:0.65rem;color:var(--ink-dim);">(由KP决定)</span>':'')+'</span>'+
+        '<span class="sk-base" style="color:var(--border-hi)">'+p3Val+'</span>'+
+        (isCthulhu
+          ?'<span class="sk-static">—</span>'
+           +'<span class="sk-tot" style="color:var(--ink-dim)">'+p3Val+'</span>'
+          :'<input class="sk-inp'+(added>0?' occ-inp':'')+'" type="number" min="0" value="'+(added||'')+'" placeholder="0"'+
+            ' oninput="onFreeLive(\''+sk.id+'\',this.value,'+p3Val+')"'+
+            ' onblur="onFreeBlur(\''+sk.id+'\',this,'+p3Val+')">'+
+            '<span class="sk-tot" id="tot-p4-'+sk.id+'">'+totalVal+'</span>'
+        )+
+        '</div>';
     });
   });
-  grid.innerHTML=html; updatePtsP4();
+  grid.innerHTML=html;
+  updatePtsP4();
 };
 
+// 实时输入：只更新显示和剩余，不强制截断（让用户看到实时合计）
 window.onSkLive=function(skId, raw, base){
-  var v=parseInt(raw); if(isNaN(v)||v<0) v=0; if(base+v>90) v=90-base;
+  var v=parseInt(raw);
+  if(isNaN(v)||v<0) v=0;
+  // 上限90不能超
+  if(base+v>90) v=90-base;
   skillVals[skId]=v;
-  var tot=document.getElementById('tot-p3-'+skId); if(tot) tot.textContent=base+v;
+  var tot=document.getElementById('tot-p3-'+skId);
+  if(tot) tot.textContent=base+v;
   updatePtsP3();
 };
 
+// 失焦时：如果剩余为负，把这个技能截到使剩余恰好为0
 window.onSkBlur=function(skId, inp, base){
-  var v=parseInt(inp.value)||0; if(v<0) v=0; if(base+v>90) v=90-base;
-  var occ=OCCS.find(function(o){ return o.name===document.getElementById('occ-sel').value; });
+  var v=parseInt(inp.value)||0;
+  if(v<0) v=0;
+  if(base+v>90) v=90-base;
+  // 计算其他技能已用点数
+  var sel=document.getElementById('occ-sel');
+  var occ=OCCS.find(function(o){ return o.name===sel.value; });
   if(!occ){ skillVals[skId]=v; inp.value=v||''; return; }
-  var total=calcPts(occ.attr); var usedOthers=crVal;
-  SKILLS.forEach(function(sk){ if(sk.id!==skId && occSkills.indexOf(sk.id)>-1) usedOthers+=(skillVals[sk.id]||0); });
-  var maxAllowed=total-usedOthers; if(v>maxAllowed) v=Math.max(0, maxAllowed);
-  if(base+v>90) v=90-base; if(v<0) v=0;
-  skillVals[skId]=v; inp.value=v||'';
-  var tot=document.getElementById('tot-p3-'+skId); if(tot) tot.textContent=base+v;
+  var total=calcPts(occ.attr);
+  var usedOthers=crVal;
+  SKILLS.forEach(function(sk){
+    if(sk.id!==skId && occSkills.indexOf(sk.id)>-1) usedOthers+=(skillVals[sk.id]||0);
+  });
+  var maxAllowed=total-usedOthers;
+  if(v>maxAllowed) v=Math.max(0, maxAllowed);
+  if(base+v>90) v=90-base;
+  if(v<0) v=0;
+  skillVals[skId]=v;
+  inp.value=v||'';
+  var tot=document.getElementById('tot-p3-'+skId);
+  if(tot) tot.textContent=base+v;
   updatePtsP3();
 };
 
-function updatePtsP4(){
-  var used=0; Object.keys(freeSkillVals).forEach(function(k){ used+=freeSkillVals[k]; });
-  var remain=(getVal('INT')*2)-used;
-  var el=document.getElementById('pts-remain-free');
-  el.textContent=remain<0?0:remain; el.style.color=remain<0?'#c04040':'var(--border-hi)';
+/* ── Page 4: Free skills ── */
+function getP3Val(skId){
+  var sk=SKILLS.find(function(s){ return s.id===skId; });
+  if(!sk) return 0;
+  return skBase(sk)+(skillVals[skId]||0);
 }
+function updatePtsP4(){
+  var total=getVal('INT')*2;
+  var used=0;
+  Object.keys(freeSkillVals).forEach(function(k){ used+=freeSkillVals[k]; });
+  var remain=total-used;
+  var el=document.getElementById('pts-remain-free');
+  el.textContent=remain<0?0:remain;
+  el.style.color=remain<0?'#c04040':'var(--border-hi)';
+}
+// 实时输入：上限90，不显示负数
 window.onFreeLive=function(skId, raw, base){
-  var v=parseInt(raw); if(isNaN(v)||v<0) v=0; if(base+v>90) v=90-base;
+  var v=parseInt(raw);
+  if(isNaN(v)||v<0) v=0;
+  if(base+v>90) v=90-base;
   freeSkillVals[skId]=v;
-  var tot=document.getElementById('tot-p4-'+skId); if(tot) tot.textContent=base+v;
+  var tot=document.getElementById('tot-p4-'+skId);
+  if(tot) tot.textContent=base+v;
   updatePtsP4();
 };
+// 失焦时：截断到剩余允许的最大值
 window.onFreeBlur=function(skId, inp, base){
-  var v=parseInt(inp.value)||0; if(v<0) v=0; if(base+v>90) v=90-base;
-  var usedOthers=0; Object.keys(freeSkillVals).forEach(function(k){ if(k!==skId) usedOthers+=(freeSkillVals[k]||0); });
-  var maxAllowed=(getVal('INT')*2)-usedOthers; if(v>maxAllowed) v=Math.max(0,maxAllowed);
-  if(base+v>90) v=90-base; if(v<0) v=0;
-  freeSkillVals[skId]=v; inp.value=v||'';
-  var tot=document.getElementById('tot-p4-'+skId); if(tot) tot.textContent=base+v;
+  var v=parseInt(inp.value)||0;
+  if(v<0) v=0;
+  if(base+v>90) v=90-base;
+  var total=getVal('INT')*2;
+  var usedOthers=0;
+  Object.keys(freeSkillVals).forEach(function(k){
+    if(k!==skId) usedOthers+=(freeSkillVals[k]||0);
+  });
+  var maxAllowed=total-usedOthers;
+  if(v>maxAllowed) v=Math.max(0,maxAllowed);
+  if(base+v>90) v=90-base;
+  if(v<0) v=0;
+  freeSkillVals[skId]=v;
+  inp.value=v||'';
+  var tot=document.getElementById('tot-p4-'+skId);
+  if(tot) tot.textContent=base+v;
   updatePtsP4();
 };
+
+/* ── Finish ── */
+window.doFinish=function(){
+  var name=document.getElementById('name').value.trim()||'未命名调查员';
+  var allItems=ITEMS_BASIC.concat(ITEMS_WEAPON);
+  var sel=document.getElementById('occ-sel');
+  if(sel&&sel.value&&OCC_ITEMS[sel.value]) allItems=allItems.concat(OCC_ITEMS[sel.value]);
+  var names=[];
+  allItems.forEach(function(it){ if(selectedItems[it.id]) names.push(it.name); });
+  customItems.forEach(function(it,i){ if(selectedItems['custom_'+i]) names.push(it); });
+  var msg='调查员「'+name+'」创建完成！\n';
+  if(names.length) msg+='\n携带物品：'+names.join('、');
+  alert(msg);
+};
+
+/* ── Page 5: Items ── */
+var ITEMS_BASIC=[
+  {id:'notebook',   name:'笔记本 & 钢笔',  note:'记录线索必备'},
+  {id:'lighter',    name:'火柴',            note:'照明与引火'},
+  {id:'torch',      name:'手电筒',          note:'探索黑暗场所'},
+  {id:'firstaid',   name:'急救包',          note:'紧急处理伤口'},
+  {id:'clothes',    name:'换洗衣物',        note:'日常行动需要'},
+  {id:'money',      name:'钱包与证件',      note:'现金及身份证明'},
+  {id:'city_map',   name:'城市地图',        note:'地图或指南针'},
+  {id:'rope',       name:'绳索（10m）',     note:'多用途绳索'},
+  {id:'binoculars', name:'望远镜',          note:'远距离观察'},
+  {id:'compass',    name:'指南针',          note:'野外导航'},
+  {id:'blanket',    name:'毯子',            note:'保暖与露营'},
+];
+var ITEMS_WEAPON=[
+  {id:'w_revolver', name:'左轮手枪', note:'.38口径 ·伤害3D6 ·穿透是 ·弹数6 ·射程15m ·故障96'},
+  {id:'w_bow',      name:'弓箭',     note:'伤害1D6+1+DB ·穿透否 ·弹数1 ·射程50m ·故障—'},
+  {id:'w_knife',    name:'小刀',     note:'伤害1D4+DB ·穿透是 ·可投掷 ·射程— ·近身武器'},
+  {id:'w_club',     name:'棍棒',     note:'伤害1D8+DB ·穿透否 ·钝器 ·射程— ·近身武器'},
+];
+// 有权携带武器的职业
+var WEAPON_OCCS=['警探','巡警','私家侦探','军官','士兵','猎人','黑帮老大','黑帮马仔','赏金猎人','罪犯-刺客','罪犯-银行劫匪','罪犯-打手','罪犯-混混','中介调查员','旅行家','牛仔','探险家','间谍','司法人员','除魅师','警方(原作向)-警探','警方(原作向)-巡警'];
+var OCC_ITEMS={
+  '警探':       [{id:'badge_det', name:'警徽',          note:'表明身份',        tag:'职业'},
+                 {id:'handcuffs', name:'手铐',           note:'拘押用',          tag:'职业'}],
+  '巡警':       [{id:'badge_cop', name:'警徽',          note:'表明身份',        tag:'职业'},
+                 {id:'baton',     name:'警棍',           note:'1D6伤害',         tag:'武器'}],
+  '私家侦探':   [{id:'pi_card',   name:'私家侦探证',    note:'合法调查资质',    tag:'职业'}],
+  '医生':       [{id:'medkit_full',name:'完整医疗包',   note:'含手术工具',      tag:'职业'},
+                 {id:'stethoscope',name:'听诊器',        note:'医疗诊断',        tag:'职业'}],
+  '护士':       [{id:'nurse_kit', name:'护理包',         note:'急救与护理',      tag:'职业'}],
+  '精神病医生': [{id:'psych_pad', name:'诊断记录本',    note:'病患档案',        tag:'职业'}],
+  '军官':       [{id:'rank_badge',name:'军官证',         note:'证明军衔',        tag:'职业'}],
+  '士兵':       [{id:'dogtag',    name:'军牌',           note:'识别身份',        tag:'职业'}],
+  '记者':       [{id:'press_card',name:'记者证',         note:'采访许可',        tag:'职业'}],
+  '调查记者':   [{id:'press_card2',name:'记者证',        note:'采访许可',        tag:'职业'}],
+  '通讯记者':   [{id:'press_card3',name:'记者证',        note:'采访许可',        tag:'职业'}],
+  '摄影记者':   [{id:'camera_pro',name:'专业相机',       note:'专业摄影设备',    tag:'职业'}],
+  '摄影师':     [{id:'camera_pro2',name:'专业相机',      note:'胶片与设备',      tag:'职业'}],
+  '教授':       [{id:'univ_card', name:'大学证件',       note:'学术身份',        tag:'职业'}],
+  '律师':       [{id:'law_card',  name:'律师证',         note:'法律执照',        tag:'职业'}],
+  '神秘学家':   [{id:'grimoire',  name:'神秘典籍',       note:'参考用古籍',      tag:'职业'}],
+  '神职人员':   [{id:'holy_item', name:'宗教圣物',       note:'十字架/圣典',     tag:'职业'}],
+  '赌徒':       [{id:'gamble_kit',name:'赌具套装',       note:'扑克牌/骰子',     tag:'职业'}],
+  '潜水员':     [{id:'dive_gear', name:'基础潜水装备',   note:'面镜/脚蹼',       tag:'职业'}],
+  '猎人':       [{id:'hunt_kit',  name:'猎具包',         note:'陷阱与追踪工具',  tag:'职业'}],
+  '罪犯-窃贼': [{id:'thief_tools',name:'盗窃工具',      note:'撬锁与切割工具',  tag:'职业'}],
+  '罪犯-刺客': [{id:'assassin_kit',name:'刺客工具',     note:'消音器/钢丝',     tag:'职业'}],
+  '间谍':       [{id:'spy_kit',   name:'间谍装备',       note:'微型相机/信号器', tag:'职业'}],
+  '黑帮老大':  [{id:'cigar',     name:'雪茄',           note:'彰显地位',        tag:'职业'}],
+  '除魅师':    [{id:'demonhunt', name:'驱魔工具',       note:'圣水/盐/圣典',    tag:'职业'}],
+};
+
+var selectedItems={};
 
 window.goP5=function(){
-  var used2=0; Object.keys(freeSkillVals).forEach(function(k){ used2+=freeSkillVals[k]; });
-  var remain2=(getVal('INT')*2)-used2;
+  var total2=getVal('INT')*2;
+  var used2=0;
+  Object.keys(freeSkillVals).forEach(function(k){ used2+=freeSkillVals[k]; });
+  var remain2=total2-used2;
   if(remain2<0){ showToast('个人兴趣点超额，请修正！'); return; }
   if(remain2>0){ if(!confirm('剩余 '+remain2+' 点兴趣点未使用，确定继续吗？')) return; }
 
-  document.getElementById('p5-sub').textContent=document.getElementById('name').value.trim()+' · '+document.querySelector('input[name="gender"]:checked').value;
+  var name=document.getElementById('name').value.trim();
+  var gender=document.querySelector('input[name="gender"]:checked');
+  document.getElementById('p5-sub').textContent=name+' · '+(gender?gender.value:'');
 
   var wealthTxt,cashTxt,assetTxt,spendTxt;
-  if(crVal===0){ wealthTxt='身无分文'; cashTxt='0（无法自给）'; assetTxt='几乎为零'; spendTxt='靠乞讨或慈善为生'; }
-  else if(crVal<=9){ wealthTxt='贫穷'; cashTxt='$1~$10'; assetTxt='极少'; spendTxt='勉强温饱，$5/周生活费'; }
-  else if(crVal<=49){ wealthTxt='普通'; cashTxt='$10~$50'; assetTxt='$100~$1000'; spendTxt='工薪生活，约$15~40/周'; }
-  else if(crVal<=89){ wealthTxt='小康'; cashTxt='$100~$500'; assetTxt='$5000~$20000'; spendTxt='中产消费，约$50~200/周'; }
-  else if(crVal<=98){ wealthTxt='富裕'; cashTxt='$500~$2000'; assetTxt='$50000~$500000'; spendTxt='上流消费，随意挥霍'; }
-  else { wealthTxt='富豪'; cashTxt='$5000+（随取随用）'; assetTxt='百万美元以上'; spendTxt='奢华无度'; }
-  document.getElementById('p5-wealth-txt').textContent=wealthTxt; document.getElementById('p5-cash-txt').textContent=cashTxt;
-  document.getElementById('p5-asset-txt').textContent=assetTxt; document.getElementById('p5-spend-txt').textContent=spendTxt;
+  if(crVal===0){
+    wealthTxt='身无分文'; cashTxt='0（无法自给）';
+    assetTxt='几乎为零'; spendTxt='靠乞讨或慈善为生';
+  } else if(crVal<=9){
+    wealthTxt='贫穷'; cashTxt='$1~$10';
+    assetTxt='极少（可能有破旧住所）'; spendTxt='勉强温饱，$5/周生活费';
+  } else if(crVal<=49){
+    wealthTxt='普通'; cashTxt='$10~$50';
+    assetTxt='$100~$1000（存款或简单财物）'; spendTxt='工薪生活，约$15~40/周';
+  } else if(crVal<=89){
+    wealthTxt='小康'; cashTxt='$100~$500';
+    assetTxt='$5000~$20000（有房有车）'; spendTxt='中产消费，约$50~200/周';
+  } else if(crVal<=98){
+    wealthTxt='富裕'; cashTxt='$500~$2000';
+    assetTxt='$50000~$500000（多处房产、股票）'; spendTxt='上流消费，随意挥霍';
+  } else {
+    wealthTxt='富豪'; cashTxt='$5000+（随取随用）';
+    assetTxt='百万美元以上（企业、庄园）'; spendTxt='奢华无度，金钱不成问题';
+  }
+  document.getElementById('p5-wealth-txt').textContent=wealthTxt;
+  document.getElementById('p5-cash-txt').textContent=cashTxt;
+  document.getElementById('p5-asset-txt').textContent=assetTxt;
+  document.getElementById('p5-spend-txt').textContent=spendTxt;
 
-  var occName=document.getElementById('occ-sel').value;
+  var sel=document.getElementById('occ-sel');
+  var occName=sel.value;
   var occExtra=OCC_ITEMS[occName]||[];
   document.getElementById('item-occ-section').style.display=occExtra.length?'block':'none';
 
   renderItemGrid('item-grid-basic', ITEMS_BASIC);
   renderItemGrid('item-grid-occ', occExtra);
+  // 武器：只有特定职业才显示
   var weaponSec=document.getElementById('item-weapon-section');
   if(WEAPON_OCCS.indexOf(occName)>-1){
-    if(weaponSec) weaponSec.style.display='block'; renderItemGrid('item-grid-weapon', ITEMS_WEAPON);
-  } else { if(weaponSec) weaponSec.style.display='none'; }
-  updateItemSummary(); showPage('p5');
+    if(weaponSec) weaponSec.style.display='block';
+    renderItemGrid('item-grid-weapon', ITEMS_WEAPON);
+  } else {
+    if(weaponSec) weaponSec.style.display='none';
+  }
+  updateItemSummary();
+  showPage('p5');
 };
 window.goP4back=function(){ showPage('p4'); };
 
@@ -1312,30 +1845,35 @@ function renderItemGrid(gridId, items){
       +'</div></div>';
   }).join('');
 }
-
+function renderCustomGrid(){} // no-op: replaced by fixed inputs
 function getCustomItems(){
   var v1=((document.getElementById('custom-item-1')||{}).value||'').trim();
   var v2=((document.getElementById('custom-item-2')||{}).value||'').trim();
-  var r=[]; if(v1) r.push(v1); if(v2) r.push(v2); return r;
+  var r=[];
+  if(v1) r.push(v1);
+  if(v2) r.push(v2);
+  return r;
 }
-
 var BASIC_IDS=['notebook','lighter','torch','firstaid','clothes','money','city_map','rope','binoculars','compass','blanket'];
 window.toggleItem=function(id, el){
   if(selectedItems[id]){
     delete selectedItems[id]; el.classList.remove('selected'); el.querySelector('.item-chk').textContent='';
   } else {
     if(BASIC_IDS.indexOf(id)>-1){
-      if(BASIC_IDS.filter(function(bid){ return selectedItems[bid]; }).length>=5){ showToast('基础物品最多选 5 件'); return; }
+      var basicCount=BASIC_IDS.filter(function(bid){ return selectedItems[bid]; }).length;
+      if(basicCount>=5){ showToast('基础物品最多选 5 件'); return; }
     }
     var WEAPON_IDS=['w_revolver','w_bow','w_knife','w_club'];
     if(WEAPON_IDS.indexOf(id)>-1){
-      if(WEAPON_IDS.filter(function(wid){ return selectedItems[wid]; }).length>=2){ showToast('武器最多携带 2 件'); return; }
+      var wCount=WEAPON_IDS.filter(function(wid){ return selectedItems[wid]; }).length;
+      if(wCount>=2){ showToast('武器最多携带 2 件'); return; }
     }
     selectedItems[id]=true; el.classList.add('selected'); el.querySelector('.item-chk').textContent='✓';
   }
   updateItemSummary();
 };
-
+window.addCustomItem=function(){}; // no-op
+window.removeCustom=function(){}; // no-op
 function getAllItemList(){
   var occName=document.getElementById('occ-sel')?document.getElementById('occ-sel').value:'';
   var weaponItems=WEAPON_OCCS.indexOf(occName)>-1?ITEMS_WEAPON:[];
@@ -1351,10 +1889,11 @@ function updateItemSummary(){
   var listEl=document.getElementById('item-summary-list');
   if(!sumEl) return;
   if(!names.length){ sumEl.style.display='none'; return; }
-  sumEl.style.display='block'; listEl.textContent=names.join('、');
+  sumEl.style.display='block';
+  listEl.textContent=names.join('、');
 }
 
-/* ── 流程第6步：复用 buildSheet 生成最终 DOM ── */
+/* ── Page 6: Character Sheet ── */
 window.goP6=function(){
   showPage('p6');
   var name=document.getElementById('name').value.trim()||'未命名调查员';
@@ -1362,66 +1901,64 @@ window.goP6=function(){
   var age=document.getElementById('age-inp').value||'—';
   var occ=document.getElementById('occ-sel').value||'—';
   var appearance=(document.getElementById('appearance').value||'').trim()||'—';
+  
+  document.getElementById('sh-name').textContent=name;
+  document.getElementById('sh-gender').textContent=gender?gender.value:'—';
+  document.getElementById('sh-age').textContent=age+'岁';
+  document.getElementById('sh-occ').textContent=occ;
+  document.getElementById('sh-appearance').textContent=appearance;
+  var pSub=document.getElementById('p6-sub'); if(pSub) pSub.textContent='';
 
-  // 1. 生成整体大标题和内联HTML
-  var html='';
-  html+='<div class="sheet-title-box" style="text-align:center; margin-bottom:1.6rem; padding-top:0.5rem;">'
-    +'<h2 style="font-size:1.7rem; font-weight:bold; color:var(--ink); margin:0 0 0.4rem 0;">调查员人物卡</h2>'
-    +'<div style="display:flex; align-items:center; justify-content:center; gap:0.5rem; margin:0.3rem 0;">'
-    +'<div style="flex:1; max-width:100px; height:1px; background:linear-gradient(90deg, transparent, var(--border), transparent);"></div>'
-    +'<span style="color:var(--border); font-size:14px; opacity:0.7;">❧</span>'
-    +'<div style="flex:1; max-width:100px; height:1px; background:linear-gradient(90deg, transparent, var(--border), transparent);"></div>'
-    +'</div></div>';
-
-  html+='<div id="sheet-basic" style="background:rgba(45,122,45,0.06);border:1px solid var(--border);border-radius:4px;padding:0.8rem 1rem;margin-bottom:1rem;">'
-    +'<div style="font-size:1.15rem;font-weight:bold;color:var(--ink);margin-bottom:0.5rem;letter-spacing:0.04em;">'+esc(name)+'</div>'
-    +'<div class="sh-basic-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.3rem 1rem;font-size:0.82rem;color:var(--ink-dim);">'
-    +'<div><strong style="color:var(--border-hi);">性别</strong>　'+esc(gender?gender.value:'—')+'</div>'
-    +'<div><strong style="color:var(--border-hi);">年龄</strong>　'+age+'岁</div>'
-    +'<div><strong style="color:var(--border-hi);">职业</strong>　'+esc(occ)+'</div>'
-    +(appearance?'<div style="grid-column:1/-1;"><strong style="color:var(--border-hi);">外貌</strong>　'+esc(appearance)+'</div>':'')
-    +'</div></div>';
-
+  // ── 属性表：3列，属性名+KEY同行居中，全宽 ──
   var TH='<th style="text-align:center;padding:0.25rem 0.5rem;background:rgba(45,122,45,0.12);color:var(--border-hi);font-size:0.7rem;border:1px solid rgba(45,122,45,0.25);">';
   var THV='<th style="text-align:center;padding:0.25rem 0.35rem;background:rgba(45,122,45,0.12);color:var(--border-hi);font-size:0.7rem;border:1px solid rgba(45,122,45,0.25);">';
-  html+='<div id="sh-attrs" style="margin-bottom:1rem;">'
-    +'<table class="sh-attr-table" style="width:100%;border-collapse:collapse;font-size:0.82rem;margin-bottom:1rem;"><thead><tr>'
+  var attrHtml='<table style="width:100%;border-collapse:collapse;font-size:0.82rem;margin-bottom:1rem;"><thead><tr>'
     +TH+'属性</th>'+THV+'总值</th>'+THV+'半值</th>'+THV+'⅕值</th>'
     +TH+'属性</th>'+THV+'总值</th>'+THV+'半值</th>'+THV+'⅕值</th>'
     +TH+'属性</th>'+THV+'总值</th>'+THV+'半值</th>'+THV+'⅕值</th>'
     +'</tr></thead><tbody>';
   for(var ai=0;ai<ALL.length;ai+=3){
     var bg=(Math.floor(ai/3)%2===1)?'background:rgba(45,122,45,0.04);':'';
-    html+='<tr style="'+bg+'">';
+    attrHtml+='<tr style="'+bg+'">';
     for(var ci=0;ci<3;ci++){
       var a=ALL[ai+ci];
       if(a){
         var v=getVal(a.key),h=Math.floor(v/2),f=Math.floor(v/5);
-        html+='<td class="sh-attr-name" style="text-align:center;padding:0.25rem 0.5rem;border:1px solid rgba(45,122,45,0.18);font-weight:500;white-space:nowrap;">'+a.cn+' <span style="font-size:0.68rem;color:var(--ink-dim);">'+a.key+'</span></td>'
+        attrHtml+='<td class="sh-attr-name" style="text-align:center;padding:0.25rem 0.5rem;border:1px solid rgba(45,122,45,0.18);font-weight:500;white-space:nowrap;">'+a.cn+' <span style="font-size:0.68rem;color:var(--ink-dim);">'+a.key+'</span></td>'
           +'<td class="sh-attr-val" style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);font-weight:bold;color:var(--ink);">'+v+'</td>'
           +'<td class="sh-attr-sub" style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);color:var(--ink-dim);">'+h+'</td>'
           +'<td class="sh-attr-sub" style="text-align:center;padding:0.25rem 0.35rem;border:1px solid rgba(45,122,45,0.18);color:var(--ink-dim);">'+f+'</td>';
-      } else { html+='<td colspan="4" style="border:1px solid rgba(45,122,45,0.18);"></td>'; }
+      } else {
+        attrHtml+='<td colspan="4" style="border:1px solid rgba(45,122,45,0.18);"></td>';
+      }
     }
-    html+='</tr>';
+    attrHtml+='</tr>';
   }
-  html+='</tbody></table></div>';
+  attrHtml+='</tbody></table>';
+  document.getElementById('sh-attrs').innerHTML=attrHtml;
 
+  // ── 衍生属性 ──
   var pow=getVal('POW'),con=getVal('CON'),siz=getVal('SIZ'),str=getVal('STR'),dex=getVal('DEX');
   var san=pow, mp=Math.floor(pow/5), hp=Math.floor((siz+con)/10);
   var age2=parseInt(document.getElementById('age-inp').value)||25;
   var movPenalty=age2>=60?3:age2>=50?2:age2>=40?1:0;
   var mov=Math.max(1,(str>siz&&dex>siz)?9:(str<siz&&dex<siz)?7:8)-movPenalty;
-  var derived=[{n:'生命值（HP）',v:hp},{n:'魔法值（MP）',v:mp},{n:'理智（SAN）',v:san},{n:'移动（MOV）',v:mov},{n:'伤害加成（DB）',v:calcDB(str+siz)},{n:'体格（体格值）',v:calcBuild(str+siz)}];
-  
-  html+='<div class="sec-title">衍生属性</div><div class="sh-derived-grid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:0.3rem;margin-bottom:1rem;">';
-  derived.forEach(function(d){
-    html+='<div style="background:rgba(45,122,45,0.07);border:1px solid var(--border);border-radius:3px;padding:0.3rem 0.3rem;text-align:center;">'
+  var derived=[
+    {n:'生命值（HP）',v:hp,f:'视（体型+体质）÷10而定'},
+    {n:'魔法值（MP）',v:mp,f:'视意志÷5而定'},
+    {n:'理智（SAN）',v:san,f:'视意志（POW）而定'},
+    {n:'移动（MOV）',v:mov,f:'视力量/敏捷/体型及年龄而定'},
+    {n:'伤害加成（DB）',v:calcDB(str+siz),f:'视力量+体型而定'},
+    {n:'体格（体格值）',v:calcBuild(str+siz),f:'视力量+体型而定'},
+  ];
+  document.getElementById('sh-derived').innerHTML=derived.map(function(d){
+    return '<div style="background:rgba(45,122,45,0.07);border:1px solid var(--border);border-radius:3px;padding:0.3rem 0.3rem;text-align:center;">'
       +'<div style="font-size:0.6rem;color:var(--border-hi);font-weight:bold;line-height:1.2;">'+d.n+'</div>'
-      +'<div style="font-size:0.95rem;font-weight:bold;color:var(--ink);">'+d.v+'</div></div>';
-  });
-  html+='</div>';
+      +'<div style="font-size:0.95rem;font-weight:bold;color:var(--ink);">'+d.v+'</div>'
+      +'</div>';
+  }).join('');
 
+  // ── 财富 ──
   var wealthTxt='普通',cashTxt='$10~$50',assetTxt='$100~$1000',spendTxt='工薪生活';
   if(crVal===0){wealthTxt='身无分文';cashTxt='0';assetTxt='几乎为零';spendTxt='靠乞讨为生';}
   else if(crVal<=9){wealthTxt='贫穷';cashTxt='$1~$10';assetTxt='极少';spendTxt='勉强温饱';}
@@ -1429,132 +1966,295 @@ window.goP6=function(){
   else if(crVal<=89){wealthTxt='小康';cashTxt='$100~$500';assetTxt='$5000~$20000';spendTxt='中产消费';}
   else if(crVal<=98){wealthTxt='富裕';cashTxt='$500~$2000';assetTxt='$50000~$500000';spendTxt='上流消费';}
   else{wealthTxt='富豪';cashTxt='$5000+';assetTxt='百万美元+';spendTxt='奢华无度';}
-  
-  html+='<div class="sec-title">财富状况</div>'
-    +'<div id="sh-wealth" style="background:rgba(45,122,45,0.06);border:1px solid var(--border);border-radius:4px;padding:0.65rem 0.9rem;margin-bottom:1rem;font-size:0.82rem;line-height:1.8;">'
-    +'<strong style="color:var(--border-hi);">'+wealthTxt+'</strong>　信用评级 <strong>'+crVal+'</strong>　现金 '+cashTxt+'　总资产 '+assetTxt+'　'+spendTxt+'</div>';
+  document.getElementById('sh-wealth').innerHTML=
+    '<strong style="color:var(--border-hi);">'+wealthTxt+'</strong>　'
+    +'信用评级 <strong>'+crVal+'</strong>　现金 '+cashTxt+'　总资产 '+assetTxt+'　'+spendTxt;
 
-  html+='<div class="sec-title">携带装备</div><div id="sh-items" style="background:rgba(45,122,45,0.06);border:1px solid var(--border);border-radius:4px;padding:0.65rem 0.9rem;margin-bottom:1rem;font-size:0.82rem;">';
-  var allEquipList = getAllItemList();
-  if(!allEquipList.length){
-    html+='<span style="color:var(--ink-dim);font-size:0.82rem;">未选择任何装备</span>';
+  // ── 携带装备（带物品详细描述） ──
+  var occName=document.getElementById('occ-sel').value;
+  var weaponItems=(typeof WEAPON_OCCS!=='undefined'&&WEAPON_OCCS.indexOf(occName)>-1)?ITEMS_WEAPON:[];
+  var allEquip=ITEMS_BASIC.concat(weaponItems).concat(OCC_ITEMS[occName]||[]);
+  var equipList=[];
+  allEquip.forEach(function(it){ if(selectedItems[it.id]) equipList.push(it); });
+  getCustomItems().forEach(function(it){ equipList.push({name:it,note:''}); });
+  var itemHtml='';
+  if(!equipList.length){
+    itemHtml='<span style="color:var(--ink-dim);font-size:0.82rem;">未选择任何装备</span>';
   } else {
-    var normalItems=allEquipList.filter(function(n){ return !isWeapon(n); });
-    var weaponEquip=allEquipList.filter(function(n){ return isWeapon(n); });
-    var makeCell=function(itName){
-      var note=getItemNote(itName);
+    var WEAPON_IDS_SET=['w_revolver','w_bow','w_knife','w_club'];
+    var normalItems=equipList.filter(function(it){ return !it.id||WEAPON_IDS_SET.indexOf(it.id)<0; });
+    var weaponEquip=equipList.filter(function(it){ return it.id&&WEAPON_IDS_SET.indexOf(it.id)>-1; });
+    var makeCell=function(it){
       return '<div style="padding:0.25rem 0.4rem;border-bottom:0.5px solid rgba(45,122,45,0.15);font-size:0.8rem;">'
-        +'<span style="font-weight:bold;color:var(--ink);">'+esc(itName)+'</span>'
-        +(note?'<span style="color:var(--ink-dim);font-size:0.72rem;display:block;margin-top:0.05rem;">'+note+'</span>':'')+'</div>';
+        +'<span style="font-weight:bold;color:var(--ink);">'+it.name+'</span>'
+        +(it.note?'<span style="color:var(--ink-dim);font-size:0.72rem;display:block;margin-top:0.05rem;">'+it.note+'</span>':'')
+        +'</div>';
     };
-    if(normalItems.length) html+='<div class="sh-items-grid">'+normalItems.map(makeCell).join('')+'</div>';
-    if(weaponEquip.length) html+='<div class="sh-items-grid-2">'+weaponEquip.map(makeCell).join('')+'</div>';
+    if(normalItems.length){
+      itemHtml+='<div class="sh-items-grid">'+normalItems.map(makeCell).join('')+'</div>';
+    }
+    if(weaponEquip.length){
+      itemHtml+='<div class="sh-items-grid-2">'+weaponEquip.map(makeCell).join('')+'</div>';
+    }
   }
-  html+='</div>';
+  document.getElementById('sh-items').innerHTML=itemHtml;
 
-  html+='<div class="quick-ref-section">'
-    +'<div class="sec-title">快速参考规则</div>'
-    +'<div id="qr-mobile-check" style="display:none;width:100%;font-size:0.78rem;margin-bottom:0.6rem;">'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;border-bottom:0.5px solid rgba(45,122,45,0.15);"><span style="font-weight:bold;color:var(--border-hi);">检定结果</span><span style="color:var(--ink);text-align:right;">骰值</span></div>'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;background:rgba(45,122,45,0.05);border-bottom:0.5px solid rgba(45,122,45,0.15);"><span style="font-weight:bold;color:var(--border-hi);">大失败</span><span style="color:var(--ink);text-align:right;">96/96+</span></div>'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;border-bottom:0.5px solid rgba(45,122,45,0.15);"><span style="font-weight:bold;color:var(--border-hi);">失败</span><span style="color:var(--ink);text-align:right;">&gt;技能</span></div>'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;background:rgba(45,122,45,0.05);border-bottom:0.5px solid rgba(45,122,45,0.15);"><span style="font-weight:bold;color:var(--border-hi);">成功</span><span style="color:var(--ink);text-align:right;">≤技能</span></div>'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;border-bottom:0.5px solid rgba(45,122,45,0.15);"><span style="font-weight:bold;color:var(--border-hi);">困难</span><span style="color:var(--ink);text-align:right;">½值</span></div>'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;background:rgba(45,122,45,0.05);border-bottom:0.5px solid rgba(45,122,45,0.15);"><span style="font-weight:bold;color:var(--border-hi);">极端</span><span style="color:var(--ink);text-align:right;">⅕值</span></div>'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;border-bottom:0.5px solid rgba(45,122,45,0.15);"><span style="font-weight:bold;color:var(--border-hi);">大成功</span><span style="color:var(--ink);text-align:right;">1</span></div>'
-    +'</div>'
-    +'<table style="width:100%;border-collapse:collapse;font-size:0.72rem;margin-bottom:0.6rem;">'
-      +'<thead><tr style="background:rgba(45,122,45,0.13);">'
-          +'<th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:left;color:var(--border-hi);font-size:0.68rem;">检定结果</th><th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">大失败</th><th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">失败</th><th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">成功</th><th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">困难</th><th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">极端</th><th style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--border-hi);">大成功</th>'
-      +'</tr></thead><tbody><tr>'
-          +'<td style="border:1px solid var(--border);padding:0.25rem 0.4rem;color:var(--ink-dim);">骰值</td><td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">96/96+</td><td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">&gt;技能</td><td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">≤技能</td><td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">½值</td><td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">⅕值</td><td style="border:1px solid var(--border);padding:0.25rem 0.4rem;text-align:center;color:var(--ink);">1</td>'
-      +'</tr></tbody></table>'
-    +'<table style="width:100%;border-collapse:collapse;font-size:0.72rem;margin-bottom:1rem;"><tbody>'
-        +'<tr><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.09);font-weight:bold;color:var(--border-hi);white-space:nowrap;" class="qr-lbl">【急救】</td><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink-dim);">回复1点体力（需于一小时内进行）</td><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.09);font-weight:bold;color:var(--border-hi);white-space:nowrap;" class="qr-lbl">【医学】</td><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink-dim);">回复1D3点体力（花费一小时）</td></tr>'
-        +'<tr><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.12);font-weight:bold;color:var(--border-hi);white-space:nowrap;" class="qr-lbl">重伤</td><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink);">一次受到最大生命值一半或以上的伤害</td><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.12);font-weight:bold;color:var(--border-hi);white-space:nowrap;" class="qr-lbl">昏迷</td><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink);">生命值降至0但未受到重伤</td></tr>'
-        +'<tr><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;background:rgba(45,122,45,0.12);font-weight:bold;color:var(--border-hi);" class="qr-lbl">濒死</td><td colspan="3" style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink);">HP = 0 且受到【重伤】。需要【急救】摆脱濒死效果，并用【医学】进行后续治疗。</td></tr>'
-        +'<tr><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink-dim);" colspan="2">无<strong style="color:var(--ink);">重伤</strong>下每天自然回复1点体力</td><td style="border:1px solid var(--border);padding:0.3rem 0.6rem;color:var(--ink-dim);" colspan="2"><strong style="color:var(--ink);">重伤</strong>时每周做1次恢复检定</td></tr>'
-      +'</tbody></table></div>';
-
-  html+='<div class="sheet-page-break" id="sh-skills-wrap"><div id="sh-skills" class="sh-skills-container" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 1.2rem;padding-top:0.5rem;">';
+  // ── 技能：全部，三列，左右间距宽，名称与数值对齐 ──
+  var catNames={'combat':'战斗类','invest':'调查类','social':'交际类','move':'移动类','stealth_c':'隐秘类','knowledge':'学问类','craft':'职业类','medical':'医疗类'};
+  var skillHtml='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 1.2rem;padding-top:0.5rem;">';
   SKILL_CATS.forEach(function(catObj){
     var catSkills=SKILLS.filter(function(sk){ return sk.cat===catObj.id; });
     if(!catSkills.length) return;
-    html+='<div style="grid-column:1/-1;font-size:0.66rem;font-weight:bold;color:var(--border-hi);background:rgba(45,122,45,0.1);padding:0.14rem 0.5rem;border-left:2px solid var(--border-hi);margin-top:0.28rem;margin-bottom:0.08rem;letter-spacing:0.08em;">'+catObj.name+'</div>';
+    skillHtml+='<div style="grid-column:1/-1;font-size:0.66rem;font-weight:bold;color:var(--border-hi);'
+      +'background:rgba(45,122,45,0.1);padding:0.14rem 0.5rem;border-left:2px solid var(--border-hi);'
+      +'margin-top:0.28rem;margin-bottom:0.08rem;letter-spacing:0.08em;">'+catNames[catObj.id]+'</div>';
     catSkills.forEach(function(sk){
-      var base=skBase(sk); var total=base+(skillVals[sk.id]||0)+(freeSkillVals[sk.id]||0);
+      var base=skBase(sk);
+      var total=base+(skillVals[sk.id]||0)+(freeSkillVals[sk.id]||0);
       var half=Math.floor(total/2), fifth=Math.floor(total/5);
-      var isOcc=occSkills.indexOf(sk.id)>-1; var added=(skillVals[sk.id]||0)+(freeSkillVals[sk.id]||0)>0;
-      var bg=isOcc?'background:rgba(45,122,45,0.08);':''; var nameSt=added?'font-weight:600;color:var(--ink);':'color:var(--ink-dim);';
+      var isOcc=occSkills.indexOf(sk.id)>-1;
+      var added=(skillVals[sk.id]||0)+(freeSkillVals[sk.id]||0)>0;
+      var bg=isOcc?'background:rgba(45,122,45,0.08);':'';
+      var nameSt=added?'font-weight:600;color:var(--ink);':'color:var(--ink-dim);';
       
-      html+='<div class="sk-row-print" style="display:flex;align-items:center;justify-content:space-between;padding:0.18rem 0.3rem;border-bottom:0.5px solid rgba(45,122,45,0.12);font-size:0.75rem;'+bg+'">'
-        +'<span style="'+nameSt+';flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:4px;">'+sk.name+'</span>'
-        +'<span class="sk-vals"><b style="'+(added?'color:var(--border-hi);':'color:var(--ink-dim);')+'">'+total+'</b><span style="color:var(--ink-dim);">'+half+'</span><span style="color:var(--ink-dim);">'+fifth+'</span></span></div>';
+      // 注意这里！使用了 sk-vals 控制绝对网格对齐
+      skillHtml+='<div class="sk-row-print" style="display:flex;align-items:center;justify-content:space-between;'
+        +'padding:0.18rem 0.3rem;border-bottom:0.5px solid rgba(45,122,45,0.12);font-size:0.75rem;'+bg+'">'
+        +'<span style="'+nameSt+';flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:4px;">'
+        +sk.name+'</span>'
+        +'<span class="sk-vals" style="display:grid;grid-template-columns:30px 24px 24px;gap:4px;text-align:right;flex-shrink:0;align-items:center;">'
+        +'<b style="font-size:0.75rem;'+(added?'color:var(--border-hi);':'color:var(--ink-dim);')+'">'+total+'</b>'
+        +'<span style="font-size:0.75rem;color:var(--ink-dim);">'+half+'</span>'
+        +'<span style="font-size:0.75rem;color:var(--ink-dim);">'+fifth+'</span>'
+        +'</span></div>';
     });
   });
-  html+='</div></div>';
-  
-  document.getElementById('p6-content').innerHTML = html;
+  skillHtml+='</div>';
+  document.getElementById('sh-skills').innerHTML=skillHtml;
+
+  // 手机端快速参考检定表
+  var qrSection=document.getElementById('quick-ref-section');
+  if(qrSection&&!document.getElementById('qr-mobile-check')){
+    var firstTbl=qrSection.querySelector('table');
+    if(firstTbl){
+      var ths=[].slice.call(firstTbl.querySelectorAll('thead th'));
+      var tds=[].slice.call(firstTbl.querySelectorAll('tbody td'));
+      var mobHtml='<div id="qr-mobile-check" style="display:none;width:100%;font-size:0.78rem;margin-bottom:0.6rem;">';
+      for(var qi=0;qi<ths.length;qi++){
+        var qbg=qi%2===0?'':'background:rgba(45,122,45,0.05);';
+        mobHtml+='<div style="display:flex;justify-content:space-between;align-items:center;padding:0.25rem 0.5rem;'+qbg+'border-bottom:0.5px solid rgba(45,122,45,0.15);">'
+          +'<span style="font-weight:bold;color:var(--border-hi);">'+(ths[qi]?ths[qi].textContent.trim():'')+'</span>'
+          +'<span style="color:var(--ink);text-align:right;">'+(tds[qi]?tds[qi].textContent.trim():'')+'</span>'
+          +'</div>';
+      }
+      mobHtml+='</div>';
+      firstTbl.insertAdjacentHTML('beforebegin', mobHtml);
+    }
+  }
 };
 
-window.goP5back=function(){ showPage('p5'); };
+/* ══ 控制台测试函数 ══
+   用法：testSheet({ name:'张三', gender:'男', age:28, occ:'私家侦探', cr:25, ... })
+   所有参数均可选，未填写的用默认值。
+   调用后自动填写表单、生成人物卡并弹出打印框。
+═══════════════════════════════════════════════════════ */
+window.testSheet=function(opts){
+  opts=opts||{};
+  // 基本信息
+  var name=opts.name||'测试调查员';
+  var gender=opts.gender||'男';
+  var age=opts.age||28;
+  var occ=opts.occ||'私家侦探';
+  var appearance=opts.appearance||'普通身材，眼神锐利';
+
+  document.getElementById('name').value=name;
+  document.getElementById('appearance').value=appearance;
+  var radios=document.querySelectorAll('input[name="gender"]');
+  radios.forEach(function(r){ r.checked=(r.value===gender); });
+  document.getElementById('age-inp').value=age;
+
+  // 属性（随机或用传入值）
+  function rnd(min,max){ return Math.round((Math.floor(Math.random()*(max-min+1))+min)/5)*5; }
+  var attrs=opts.attrs||{
+    STR:rnd(40,70), CON:rnd(40,70), DEX:rnd(40,70),
+    APP:rnd(40,70), POW:rnd(40,70), LUCK:rnd(40,80),
+    SIZ:rnd(45,75), INT:rnd(50,80), EDU:rnd(55,85)
+  };
+  // 写入 assigned / adjMap
+  Object.keys(attrs).forEach(function(k){ assigned[k]=attrs[k]; });
+  adjMap={};
+  // 年龄减值
+  var band=getBand(age);
+  if(band.appRed>0) adjMap['APP']=band.appRed;
+  if(band.eduInc>0) adjMap['EDU']=-band.eduInc;
+
+  // 职业选择
+  var sel=document.getElementById('occ-sel');
+  if(sel.options.length===1){
+    OCCS.forEach(function(o){ var opt=document.createElement('option'); opt.value=o.name; opt.textContent=o.name; sel.appendChild(opt); });
+  }
+  sel.value=occ;
+  if(!sel.value){ sel.options[1].selected=true; }
+  onOccChange();
+
+  // 信用评级
+  var cr=opts.cr!=null?opts.cr:35;
+  crVal=cr;
+  var crInp=document.getElementById('cr-inp'); if(crInp) crInp.value=cr;
+
+  // 职业技能点：给本职技能各加20点
+  skillVals={};
+  occSkills.forEach(function(id){ skillVals[id]=20; });
+
+  // 兴趣点：随机给几个技能加点
+  freeSkillVals={};
+  var freePool=SKILLS.filter(function(s){ return occSkills.indexOf(s.id)<0; });
+  var freeLeft=getVal('INT')*2;
+  freePool.slice(0,5).forEach(function(s){ if(freeLeft>=15){ freeSkillVals[s.id]=15; freeLeft-=15; } });
+
+  // 物品：选几件基础物品
+  selectedItems={};
+  var bItems=opts.items||['notebook','lighter','torch','firstaid','clothes'];
+  bItems.forEach(function(id){ selectedItems[id]=true; });
+
+  // 渲染p2/p3/p4数据后直接跳p6
+  updateDerived();
+  goP6();
+
+  // 弹出打印
+  setTimeout(function(){ window.print(); }, 600);
+  console.log('[testSheet] 已载入「'+name+'」，职业：'+(sel.value||occ)+'，信用评级：'+cr);
+  return '✓ 人物卡已生成，正在弹出打印框…';
+};
+/* ══ Supabase 云端存储 ══ */
+var SUPABASE_URL='https://dgozozaipjuogjgcwcsd.supabase.co';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnb3pvemFpcGp1b2dqZ2N3Y3NkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2NTY2MjYsImV4cCI6MjA5MjIzMjYyNn0.1Pp8zVIdVn1eMwyVh8m9c2zYM0ezSmotYdws6DdnGMs';
 
 window.saveToCloud=function(callback){
+  // 收集所有人物数据
   var name=document.getElementById('name').value.trim()||'未命名调查员';
   var gender=document.querySelector('input[name="gender"]:checked');
   var age=parseInt(document.getElementById('age-inp').value)||0;
   var occ=document.getElementById('occ-sel').value||'';
   var appearance=(document.getElementById('appearance').value||'').trim();
 
-  var attrs={}; ALL.forEach(function(a){ attrs[a.key]=getVal(a.key); });
+  // 属性
+  var attrs={};
+  ALL.forEach(function(a){ attrs[a.key]=getVal(a.key); });
+
+  // 衍生属性
   var pow=attrs.POW, con=attrs.CON, siz=attrs.SIZ, str=attrs.STR, dex=attrs.DEX;
   var movPenalty=age>=60?3:age>=50?2:age>=40?1:0;
-  var derived={ san:pow, mp:Math.floor(pow/5), hp:Math.floor((siz+con)/10), mov:Math.max(1,(str>siz&&dex>siz)?9:(str<siz&&dex<siz)?7:8)-movPenalty, db:calcDB(str+siz), build:calcBuild(str+siz) };
+  var derived={
+    san:pow,
+    mp:Math.floor(pow/5),
+    hp:Math.floor((siz+con)/10),
+    mov:Math.max(1,(str>siz&&dex>siz)?9:(str<siz&&dex<siz)?7:8)-movPenalty,
+    db:calcDB(str+siz),
+    build:calcBuild(str+siz)
+  };
 
+  // 技能（所有技能 + 加点值）
   var skills={};
-  SKILLS.forEach(function(sk){ var base=skBase(sk); var total=base+(skillVals[sk.id]||0)+(freeSkillVals[sk.id]||0); skills[sk.id]=total; });
+  SKILLS.forEach(function(sk){
+    var base=skBase(sk);
+    var total=base+(skillVals[sk.id]||0)+(freeSkillVals[sk.id]||0);
+    skills[sk.id]=total;
+  });
 
+  // 财富
   var wealthTxt='普通';
-  if(crVal===0) wealthTxt='身无分文'; else if(crVal<=9) wealthTxt='贫穷'; else if(crVal<=49) wealthTxt='普通'; else if(crVal<=89) wealthTxt='小康'; else if(crVal<=98) wealthTxt='富裕'; else wealthTxt='富豪';
+  if(crVal===0) wealthTxt='身无分文';
+  else if(crVal<=9) wealthTxt='贫穷';
+  else if(crVal<=49) wealthTxt='普通';
+  else if(crVal<=89) wealthTxt='小康';
+  else if(crVal<=98) wealthTxt='富裕';
+  else wealthTxt='富豪';
+
+  // 物品
+  var occName=occ;
+  var weaponItems=(typeof WEAPON_OCCS!=='undefined'&&WEAPON_OCCS.indexOf(occName)>-1)?ITEMS_WEAPON:[];
+  var allEquip=ITEMS_BASIC.concat(weaponItems).concat(OCC_ITEMS[occName]||[]);
+  var items=[];
+  allEquip.forEach(function(it){ if(selectedItems[it.id]) items.push(it.name); });
+  var c1=(document.getElementById('custom-item-1')||{}).value||'';
+  var c2=(document.getElementById('custom-item-2')||{}).value||'';
+  if(c1.trim()) items.push(c1.trim());
+  if(c2.trim()) items.push(c2.trim());
 
   var payload={
-    name:name, gender:gender?gender.value:'', age:age, occupation:occ, appearance:appearance,
-    credit_rating:crVal, wealth:wealthTxt, attrs:attrs, derived:derived, skills:skills,
-    items:getAllItemList(), occ_skills:occSkills, created_at:new Date().toISOString()
+    name:name,
+    gender:gender?gender.value:'',
+    age:age,
+    occupation:occName,
+    appearance:appearance,
+    credit_rating:crVal,
+    wealth:wealthTxt,
+    attrs:attrs,
+    derived:derived,
+    skills:skills,
+    items:items,
+    occ_skills:occSkills,
+    created_at:new Date().toISOString()
   };
 
   showToast('正在保存...');
+
   fetch(SUPABASE_URL+'/rest/v1/investigators',{
-    method:'POST', headers:{ 'apikey':SUPABASE_KEY, 'Authorization':'Bearer '+SUPABASE_KEY, 'Content-Type':'application/json', 'Prefer':'return=minimal' },
+    method:'POST',
+    headers:{
+      'apikey':SUPABASE_KEY,
+      'Authorization':'Bearer '+SUPABASE_KEY,
+      'Content-Type':'application/json',
+      'Prefer':'return=minimal'
+    },
     body:JSON.stringify(payload)
   }).then(function(r){
-    if(r.ok){ showToast('✓ 人物卡已提交！'); if(typeof callback==='function') callback(); }
-    else{ r.text().then(function(t){ showToast('保存失败：'+r.status); console.error(t); }); if(typeof callback==='function') callback(); }
-  }).catch(function(e){ showToast('网络错误，继续操作...'); console.error(e); if(typeof callback==='function') callback(); });
+    if(r.ok){
+      showToast('✓ 人物卡已提交！');
+      if(typeof callback==='function') callback();
+    } else {
+      r.text().then(function(t){ showToast('保存失败：'+r.status); console.error(t); });
+      if(typeof callback==='function') callback(); // 即使保存失败也继续打印
+    }
+  }).catch(function(e){
+    showToast('网络错误，继续打印...');
+    console.error(e);
+    if(typeof callback==='function') callback();
+  });
 };
 
+/* ── 导出PDF ── */
 window.doPrint=function(){
   var isMobile=window.innerWidth<768;
   if(!isMobile){
-    saveToCloud(function(){ showToast('✓ 即将打印！'); setTimeout(function(){ window.print(); },500); });
+    saveToCloud(function(){ showToast('✓ 人物卡已下载！'); setTimeout(function(){ window.print(); },500); });
   } else {
+    // 手机端：只显示引导浮层，保存由「保存到云端」按钮手动触发
     var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
     var steps=isIOS
       ?'点击下方「立即打印」后：<br>① 点左下角「打印选项」<br>② 双指展开预览图<br>③ 右上角分享 → 存储到文件 → 存为PDF'
       :'点击下方「立即打印」后：<br>① 在打印菜单选择「另存为PDF」<br>② 点击保存/下载';
-    var overlay=document.createElement('div'); overlay.id='print-guide-overlay';
+    var overlay=document.createElement('div');
+    overlay.id='print-guide-overlay';
     overlay.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(10,40,10,0.7);display:flex;align-items:center;justify-content:center;padding:1.5rem;';
     overlay.innerHTML='<div style="background:#f8fdf8;border-radius:10px;padding:1.5rem 1.4rem;max-width:320px;width:100%;text-align:center;">'
       +'<div style="font-size:1rem;font-weight:bold;color:#1a3a1a;margin-bottom:0.7rem;">📄 导出为 PDF</div>'
       +'<div style="font-size:0.82rem;color:#2d5a2d;line-height:1.8;margin-bottom:1.2rem;text-align:left;">'+steps+'</div>'
-      +'<button onclick="document.getElementById(\'print-guide-overlay\').remove();window.print();" style="width:100%;padding:0.8rem;background:#2d7a2d;color:#fff;border:none;border-radius:6px;font-size:0.95rem;font-weight:bold;cursor:pointer;margin-bottom:0.5rem;">立即打印</button>'
-      +'<button onclick="document.getElementById(\'print-guide-overlay\').remove();" style="width:100%;padding:0.6rem;background:transparent;color:#2d7a2d;border:1px solid #7ab87a;border-radius:6px;font-size:0.85rem;cursor:pointer;">取消</button>'
+      +'<button onclick="document.getElementById(\'print-guide-overlay\').remove();window.print();" '
+        +'style="width:100%;padding:0.8rem;background:#2d7a2d;color:#fff;border:none;border-radius:6px;font-size:0.95rem;font-weight:bold;cursor:pointer;margin-bottom:0.5rem;">立即打印</button>'
+      +'<button onclick="document.getElementById(\'print-guide-overlay\').remove();" '
+        +'style="width:100%;padding:0.6rem;background:transparent;color:#2d7a2d;border:1px solid #7ab87a;border-radius:6px;font-size:0.85rem;cursor:pointer;">取消</button>'
       +'</div>';
     document.body.appendChild(overlay);
   }
 };
 
-loadChars();
+window.getBand=getBand; // 暴露供testSheet用
+
+/* ── Init ── */
+renderGrids();
+renderPools();
 
 })();
 </script>
