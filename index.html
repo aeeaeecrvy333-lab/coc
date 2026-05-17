@@ -1933,9 +1933,9 @@ window.goP6=function(){
   var movPenalty=age2>=60?3:age2>=50?2:age2>=40?1:0;
   var mov=Math.max(1,(str>siz&&dex>siz)?9:(str<siz&&dex<siz)?7:8)-movPenalty;
   var derived=[
-    {n:'理智（SAN）',v:san,f:'视意志（POW）而定'},
-    {n:'魔法值（MP）',v:mp,f:'视意志÷5而定'},
     {n:'生命值（HP）',v:hp,f:'视（体型+体质）÷10而定'},
+    {n:'魔法值（MP）',v:mp,f:'视意志÷5而定'},
+    {n:'理智（SAN）',v:san,f:'视意志（POW）而定'},
     {n:'移动（MOV）',v:mov,f:'视力量/敏捷/体型及年龄而定'},
     {n:'伤害加成（DB）',v:calcDB(str+siz),f:'视力量+体型而定'},
     {n:'体格（体格值）',v:calcBuild(str+siz),f:'视力量+体型而定'},
