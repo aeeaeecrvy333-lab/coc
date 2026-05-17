@@ -294,7 +294,7 @@ input[type="number"] { -moz-appearance: textfield; }
   #coc-app .card { box-shadow: none !important; border: none !important; padding: 0.3rem 0.4rem !important; background: transparent !important; }
   #coc-app .corner { display: none !important; }
   #coc-app #p6 .steps { display: none !important; }
-  #coc-app #p6 .hd { margin-bottom: 0.5rem; }
+  #coc-app #p6 .hd { margin-bottom: 1.2rem; }
   .no-print { display: none !important; }
   .sheet-page-break { page-break-before: always; margin-top: 0 !important; padding-top: 0 !important; }
   .sh-skill-pagebreak { page-break-before: always; margin-top: 0 !important; }
@@ -304,9 +304,9 @@ input[type="number"] { -moz-appearance: textfield; }
   #coc-app #p6 { display: block !important; }
   #coc-toast { display: none !important; }
   /* 技能字号恢复可读大小 */
-  #coc-app #p6 #sh-skills > div { font-size: 10pt !important; }
-  #coc-app #p6 #sh-skills > div > div { font-size: 9.5pt !important; padding: 0.15rem 0.3rem !important; }
-  #coc-app #p6 #sh-skills > div > div span { font-size: 9pt !important; }
+  #coc-app #p6 #sh-skills > div { font-size: 11pt !important; }
+  #coc-app #p6 #sh-skills > div > div { font-size: 10.5pt !important; padding: 0.2rem 0.35rem !important; }
+  #coc-app #p6 #sh-skills > div > div span { font-size: 10pt !important; }
 }
 
 /* ── Toast ── */
@@ -368,9 +368,10 @@ input[type="number"] { -moz-appearance: textfield; }
   /* 衍生属性：2列 */
   #coc-app #p6 #sh-derived { grid-template-columns: repeat(2,1fr) !important; gap: 0.3rem !important; }
 
-  /* 技能：1列 */
+  /* 技能：1列，字体大一些 */
   #coc-app #p6 #sh-skills > div { grid-template-columns: 1fr !important; gap: 0 !important; }
-  #coc-app #p6 #sh-skills > div > div { grid-column: unset !important; }
+  #coc-app #p6 #sh-skills > div > div { grid-column: unset !important; font-size: 0.82rem !important; padding: 0.22rem 0.4rem !important; }
+  #coc-app #p6 #sh-skills > div > div > span:first-child { font-size: 0.8rem !important; }
 
   /* 步骤条：手机端每行3个 */
   #coc-app .steps { gap: 0.25rem 0.15rem; }
@@ -381,9 +382,14 @@ input[type="number"] { -moz-appearance: textfield; }
   .sh-items-grid { grid-template-columns: 1fr !important; }
   .sh-items-grid-2 { grid-template-columns: 1fr !important; }
 
-  /* 快速参考：手机端可滚动，不换行 */
-  #coc-app #p6 #quick-ref-section { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
-  #coc-app #p6 #quick-ref-section table { font-size: 0.62rem; white-space: nowrap; min-width: 0; width: max-content; max-width: 100%; }
+  /* 快速参考：手机端堆叠显示，不横向溢出 */
+  #coc-app #p6 #quick-ref-section { max-width: 100%; overflow: hidden; }
+  #coc-app #p6 #quick-ref-section table { display: block; width: 100%; }
+  #coc-app #p6 #quick-ref-section table thead { display: none; }
+  #coc-app #p6 #quick-ref-section table tbody { display: block; width: 100%; }
+  #coc-app #p6 #quick-ref-section table tbody tr { display: grid; grid-template-columns: 70px 1fr; border-bottom: 1px solid rgba(45,122,45,0.2); margin-bottom: 0.2rem; }
+  #coc-app #p6 #quick-ref-section table tbody td { display: block; border: none !important; padding: 0.2rem 0.4rem !important; font-size: 0.72rem; word-break: break-all; }
+  #coc-app #p6 #quick-ref-section table tbody td[colspan] { grid-column: 1 / -1; }
 
   /* 打印/返回按钮：各自一行 */
   #coc-app #p6 .no-print { flex-direction: column !important; gap: 0.4rem !important; }
@@ -708,7 +714,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
 <!-- ══ PAGE 6 ══ -->
 <div class="page" id="p6">
-<div class="card" style="padding:2rem 1.8rem 1.8rem;">
+<div class="card" style="padding:2.8rem 1.8rem 1.8rem;">
   <span class="corner tl">✦</span><span class="corner br">✦</span>
   <div class="hd">
     <h2 class="hd-title">调查员人物卡</h2>
@@ -806,8 +812,10 @@ input[type="number"] { -moz-appearance: textfield; }
   <div class="sheet-page-break" id="sh-skills-wrap"><div id="sh-skills"></div></div>
 
   <!-- 按钮区域：打印时隐藏 -->
+  <!-- PC：下载 + 提交；平板/手机：只提交 -->
   <div class="no-print" id="p6-btn-desktop" style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-    <button class="btn" style="margin-top:0;width:100%;" onclick="doPrint()">📄 下载人物卡</button>
+    <button class="btn" style="margin-top:0;flex:1;" onclick="doPrint()">📄 下载人物卡</button>
+    <button class="btn" style="margin-top:0;flex:1;background:#1a5a2a;" onclick="saveToCloud()">📤 提交人物卡</button>
     <button class="btn btn-ghost" style="margin-top:0;width:100%;" onclick="showPage('p5')">← 返回</button>
   </div>
   <div class="no-print" id="p6-btn-mobile" style="display:flex;gap:0.6rem;flex-wrap:wrap;">
@@ -1875,11 +1883,11 @@ function updateItemSummary(){
 window.goP6=function(){
   showPage('p6');
   // 按设备显示按钮
-  var _mob=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  var _isPC=window.innerWidth>=1024&&!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   var _bd=document.getElementById('p6-btn-desktop');
   var _bm=document.getElementById('p6-btn-mobile');
-  if(_bd) _bd.style.display=_mob?'none':'flex';
-  if(_bm) _bm.style.display=_mob?'flex':'none';
+  if(_bd) _bd.style.display=_isPC?'flex':'none';
+  if(_bm) _bm.style.display=_isPC?'none':'flex';
   var name=document.getElementById('name').value.trim()||'未命名调查员';
   var gender=document.querySelector('input[name="gender"]:checked');
   var age=document.getElementById('age-inp').value||'—';
@@ -2005,7 +2013,7 @@ window.goP6=function(){
       var nameSt=added?'font-weight:600;color:var(--ink);':'color:var(--ink-dim);';
       // 每个技能行：名称尽量紧贴数值，数值列固定宽
       skillHtml+='<div style="display:flex;align-items:center;justify-content:space-between;'
-        +'padding:0.08rem 0.3rem;border-bottom:0.5px solid rgba(45,122,45,0.12);font-size:0.67rem;'+bg+'">'
+        +'padding:0.18rem 0.3rem;border-bottom:0.5px solid rgba(45,122,45,0.12);font-size:0.72rem;'+bg+'">'
         +'<span style="'+nameSt+';flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:2px;">'
         +sk.name+'</span>'
         +'<span style="display:flex;gap:3px;flex-shrink:0;align-items:center;">'
@@ -2192,7 +2200,7 @@ window.saveToCloud=function(callback){
 
 /* ── 导出PDF ── */
 window.doPrint=function(){
-  var isMobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  var isMobile=window.innerWidth<1024||/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   if(!isMobile){
     // 电脑端：自动保存到云端，然后打印
     saveToCloud(function(){ window.print(); });
